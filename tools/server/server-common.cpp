@@ -452,14 +452,37 @@ std::string server_tokens::detokenize(const llama_context * ctx, bool special) c
 size_t server_tokens::get_common_prefix(const server_tokens & b) const {
     const size_t max_idx = std::min(tokens.size(), b.tokens.size());
 
+    for (size_t i = 0; i < max_idx; ++i) {
+        SRV_INF("at index %zu, token a: %d, token b: %d\n", i, tokens[i], b.tokens[i]);
+     
+    }
+
     if (!has_mtmd) {
-        for (size_t i = 0; i < max_idx; ++i) {
-            if (tokens[i] == b.tokens[i]) {
+        int32_t start_thinking = 151667; // the token id for <thinking>
+        int32_t end_thinking = 151668; // the token id for </thinking>
+        size_t len_cached_thinking = 0;
+        for (size_t i = 0; i + len_cached_thinking < max_idx; ++i) {
+            if (tokens[i + len_cached_thinking] == b.tokens[i]) {
                 continue;
             }
+            if  (tokens[i + len_cached_thinking] == start_thinking ) {
+                SRV_INF("found start_thinking at idx %zu\n", i + len_cached_thinking);
+                while (i + len_cached_thinking < max_idx && 
+                    tokens[i + len_cached_thinking] != end_thinking) {
+                    len_cached_thinking++;
+                }
+                SRV_INF("found end_thinking at idx %zu\n", i + len_cached_thinking);
+                len_cached_thinking+=2; // skip end_thinking and new line after thinking
+                i--; // recompare the new token
+                continue;
+            }
+            SRV_INF("token a %d is different from token b %d at idx %zu\n", tokens[i + len_cached_thinking], b.tokens[i], i + len_cached_thinking);
+            SRV_INF("len_cached_thinking: %zu\n", len_cached_thinking);
+            SRV_INF("common prefix ends at idx %zu\n", i);
 
             return i;
         }
+        SRV_INF("common prefix ends at idx %zu\n", max_idx);
 
         return max_idx;
     }
