@@ -209,6 +209,7 @@ public:
     std::string detokenize(const llama_context * ctx, bool special) const;
 
     size_t get_common_prefix(const server_tokens & b) const;
+    size_t get_common_prefix(const server_tokens & b, llama_context * ctx) const;
 
     // make sure all text tokens are within the vocab range
     bool validate(const struct llama_context * ctx) const;

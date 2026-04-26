@@ -449,15 +449,52 @@ std::string server_tokens::detokenize(const llama_context * ctx, bool special) c
     return common_detokenize(ctx, text_tokens, special);
 }
 
-size_t server_tokens::get_common_prefix(const server_tokens & b) const {
-    const size_t max_idx = std::min(tokens.size(), b.tokens.size());
+size_t server_tokens::get_common_prefix(const server_tokens & b, llama_context * ctx) const {
 
+    for (size_t i = 0; i < tokens.size(); ++i) {
+        std::string decoded_token = common_detokenize(ctx, {tokens[i]}, true);
+        SRV_INF("cached token at idx %zu is %d  %s\n", i, tokens[i], decoded_token.c_str());
+    }
+
+    for (size_t i = 0; i < b.tokens.size(); ++i) {
+        std::string decoded_token = common_detokenize(ctx, {b.tokens[i]}, true);
+     SRV_INF("new token at idx %zu is %d  %s\n", i, b.tokens[i], decoded_token.c_str());
+    }
+
+    const size_t max_idx = std::min(tokens.size(), b.tokens.size());
+    
     if (!has_mtmd) {
+        size_t j = 0;
+        const int32_t thinking_start = 151667;
+        const int32_t thinking_end = 151668;
+
         for (size_t i = 0; i < max_idx; ++i) {
-            if (tokens[i] == b.tokens[i]) {
+            if (tokens[j] == b.tokens[i]) {
+                std::string decoded_token = common_detokenize(ctx, {tokens[j]}, true);
+                SRV_INF("BLUFFER!!!!! common token %d %s at idx %zu\n", tokens[j], decoded_token.c_str(), j);
+                j++;
                 continue;
             }
-
+            
+            // if tokens[j] is an thinking opening tag we advance j until we find closing tag and then coninue comparison from there.
+            if (tokens[j] == thinking_start) {
+                SRV_INF("BLUFFER!!!!! found thinking start at idx %zu\n", j);
+                while (j < tokens.size() && tokens[j] != thinking_end) {
+                    j++;
+                }
+                SRV_INF("BLUFFER!!!!! found thinking end at idx %zu\n", j);
+                if (j + 2 < tokens.size()) {
+                    j+= 2; // skip the thinking closing tag and the following newline token.
+                    i--;
+                    continue;
+                }
+            }
+            
+            std::string decoded_token = common_detokenize(ctx, {b.tokens[i]}, true);
+            SRV_INF("BLUFFER!!!!! new token %d %s at idx %zu\n", b.tokens[i], decoded_token.c_str(), i);
+            decoded_token = common_detokenize(ctx, {tokens[j]}, true);
+            SRV_INF("BLUFFER!!!!! cached token %d %s at idx %zu\n", tokens[j], decoded_token.c_str(), j);
+            SRV_INF("BLUFFER!!!!! common prefix of size %zu ....\n", i);
             return i;
         }
 
@@ -498,6 +535,88 @@ size_t server_tokens::get_common_prefix(const server_tokens & b) const {
 
     return max_idx; // all tokens are equal
 }
+
+size_t server_tokens::get_common_prefix(const server_tokens & b) const {
+
+    for (size_t i = 0; i < tokens.size(); ++i) {
+     SRV_INF("cached token at idx %zu is %d\n", i, tokens[i]);
+    }
+
+    for (size_t i = 0; i < b.tokens.size(); ++i) {
+     SRV_INF("new token at idx %zu is %d\n", i, b.tokens[i]);
+    }
+
+    const size_t max_idx = std::min(tokens.size(), b.tokens.size());
+    
+    if (!has_mtmd) {
+        size_t j = 0;
+        const int32_t thinking_start = 151667;
+        const int32_t thinking_end = 151668;
+
+        for (size_t i = 0; i < max_idx; ++i) {
+            if (tokens[j] == b.tokens[i]) {
+                SRV_INF("BLUFFER!!!!! common token %d at idx %zu\n", tokens[j], j);
+                j++;
+                continue;
+            }
+            
+            // if tokens[j] is an thinking opening tag we advance j until we find closing tag and then coninue comparison from there.
+            if (tokens[j] == thinking_start) {
+                SRV_INF("BLUFFER!!!!! found thinking start at idx %zu\n", j);
+                while (j < tokens.size() && tokens[j] != thinking_end) {
+                    j++;
+                }
+                SRV_INF("BLUFFER!!!!! found thinking end at idx %zu\n", j);
+                if (j + 2 < tokens.size()) {
+                    j+= 2; // skip the thinking closing tag and the following newline token.
+                    i--;
+                    continue;
+                }
+            }
+            
+            SRV_INF("BLUFFER!!!!! common prefix of size %zu ....\n", i);
+            return i;
+        }
+
+        return max_idx;
+    }
+
+    for (size_t i = 0; i < max_idx; ++i) {
+        const llama_token ai =   tokens[i];
+        const llama_token bi = b.tokens[i];
+
+        if (ai == LLAMA_TOKEN_NULL && bi == LLAMA_TOKEN_NULL) {
+            const auto & a_chunk =   find_chunk(i);
+            const auto & b_chunk = b.find_chunk(i);
+
+            GGML_ASSERT(a_chunk && b_chunk);
+
+            const std::string id_ai = mtmd_input_chunk_get_id(a_chunk.get());
+            const std::string id_bi = mtmd_input_chunk_get_id(b_chunk.get());
+
+            const size_t n_tok_a = mtmd_input_chunk_get_n_tokens(a_chunk.get());
+            const size_t n_tok_b = mtmd_input_chunk_get_n_tokens(b_chunk.get());
+
+            if (id_ai == id_bi && n_tok_a == n_tok_b) {
+                GGML_ASSERT(n_tok_a > 0 && "Invalid media chunk"); // should never happen
+                i += n_tok_a - 1; // will be +1 by the for loop
+                continue;
+            }
+
+            return i;
+        }
+
+        if (ai == bi) {
+            continue;
+        }
+
+        return i;
+    }
+
+    return max_idx; // all tokens are equal
+}
+
+
 
 bool server_tokens::validate(const struct llama_context * ctx) const {
     const llama_model * model = llama_get_model(ctx);

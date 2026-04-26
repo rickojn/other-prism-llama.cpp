@@ -983,8 +983,10 @@ private:
                     continue;
                 }
 
+                //BLUFFER
+
                 // fraction of the Longest Common Prefix length with respect to the input prompt length
-                const float sim_cur = float(tokens.get_common_prefix(task.tokens)) / task.tokens.size();
+                const float sim_cur = float(tokens.get_common_prefix(task.tokens, slot.ctx)) / task.tokens.size();
 
                 // select the current slot if the criteria match
                 if (sim_cur > sim_best && sim_cur > slot_prompt_similarity) {
@@ -2268,7 +2270,7 @@ private:
 
                             if (slot.task->params.cache_prompt) {
                                 // reuse any previously computed tokens that are common with the new prompt
-                                n_past = slot.prompt.tokens.get_common_prefix(input_tokens);
+                                n_past = slot.prompt.tokens.get_common_prefix(input_tokens, slot.ctx);
 
                                 // if there is an alora invoked, don't cache after the invocation start
                                 if (slot.alora_invocation_start > 0) {
