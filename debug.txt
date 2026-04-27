@@ -1,0 +1,25 @@
+const auto & input_tokens = slot.task->tokens;
+n_past = slot.prompt.tokens.get_common_prefix(input_tokens);
+
+                    // entire prompt has been processed
+                    if (slot.prompt.n_tokens() == slot.task->n_tokens()) {
+
+
+
+
+
+                        slot.n_prompt_tokens_cache = n_past;
+                        slot.n_prompt_tokens_processed = 0;
+                        SLT_INF(slot, "keeping n_past = %d tokens in the cache\n", n_past);
+                        SLT_INF(slot, "number of prompt tokens to process for this slot: %zu\n", slot.prompt.tokens.size());
+                        SLT_INF(slot, "BLUFFER: slot task n_tokens: %d\n", slot.task->n_tokens());
+
+                        slot.prompt.tokens.keep_first(n_past);
+                       
+                       
+slot update_slots: id  3 | task 20 | keeping n_past = 38 tokens in the cache
+slot update_slots: id  3 | task 20 | number of prompt tokens to process for this slot: 34
+slot update_slots: id  3 | task 20 | BLUFFER: slot task n_tokens: 48
+slot update_slots: id  3 | task 20 | BLUFFER: slot prompt n_tokens: 34                       
+
+

@@ -208,6 +208,8 @@ public:
 
     std::string detokenize(const llama_context * ctx, bool special) const;
 
+    size_t get_common_prefix_apart_from_thinking(const server_tokens & b) const;
+
     size_t get_common_prefix(const server_tokens & b) const;
 
     // make sure all text tokens are within the vocab range

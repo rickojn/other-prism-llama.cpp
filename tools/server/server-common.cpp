@@ -449,7 +449,7 @@ std::string server_tokens::detokenize(const llama_context * ctx, bool special) c
     return common_detokenize(ctx, text_tokens, special);
 }
 
-size_t server_tokens::get_common_prefix(const server_tokens & b) const {
+size_t server_tokens::get_common_prefix_apart_from_thinking(const server_tokens & b) const {
     const size_t max_idx = std::min(tokens.size(), b.tokens.size());
 
     for (size_t i = 0; i < max_idx; ++i) {
@@ -480,9 +480,59 @@ size_t server_tokens::get_common_prefix(const server_tokens & b) const {
             SRV_INF("len_cached_thinking: %zu\n", len_cached_thinking);
             SRV_INF("common prefix ends at idx %zu\n", i);
 
-            return i;
+            return i + len_cached_thinking;
         }
         SRV_INF("common prefix ends at idx %zu\n", max_idx);
+
+        return max_idx + len_cached_thinking;
+    }
+
+    for (size_t i = 0; i < max_idx; ++i) {
+        const llama_token ai =   tokens[i];
+        const llama_token bi = b.tokens[i];
+
+        if (ai == LLAMA_TOKEN_NULL && bi == LLAMA_TOKEN_NULL) {
+            const auto & a_chunk =   find_chunk(i);
+            const auto & b_chunk = b.find_chunk(i);
+
+            GGML_ASSERT(a_chunk && b_chunk);
+
+            const std::string id_ai = mtmd_input_chunk_get_id(a_chunk.get());
+            const std::string id_bi = mtmd_input_chunk_get_id(b_chunk.get());
+
+            const size_t n_tok_a = mtmd_input_chunk_get_n_tokens(a_chunk.get());
+            const size_t n_tok_b = mtmd_input_chunk_get_n_tokens(b_chunk.get());
+
+            if (id_ai == id_bi && n_tok_a == n_tok_b) {
+                GGML_ASSERT(n_tok_a > 0 && "Invalid media chunk"); // should never happen
+                i += n_tok_a - 1; // will be +1 by the for loop
+                continue;
+            }
+
+            return i;
+        }
+
+        if (ai == bi) {
+            continue;
+        }
+
+        return i;
+    }
+
+    return max_idx; // all tokens are equal
+}
+
+size_t server_tokens::get_common_prefix(const server_tokens & b) const {
+    const size_t max_idx = std::min(tokens.size(), b.tokens.size());
+
+    if (!has_mtmd) {
+        for (size_t i = 0; i < max_idx; ++i) {
+            if (tokens[i] == b.tokens[i]) {
+                continue;
+            }
+
+            return i;
+        }
 
         return max_idx;
     }

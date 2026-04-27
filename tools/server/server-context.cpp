@@ -984,7 +984,7 @@ private:
                 }
 
                 // fraction of the Longest Common Prefix length with respect to the input prompt length
-                const float sim_cur = float(tokens.get_common_prefix(task.tokens)) / task.tokens.size();
+                const float sim_cur = float(tokens.get_common_prefix_apart_from_thinking(task.tokens)) / task.tokens.size();
 
                 // select the current slot if the criteria match
                 if (sim_cur > sim_best && sim_cur > slot_prompt_similarity) {
@@ -2463,6 +2463,11 @@ private:
 
                         slot.n_prompt_tokens_cache = n_past;
                         slot.n_prompt_tokens_processed = 0;
+                        SLT_INF(slot, "keeping n_past = %d tokens in the cache\n", n_past);
+                        size_t size_tokens = slot.prompt.tokens.size();
+                        SLT_INF(slot, "number of prompt tokens to process for this slot: %zu\n", size_tokens);
+                        SLT_INF(slot, "BLUFFER: slot task n_tokens: %d\n", slot.task->n_tokens());
+                        SLT_INF(slot, "BLUFFER: slot prompt n_tokens: %d\n", slot.prompt.n_tokens());
 
                         slot.prompt.tokens.keep_first(n_past);
 
