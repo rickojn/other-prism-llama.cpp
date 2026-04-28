@@ -452,6 +452,8 @@ std::string server_tokens::detokenize(const llama_context * ctx, bool special) c
 size_t server_tokens::get_common_prefix_apart_from_thinking(const server_tokens & b) const {
     const size_t max_idx = std::min(tokens.size(), b.tokens.size());
 
+    SRV_INF("size of tokens a: %zu, size of tokens b: %zu\n", tokens.size(), b.tokens.size());
+
     for (size_t i = 0; i < max_idx; ++i) {
         SRV_INF("at index %zu, token a: %d, token b: %d\n", i, tokens[i], b.tokens[i]);
      
@@ -484,7 +486,7 @@ size_t server_tokens::get_common_prefix_apart_from_thinking(const server_tokens 
         }
         SRV_INF("common prefix ends at idx %zu\n", max_idx);
 
-        return max_idx + len_cached_thinking;
+        return max_idx; 
     }
 
     for (size_t i = 0; i < max_idx; ++i) {

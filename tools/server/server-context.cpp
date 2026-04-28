@@ -2473,10 +2473,8 @@ private:
 
                         // log out detokenized slot and task prompts for debugging
 
-                            std::string prompt_detok = slot.prompt.tokens.detokenize(ctx, true);
-                            std::string task_detok = slot.task->tokens.detokenize(ctx, true);
-                            SLT_INF(slot, "BLUFFER: detokenized prompt: '%s'\n", prompt_detok.c_str());
-                            SLT_INF(slot, "BLUFFER: detokenized task:   '%s'\n", task_detok.c_str());
+                            SLT_INF(slot, "BLUFFER: slot prompt  '%s'\n", slot.prompt.tokens.detokenize(ctx, true).c_str());
+                            SLT_INF(slot, "BLUFFER: task prompt: '%s'\n", slot.task->tokens.detokenize(ctx, true).c_str());
 
 
                         slot.prompt.tokens.keep_first(n_past);
