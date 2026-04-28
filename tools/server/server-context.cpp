@@ -2269,8 +2269,6 @@ private:
                             if (slot.task->params.cache_prompt) {
                                 // reuse any previously computed tokens that are common with the new prompt
                                 n_past = slot.prompt.tokens.get_common_prefix_apart_from_thinking(input_tokens);
-                                SLT_DBG(slot, "BLUFFER: slot prompt n_tokens after prefix matching: %d\n", slot.prompt.n_tokens());
-                                SLT_DBG(slot, "BLUFFER: slot prompt size() after prefix matching: %zu\n", slot.prompt.tokens.size());
 
                                 // if there is an alora invoked, don't cache after the invocation start
                                 if (slot.alora_invocation_start > 0) {
@@ -2466,15 +2464,9 @@ private:
                         slot.n_prompt_tokens_cache = n_past;
                         slot.n_prompt_tokens_processed = 0;
                         SLT_INF(slot, "keeping n_past = %d tokens in the cache\n", n_past);
-                        size_t size_tokens = slot.prompt.tokens.size();
-                        SLT_INF(slot, "number of prompt tokens to process for this slot: %zu\n", size_tokens);
-                        SLT_INF(slot, "BLUFFER: slot task n_tokens: %d\n", slot.task->n_tokens());
-                        SLT_INF(slot, "BLUFFER: slot prompt n_tokens: %d\n", slot.prompt.n_tokens());
+                        SLT_INF(slot, "BLUFF: detokenised prompt tokens:\n %s\n", slot.prompt.tokens.detokenize(ctx, true).c_str());
+                        SLT_INF(slot, "BLUFF: detokensed task tokens:\n %s\n", slot.task->tokens.detokenize(ctx, true).c_str());
 
-                        // log out detokenized slot and task prompts for debugging
-
-                            SLT_INF(slot, "BLUFFER: slot prompt  '%s'\n", slot.prompt.tokens.detokenize(ctx, true).c_str());
-                            SLT_INF(slot, "BLUFFER: task prompt: '%s'\n", slot.task->tokens.detokenize(ctx, true).c_str());
 
 
                         slot.prompt.tokens.keep_first(n_past);
