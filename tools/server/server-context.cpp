@@ -2268,7 +2268,9 @@ private:
 
                             if (slot.task->params.cache_prompt) {
                                 // reuse any previously computed tokens that are common with the new prompt
-                                n_past = slot.prompt.tokens.get_common_prefix(input_tokens);
+                                n_past = slot.prompt.tokens.get_common_prefix_apart_from_thinking(input_tokens);
+                                SLT_DBG(slot, "BLUFFER: slot prompt n_tokens after prefix matching: %d\n", slot.prompt.n_tokens());
+                                SLT_DBG(slot, "BLUFFER: slot prompt size() after prefix matching: %zu\n", slot.prompt.tokens.size());
 
                                 // if there is an alora invoked, don't cache after the invocation start
                                 if (slot.alora_invocation_start > 0) {
@@ -2468,6 +2470,14 @@ private:
                         SLT_INF(slot, "number of prompt tokens to process for this slot: %zu\n", size_tokens);
                         SLT_INF(slot, "BLUFFER: slot task n_tokens: %d\n", slot.task->n_tokens());
                         SLT_INF(slot, "BLUFFER: slot prompt n_tokens: %d\n", slot.prompt.n_tokens());
+
+                        // log out detokenized slot and task prompts for debugging
+
+                            std::string prompt_detok = slot.prompt.tokens.detokenize(ctx, true);
+                            std::string task_detok = slot.task->tokens.detokenize(ctx, true);
+                            SLT_INF(slot, "BLUFFER: detokenized prompt: '%s'\n", prompt_detok.c_str());
+                            SLT_INF(slot, "BLUFFER: detokenized task:   '%s'\n", task_detok.c_str());
+
 
                         slot.prompt.tokens.keep_first(n_past);
 

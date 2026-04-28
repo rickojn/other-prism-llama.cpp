@@ -1,5 +1,5 @@
 main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
-build_info: b8848-bb66e8f70
+build_info: b8849-745911205
 system_info: n_threads = 4 (n_threads_batch = 4) / 8 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
 init: using 8 threads for HTTP server
 start: binding port with default address family
@@ -647,13 +647,13 @@ graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  4, n
 sched_reserve:        CPU compute buffer size =   312.23 MiB
 sched_reserve: graph nodes  = 1267
 sched_reserve: graph splits = 1
-sched_reserve: reserve took 10.82 ms, sched copies = 1
+sched_reserve: reserve took 20.11 ms, sched copies = 1
 llama_memory_breakdown_print: | memory breakdown [MiB] | total   free     self   model   context   compute    unaccounted |
 llama_memory_breakdown_print: |   - Host               |                 10627 =  1099 +    9216 +     312                |
 llama_params_fit_impl: projected to use 10627 MiB of host memory vs. 15851 MiB of total host memory
 llama_params_fit_impl: will leave 5223 >= 1024 MiB of system memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.54 seconds
+llama_params_fit: fitting params to free memory took 0.65 seconds
 llama_model_loader: loaded meta data with 32 key-value pairs and 399 tensors from ./models/Bonsai-8B-Q1_0.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
 llama_model_loader: - kv   0:                       general.architecture str              = qwen3
@@ -1301,7 +1301,7 @@ graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  4, n
 sched_reserve:        CPU compute buffer size =   312.23 MiB
 sched_reserve: graph nodes  = 1267
 sched_reserve: graph splits = 1
-sched_reserve: reserve took 15.70 ms, sched copies = 1
+sched_reserve: reserve took 17.09 ms, sched copies = 1
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
@@ -1460,7 +1460,6 @@ srv          stop: all tasks already finished, no need to cancel
 srv          stop: all tasks already finished, no need to cancel
 srv          stop: all tasks already finished, no need to cancel
 srv          stop: all tasks already finished, no need to cancel
-srv          stop: all tasks already finished, no need to cancel
 common_chat_templates_apply_jinja: using differential autoparser
 [1m[38;5;126m=== Starting differential analysis ===
 [0m[1m[38;5;214mPhase 1: Reasoning analysis
@@ -1541,7 +1540,7 @@ srv  get_availabl: updating prompt cache
 srv  get_common_p: common prefix ends at idx 0
 srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
 srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 65536 tokens, 8589934592 est)
-srv  get_availabl: prompt cache update took 0.02 ms
+srv  get_availabl: prompt cache update took 0.03 ms
 slot launch_slot_: id  3 | task -1 | launching slot : {"id":3,"n_ctx":65536,"speculative":false,"is_processing":false}
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
 slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
@@ -1549,10 +1548,22 @@ que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 1, front = 0
 slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 16
+srv  get_common_p: common prefix ends at idx 0
+slot update_slots: id  3 | task 0 | BLUFFER: slot prompt n_tokens after prefix matching: 0
+slot update_slots: id  3 | task 0 | BLUFFER: slot prompt size() after prefix matching: 0
 slot update_slots: id  3 | task 0 | keeping n_past = 0 tokens in the cache
 slot update_slots: id  3 | task 0 | number of prompt tokens to process for this slot: 0
 slot update_slots: id  3 | task 0 | BLUFFER: slot task n_tokens: 16
 slot update_slots: id  3 | task 0 | BLUFFER: slot prompt n_tokens: 0
+slot update_slots: id  3 | task 0 | BLUFFER: detokenized prompt: ''
+slot update_slots: id  3 | task 0 | BLUFFER: detokenized task:   '<|im_start|>user
+5 words on bees<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+'
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
 slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
@@ -1563,14 +1574,14 @@ Parsing PEG input with format peg-native: <|im_start|>assistant
 </think>
 
 
-slot init_sampler: id  3 | task 0 | init sampler, took 0.02 ms, tokens: text = 16, total = 16
+srv          stop: all tasks already finished, no need to cancel
+slot init_sampler: id  3 | task 0 | init sampler, took 0.28 ms, tokens: text = 16, total = 16
 slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 16, batch.n_tokens = 16
 srv  update_slots: decoding batch, n_tokens = 16
-srv          stop: all tasks already finished, no need to cancel
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
 srv  log_server_r: request:  {"messages":[{"role":"user","content":"5 words on bees"}],"stream":true,"return_progress":true,"reasoning_format":"auto","backend_sampling":false,"timings_per_token":true}
 srv  log_server_r: response: 
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321719,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":0,"prompt_ms":0.0,"prompt_per_token_ms":null,"prompt_per_second":null,"predicted_n":0,"predicted_ms":0.0,"predicted_per_token_ms":null,"predicted_per_second":null},"prompt_progress":{"total":16,"cache":0,"processed":0,"time_ms":0}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777362318,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":0,"prompt_ms":0.0,"prompt_per_token_ms":null,"prompt_per_second":null,"predicted_n":0,"predicted_ms":0.0,"predicted_per_token_ms":null,"predicted_per_second":null},"prompt_progress":{"total":16,"cache":0,"processed":0,"time_ms":0}}
 
 
 set_adapters_lora: adapters = (nil)
@@ -1585,7 +1596,7 @@ Parsing PEG input with format peg-native: <|im_start|>assistant
 </think>
 
 
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321721,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":0.0,"prompt_per_token_ms":0.0,"prompt_per_second":null,"predicted_n":0,"predicted_ms":0.0,"predicted_per_token_ms":null,"predicted_per_second":null},"prompt_progress":{"total":16,"cache":0,"processed":16,"time_ms":1879}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777362321,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":0.0,"prompt_per_token_ms":0.0,"prompt_per_second":null,"predicted_n":0,"predicted_ms":0.0,"predicted_per_token_ms":null,"predicted_per_second":null},"prompt_progress":{"total":16,"cache":0,"processed":16,"time_ms":3800}}
 
 
 res          send: sending result for task id = 0
@@ -1607,14 +1618,14 @@ Parsing PEG input with format peg-native: <|im_start|>assistant
 </think>
 
 Poll
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777362321,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk"}
+
+data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"Poll"}}],"created":1777362321,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":1,"predicted_ms":0.001,"predicted_per_token_ms":0.001,"predicted_per_second":1000000.0}}
+
+
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321721,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk"}
-
-data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"Poll"}}],"created":1777321721,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":1,"predicted_ms":0.001,"predicted_per_token_ms":0.001,"predicted_per_second":1000000.0}}
-
-
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
 slot process_toke: id  3 | task 0 | n_decoded = 2, n_remaining = -1, next token:   258 'in'
@@ -1637,7 +1648,7 @@ Pollin
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"in"}}],"created":1777321722,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":2,"predicted_ms":1009.817,"predicted_per_token_ms":504.9085,"predicted_per_second":1.9805568731760308}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"in"}}],"created":1777362323,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":2,"predicted_ms":1297.915,"predicted_per_token_ms":648.9575,"predicted_per_second":1.540932957859336}}
 
 
 res          send: sending result for task id = 0
@@ -1647,12 +1658,12 @@ srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
 que    start_loop: processing task, id = 3
+srv  update_chat_: Parsing chat message: Pollinators
 que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 4, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 19, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
@@ -1662,7 +1673,7 @@ Pollinators
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"ators"}}],"created":1777321723,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":3,"predicted_ms":2007.159,"predicted_per_token_ms":669.053,"predicted_per_second":1.494649900680514}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"ators"}}],"created":1777362324,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":3,"predicted_ms":2634.864,"predicted_per_token_ms":878.288,"predicted_per_second":1.138578689450385}}
 
 
 res          send: sending result for task id = 0
@@ -1672,12 +1683,12 @@ srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
 que    start_loop: processing task, id = 4
+srv  update_chat_: Parsing chat message: Pollinators,
 que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 5, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 20, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators,
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
@@ -1687,37 +1698,37 @@ Pollinators,
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321724,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":4,"predicted_ms":2994.028,"predicted_per_token_ms":748.507,"predicted_per_second":1.335992849766268}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777362325,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":4,"predicted_ms":3896.012,"predicted_per_token_ms":974.003,"predicted_per_second":1.026690882882291}}
 
 
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 5, n_remaining = -1, next token:  2588 ' hard'
+slot process_toke: id  3 | task 0 | n_decoded = 5, n_remaining = -1, next token: 66865 ' industri'
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Pollinators, hard
 que    start_loop: processing task, id = 5
 que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 6, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 21, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
+srv  update_chat_: Parsing chat message: Pollinators, industri
+set_adapters_lora: adapters = (nil)
+adapters_lora_are_same: adapters = (nil)
+set_embeddings: value = 0
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" hard"}}],"created":1777321725,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":5,"predicted_ms":4004.006,"predicted_per_token_ms":800.8012,"predicted_per_second":1.2487493774984353}}
+Pollinators, industri
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" industri"}}],"created":1777362327,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":5,"predicted_ms":5309.886,"predicted_per_token_ms":1061.9772,"predicted_per_second":0.9416398016831246}}
 
 
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 6, n_remaining = -1, next token:  7337 ' workers'
+slot process_toke: id  3 | task 0 | n_decoded = 6, n_remaining = -1, next token:   782 'ous'
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
@@ -1727,17 +1738,17 @@ srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 7, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 22, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers
+srv  update_chat_: Parsing chat message: Pollinators, industrious
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard workers
+Pollinators, industrious
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" workers"}}],"created":1777321726,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":6,"predicted_ms":4994.265,"predicted_per_token_ms":832.3775,"predicted_per_second":1.2013779805436835}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"ous"}}],"created":1777362328,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":6,"predicted_ms":6816.653,"predicted_per_token_ms":1136.1088333333335,"predicted_per_second":0.8801973637208758}}
 
 
 res          send: sending result for task id = 0
@@ -1746,23 +1757,23 @@ slot process_toke: id  3 | task 0 | n_decoded = 7, n_remaining = -1, next token:
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Pollinators, hard workers,
 que    start_loop: processing task, id = 7
 que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 8, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 23, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
+srv  update_chat_: Parsing chat message: Pollinators, industrious,
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard workers,
+Pollinators, industrious,
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321727,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":7,"predicted_ms":6017.585,"predicted_per_token_ms":859.655,"predicted_per_second":1.1632573532405441}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777362329,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":7,"predicted_ms":8139.606,"predicted_per_token_ms":1162.800857142857,"predicted_per_second":0.8599924861227927}}
 
 
 res          send: sending result for task id = 0
@@ -1771,28 +1782,28 @@ slot process_toke: id  3 | task 0 | n_decoded = 8, n_remaining = -1, next token:
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
+srv  update_chat_: Parsing chat message: Pollinators, industrious, social
 que    start_loop: processing task, id = 8
 que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 9, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 24, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard workers, social
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" social"}}],"created":1777321728,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":8,"predicted_ms":6985.69,"predicted_per_token_ms":873.21125,"predicted_per_second":1.145198255290458}}
+Pollinators, industrious, social
+set_adapters_lora: adapters = (nil)
+adapters_lora_are_same: adapters = (nil)
+set_embeddings: value = 0
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" social"}}],"created":1777362331,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":8,"predicted_ms":9535.778,"predicted_per_token_ms":1191.97225,"predicted_per_second":0.8389457053215794}}
 
 
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 9, n_remaining = -1, next token: 40811 ' insects'
+slot process_toke: id  3 | task 0 | n_decoded = 9, n_remaining = -1, next token:    11 ','
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
@@ -1802,22 +1813,22 @@ srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 10, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 25, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects
+srv  update_chat_: Parsing chat message: Pollinators, industrious, social,
+set_adapters_lora: adapters = (nil)
+adapters_lora_are_same: adapters = (nil)
+set_embeddings: value = 0
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard workers, social insects
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" insects"}}],"created":1777321729,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":9,"predicted_ms":7980.018,"predicted_per_token_ms":886.6686666666667,"predicted_per_second":1.127817004924049}}
+Pollinators, industrious, social,
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777362332,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":9,"predicted_ms":11006.826,"predicted_per_token_ms":1222.9806666666666,"predicted_per_second":0.817674414040887}}
 
 
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 10, n_remaining = -1, next token:    11 ','
+slot process_toke: id  3 | task 0 | n_decoded = 10, n_remaining = -1, next token: 16198 ' vital'
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
@@ -1827,22 +1838,22 @@ srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 11, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 26, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects,
+srv  update_chat_: Parsing chat message: Pollinators, industrious, social, vital
+set_adapters_lora: adapters = (nil)
+adapters_lora_are_same: adapters = (nil)
+set_embeddings: value = 0
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard workers, social insects,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321730,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":10,"predicted_ms":9040.185,"predicted_per_token_ms":904.0184999999999,"predicted_per_second":1.1061720528949353}}
+Pollinators, industrious, social, vital
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" vital"}}],"created":1777362334,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":10,"predicted_ms":12290.075,"predicted_per_token_ms":1229.0075000000002,"predicted_per_second":0.8136646847151054}}
 
 
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 11, n_remaining = -1, next token: 16198 ' vital'
+slot process_toke: id  3 | task 0 | n_decoded = 11, n_remaining = -1, next token:    11 ','
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
@@ -1852,27 +1863,27 @@ srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 12, front = 0
 slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 27, truncated = 0
 srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
+srv  update_chat_: Parsing chat message: Pollinators, industrious, social, vital,
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard workers, social insects, vital
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" vital"}}],"created":1777321731,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":11,"predicted_ms":10041.951,"predicted_per_token_ms":912.9046363636363,"predicted_per_second":1.095404667877786}}
+Pollinators, industrious, social, vital,
+set_adapters_lora: adapters = (nil)
+adapters_lora_are_same: adapters = (nil)
+set_embeddings: value = 0
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777362335,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":11,"predicted_ms":13617.529,"predicted_per_token_ms":1237.9571818181819,"predicted_per_second":0.8077823810766256}}
 
 
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 12, n_remaining = -1, next token:   311 ' to'
+slot process_toke: id  3 | task 0 | n_decoded = 12, n_remaining = -1, next token: 13673 ' tiny'
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to
 que    start_loop: processing task, id = 12
+srv  update_chat_: Parsing chat message: Pollinators, industrious, social, vital, tiny
 que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
 que          post: new task, id = 13, front = 0
@@ -1883,198 +1894,48 @@ Parsing PEG input with format peg-native: <|im_start|>assistant
 
 </think>
 
-Pollinators, hard workers, social insects, vital to
+Pollinators, industrious, social, vital, tiny
 set_adapters_lora: adapters = (nil)
 adapters_lora_are_same: adapters = (nil)
 set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" to"}}],"created":1777321732,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":12,"predicted_ms":11020.683,"predicted_per_token_ms":918.39025,"predicted_per_second":1.088861733887092}}
-
-
-res          send: sending result for task id = 0
-res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 13, n_remaining = -1, next token: 60851 ' ecosystems'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems
-que    start_loop: processing task, id = 13
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 14, front = 0
-slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 29, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Pollinators, hard workers, social insects, vital to ecosystems
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" ecosystems"}}],"created":1777321733,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":13,"predicted_ms":12065.182,"predicted_per_token_ms":928.0909230769231,"predicted_per_second":1.0774806380873492}}
-
-
-res          send: sending result for task id = 0
-res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 14, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 14
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 15, front = 0
-slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 30, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Pollinators, hard workers, social insects, vital to ecosystems,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321734,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":14,"predicted_ms":13071.175,"predicted_per_token_ms":933.655357142857,"predicted_per_second":1.0710590287407216}}
-
-
-res          send: sending result for task id = 0
-res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 15, n_remaining = -1, next token:  7565 ' essential'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems, essential
-que    start_loop: processing task, id = 15
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 16, front = 0
-slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 31, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Pollinators, hard workers, social insects, vital to ecosystems, essential
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" essential"}}],"created":1777321735,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":15,"predicted_ms":14072.262,"predicted_per_token_ms":938.1508,"predicted_per_second":1.0659267145537794}}
-
-
-res          send: sending result for task id = 0
-res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 16, n_remaining = -1, next token:   369 ' for'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 16
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 17, front = 0
-slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 32, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems, essential for
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Pollinators, hard workers, social insects, vital to ecosystems, essential for
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" for"}}],"created":1777321736,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":16,"predicted_ms":15026.469,"predicted_per_token_ms":939.1543125,"predicted_per_second":1.064787742216751}}
-
-
-res          send: sending result for task id = 0
-res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 17, n_remaining = -1, next token:  3607 ' food'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 17
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 18, front = 0
-slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 33, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems, essential for food
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Pollinators, hard workers, social insects, vital to ecosystems, essential for food
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" food"}}],"created":1777321737,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":17,"predicted_ms":16058.158,"predicted_per_token_ms":944.5975294117646,"predicted_per_second":1.0586519325566481}}
-
-
-res          send: sending result for task id = 0
-res          send: task id = 0 pushed to result queue
-slot process_toke: id  3 | task 0 | n_decoded = 18, n_remaining = -1, next token:    13 '.'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 18
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 19, front = 0
-slot update_slots: id  3 | task 0 | slot decode token, n_ctx = 65536, n_tokens = 34, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems, essential for food.
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Pollinators, hard workers, social insects, vital to ecosystems, essential for food.
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"."}}],"created":1777321738,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":18,"predicted_ms":17189.897,"predicted_per_token_ms":954.9942777777778,"predicted_per_second":1.0471266930802436}}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" tiny"}}],"created":1777362336,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":12,"predicted_ms":15104.395,"predicted_per_token_ms":1258.6995833333333,"predicted_per_second":0.794470748414617}}
 
 
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
 slot process_toke: id  3 | task 0 | stopped by EOS
-slot process_toke: id  3 | task 0 | n_decoded = 19, n_remaining = -1, next token: 151645 ''
+slot process_toke: id  3 | task 0 | n_decoded = 13, n_remaining = -1, next token: 151645 ''
 slot print_timing: id  3 | task 0 | 
-prompt eval time =    1896.29 ms /    16 tokens (  118.52 ms per token,     8.44 tokens per second)
-       eval time =   18138.47 ms /    19 tokens (  954.66 ms per token,     1.05 tokens per second)
-      total time =   20034.77 ms /    35 tokens
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems, essential for food.
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Pollinators, hard workers, social insects, vital to ecosystems, essential for food.
+prompt eval time =    3822.94 ms /    16 tokens (  238.93 ms per token,     4.19 tokens per second)
+       eval time =   16444.08 ms /    13 tokens ( 1264.93 ms per token,     0.79 tokens per second)
+      total time =   20267.02 ms /    29 tokens
+srv  update_chat_: Parsing chat message: Pollinators, industrious, social, vital, tiny
 res          send: sending result for task id = 0
 res          send: task id = 0 pushed to result queue
-slot      release: id  3 | task 0 | stop processing: n_tokens = 34, truncated = 0
+slot      release: id  3 | task 0 | stop processing: n_tokens = 28, truncated = 0
 slot        reset: id  3 | task 0 | 
 srv  update_slots: run slots completed
 que    start_loop: waiting for new tasks
 que    start_loop: processing new tasks
-que    start_loop: processing task, id = 19
+que    start_loop: processing task, id = 13
 que    start_loop: update slots
 srv  update_slots: all slots are idle
 que    start_loop: waiting for new tasks
-srv  update_chat_: Parsing chat message: Pollinators, hard workers, social insects, vital to ecosystems, essential for food.
 Parsing PEG input with format peg-native: <|im_start|>assistant
 <think>
 
 </think>
 
-Pollinators, hard workers, social insects, vital to ecosystems, essential for food.
-Parsed message: {"role":"assistant","content":"Pollinators, hard workers, social insects, vital to ecosystems, essential for food."}
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":"stop","index":0,"delta":{}}],"created":1777321739,"id":"chatcmpl-yQAf8jwA0q8EKyYIJJXWlRSSMhEoU06B","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":1896.294,"prompt_per_token_ms":118.518375,"prompt_per_second":8.437510217297529,"predicted_n":19,"predicted_ms":18138.471,"predicted_per_token_ms":954.6563684210527,"predicted_per_second":1.047497333154487}}
+Pollinators, industrious, social, vital, tiny
+srv  update_chat_: Parsing chat message: Pollinators, industrious, social, vital, tiny
+Parsing PEG input with format peg-native: <|im_start|>assistant
+<think>
+
+</think>
+
+Pollinators, industrious, social, vital, tiny
+Parsed message: {"role":"assistant","content":"Pollinators, industrious, social, vital, tiny"}
+srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":"stop","index":0,"delta":{}}],"created":1777362338,"id":"chatcmpl-m1s4a58ZQmhBmzHDo3kfswdqY04zT2eb","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8849-745911205","object":"chat.completion.chunk","timings":{"cache_n":0,"prompt_n":16,"prompt_ms":3822.941,"prompt_per_token_ms":238.9338125,"prompt_per_second":4.185259463852568,"predicted_n":13,"predicted_ms":16444.078,"predicted_per_token_ms":1264.929076923077,"predicted_per_second":0.7905581571675833}}
 
 
 srv    operator(): all results received, terminating stream
@@ -2155,10 +2016,10 @@ srv  params_from_: reasoning budget: tokens=-1, generation_prompt='<|im_start|>a
 </think>
 
 ', start=2 toks, end=1 toks, forced=1 toks
-res  add_waiting_: add task 20 to waiting list. current waiting = 0 (before add)
-que          post: new task, id = 20/1, front = 0
+res  add_waiting_: add task 14 to waiting list. current waiting = 0 (before add)
+que          post: new task, id = 14/1, front = 0
 que    start_loop: processing new tasks
-que    start_loop: processing task, id = 20
+que    start_loop: processing task, id = 14
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -2175,470 +2036,29 @@ srv  get_common_p: at index 12, token a: 151667, token b: 49207
 srv  get_common_p: at index 13, token a: 271, token b: 258
 srv  get_common_p: at index 14, token a: 151668, token b: 2973
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 49207, token b: 2588
-srv  get_common_p: at index 17, token a: 258, token b: 7337
+srv  get_common_p: at index 16, token a: 49207, token b: 66865
+srv  get_common_p: at index 17, token a: 258, token b: 782
 srv  get_common_p: at index 18, token a: 2973, token b: 11
 srv  get_common_p: at index 19, token a: 11, token b: 3590
-srv  get_common_p: at index 20, token a: 2588, token b: 40811
-srv  get_common_p: at index 21, token a: 7337, token b: 11
-srv  get_common_p: at index 22, token a: 11, token b: 16198
-srv  get_common_p: at index 23, token a: 3590, token b: 311
-srv  get_common_p: at index 24, token a: 40811, token b: 60851
-srv  get_common_p: at index 25, token a: 11, token b: 11
-srv  get_common_p: at index 26, token a: 16198, token b: 7565
-srv  get_common_p: at index 27, token a: 311, token b: 369
-srv  get_common_p: at index 28, token a: 60851, token b: 3607
-srv  get_common_p: at index 29, token a: 11, token b: 13
-srv  get_common_p: at index 30, token a: 7565, token b: 151645
-srv  get_common_p: at index 31, token a: 369, token b: 198
-srv  get_common_p: at index 32, token a: 3607, token b: 151644
-srv  get_common_p: at index 33, token a: 13, token b: 872
+srv  get_common_p: at index 20, token a: 66865, token b: 11
+srv  get_common_p: at index 21, token a: 782, token b: 16198
+srv  get_common_p: at index 22, token a: 11, token b: 11
+srv  get_common_p: at index 23, token a: 3590, token b: 13673
+srv  get_common_p: at index 24, token a: 11, token b: 151645
+srv  get_common_p: at index 25, token a: 16198, token b: 198
+srv  get_common_p: at index 26, token a: 11, token b: 151644
+srv  get_common_p: at index 27, token a: 13673, token b: 872
 srv  get_common_p: found start_thinking at idx 12
 srv  get_common_p: found end_thinking at idx 14
-srv  get_common_p: common prefix ends at idx 34
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.792 (> 0.100 thold), f_keep = 1.118
-slot launch_slot_: id  3 | task -1 | launching slot : {"id":3,"n_ctx":65536,"speculative":false,"is_processing":false,"id_task":0,"params":{"seed":4294967295,"temperature":0.5,"dynatemp_range":0.0,"dynatemp_exponent":1.0,"top_k":20,"top_p":0.8500000238418579,"min_p":0.0,"top_n_sigma":-1.0,"xtc_probability":0.0,"xtc_threshold":0.10000000149011612,"typical_p":1.0,"repeat_last_n":64,"repeat_penalty":1.0,"presence_penalty":0.0,"frequency_penalty":0.0,"dry_multiplier":0.0,"dry_base":1.75,"dry_allowed_length":2,"dry_penalty_last_n":65536,"dry_sequence_breakers":["\n",":","\"","*"],"mirostat":0,"mirostat_tau":5.0,"mirostat_eta":0.10000000149011612,"stop":[],"max_tokens":-1,"n_predict":-1,"n_keep":0,"n_discard":0,"ignore_eos":false,"stream":true,"logit_bias":[],"n_probs":0,"min_keep":0,"grammar":"","grammar_lazy":false,"grammar_triggers":[],"preserved_tokens":[151657,151658,151667,151668],"chat_format":"peg-native","reasoning_format":"auto","reasoning_in_content":false,"generation_prompt":"<|im_start|>assistant\n<think>\n\n</think>\n\n","samplers":["penalties","dry","top_n_sigma","top_k","typ_p","top_p","min_p","xtc","temperature"],"speculative.n_max":16,"speculative.n_min":0,"speculative.p_min":0.75,"speculative.type":"none","speculative.ngram_size_n":1024,"speculative.ngram_size_m":1024,"speculative.ngram_m_hits":1024,"timings_per_token":true,"post_sampling_probs":false,"backend_sampling":false,"lora":[]},"next_token":[{"has_next_token":false,"has_new_line":false,"n_remain":-1,"n_decoded":19}],"prompt":"<|im_start|>user\n5 words on bees<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n","generated":""}
+srv  get_common_p: common prefix ends at idx 28
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.762 (> 0.100 thold), f_keep = 1.143
+slot launch_slot_: id  3 | task -1 | launching slot : {"id":3,"n_ctx":65536,"speculative":false,"is_processing":false,"id_task":0,"params":{"seed":4294967295,"temperature":0.5,"dynatemp_range":0.0,"dynatemp_exponent":1.0,"top_k":20,"top_p":0.8500000238418579,"min_p":0.0,"top_n_sigma":-1.0,"xtc_probability":0.0,"xtc_threshold":0.10000000149011612,"typical_p":1.0,"repeat_last_n":64,"repeat_penalty":1.0,"presence_penalty":0.0,"frequency_penalty":0.0,"dry_multiplier":0.0,"dry_base":1.75,"dry_allowed_length":2,"dry_penalty_last_n":65536,"dry_sequence_breakers":["\n",":","\"","*"],"mirostat":0,"mirostat_tau":5.0,"mirostat_eta":0.10000000149011612,"stop":[],"max_tokens":-1,"n_predict":-1,"n_keep":0,"n_discard":0,"ignore_eos":false,"stream":true,"logit_bias":[],"n_probs":0,"min_keep":0,"grammar":"","grammar_lazy":false,"grammar_triggers":[],"preserved_tokens":[151657,151658,151667,151668],"chat_format":"peg-native","reasoning_format":"auto","reasoning_in_content":false,"generation_prompt":"<|im_start|>assistant\n<think>\n\n</think>\n\n","samplers":["penalties","dry","top_n_sigma","top_k","typ_p","top_p","min_p","xtc","temperature"],"speculative.n_max":16,"speculative.n_min":0,"speculative.p_min":0.75,"speculative.type":"none","speculative.ngram_size_n":1024,"speculative.ngram_size_m":1024,"speculative.ngram_m_hits":1024,"timings_per_token":true,"post_sampling_probs":false,"backend_sampling":false,"lora":[]},"next_token":[{"has_next_token":false,"has_new_line":false,"n_remain":-1,"n_decoded":13}],"prompt":"<|im_start|>user\n5 words on bees<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n","generated":""}
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 20 | processing task, is_child = 0
+slot launch_slot_: id  3 | task 14 | processing task, is_child = 0
 que    start_loop: update slots
 srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 21, front = 0
-slot update_slots: id  3 | task 20 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 48
-slot update_slots: id  3 | task 20 | keeping n_past = 12 tokens in the cache
-slot update_slots: id  3 | task 20 | number of prompt tokens to process for this slot: 34
-slot update_slots: id  3 | task 20 | BLUFFER: slot task n_tokens: 48
-slot update_slots: id  3 | task 20 | BLUFFER: slot prompt n_tokens: 34
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot update_slots: id  3 | task 20 | n_tokens = 12, memory_seq_rm [12, end)
-srv  update_chat_: Parsing chat message: 
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-
-srv          stop: all tasks already finished, no need to cancel
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  log_server_r: request:  {"messages":[{"role":"user","content":"5 words on bees"},{"role":"assistant","content":"Pollinators, hard workers, social insects, vital to ecosystems, essential for food."},{"role":"user","content":"5 words on iron"}],"stream":true,"return_progress":true,"reasoning_format":"auto","backend_sampling":false,"timings_per_token":true}
-srv  log_server_r: response: 
-slot init_sampler: id  3 | task 20 | init sampler, took 0.02 ms, tokens: text = 48, total = 48
-slot update_slots: id  3 | task 20 | prompt processing done, n_tokens = 48, batch.n_tokens = 36
-srv  update_slots: decoding batch, n_tokens = 36
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321752,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":0,"prompt_ms":1896.294,"prompt_per_token_ms":null,"prompt_per_second":0.0,"predicted_n":19,"predicted_ms":18148.078,"predicted_per_token_ms":955.162,"predicted_per_second":1.0469428222647048},"prompt_progress":{"total":48,"cache":12,"processed":12,"time_ms":0}}
-
-
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-srv  update_chat_: Parsing chat message: 
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 1, n_remaining = -1, next token: 65661 'Metal'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 21
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 22, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 49, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321755,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":1896.294,"prompt_per_token_ms":52.67483333333334,"prompt_per_second":18.98439798891944,"predicted_n":0,"predicted_ms":18148.078,"predicted_per_token_ms":null,"predicted_per_second":0.0},"prompt_progress":{"total":48,"cache":12,"processed":48,"time_ms":3568}}
-
-
-srv  update_chat_: Parsing chat message: Metal
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321755,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk"}
-
-data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"Metal"}}],"created":1777321755,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":1,"predicted_ms":0.001,"predicted_per_token_ms":0.001,"predicted_per_second":1000000.0}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 2, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 22
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 23, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 50, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Metal,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321756,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":2,"predicted_ms":997.392,"predicted_per_token_ms":498.696,"predicted_per_second":2.0052296388982467}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 3, n_remaining = -1, next token:  3746 ' strong'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 23
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 24, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 51, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Metal, strong
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" strong"}}],"created":1777321757,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":3,"predicted_ms":2063.529,"predicted_per_token_ms":687.843,"predicted_per_second":1.4538201304658185}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 4, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Metal, strong,
-que    start_loop: processing task, id = 24
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 25, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 52, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321758,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":4,"predicted_ms":3111.012,"predicted_per_token_ms":777.753,"predicted_per_second":1.2857552462028432}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 5, n_remaining = -1, next token:  6786 ' conduct'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 25
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 26, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 53, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Metal, strong, conduct
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conduct
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" conduct"}}],"created":1777321759,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":5,"predicted_ms":4113.9,"predicted_per_token_ms":822.78,"predicted_per_second":1.2153917207515983}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 6, n_remaining = -1, next token:   533 'ive'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Metal, strong, conductive
-que    start_loop: processing task, id = 26
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 27, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 54, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"ive"}}],"created":1777321760,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":6,"predicted_ms":5068.385,"predicted_per_token_ms":844.7308333333334,"predicted_per_second":1.1838090437091893}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 7, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 27
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 28, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 55, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Metal, strong, conductive,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321761,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":7,"predicted_ms":6046.812,"predicted_per_token_ms":863.8302857142857,"predicted_per_second":1.157634799957399}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 8, n_remaining = -1, next token: 26128 ' durable'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 28
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 29, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 56, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Metal, strong, conductive, durable
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive, durable
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" durable"}}],"created":1777321762,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":8,"predicted_ms":7089.478,"predicted_per_token_ms":886.18475,"predicted_per_second":1.1284328691054546}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 9, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 29
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 30, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 57, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Metal, strong, conductive, durable,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive, durable,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321763,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":9,"predicted_ms":8050.863,"predicted_per_token_ms":894.5403333333334,"predicted_per_second":1.1178925787210638}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 10, n_remaining = -1, next token:  7565 ' essential'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 30
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 31, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 58, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Metal, strong, conductive, durable, essential
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive, durable, essential
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" essential"}}],"created":1777321764,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":10,"predicted_ms":9020.471,"predicted_per_token_ms":902.0471,"predicted_per_second":1.108589562562753}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | n_decoded = 11, n_remaining = -1, next token:    13 '.'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Metal, strong, conductive, durable, essential.
-que    start_loop: processing task, id = 31
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 32, front = 0
-slot update_slots: id  3 | task 20 | slot decode token, n_ctx = 65536, n_tokens = 59, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive, durable, essential.
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"."}}],"created":1777321765,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":11,"predicted_ms":10089.5,"predicted_per_token_ms":917.2272727272727,"predicted_per_second":1.0902423311363298}}
-
-
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot process_toke: id  3 | task 20 | stopped by EOS
-slot process_toke: id  3 | task 20 | n_decoded = 12, n_remaining = -1, next token: 151645 ''
-slot print_timing: id  3 | task 20 | 
-prompt eval time =    3578.22 ms /    36 tokens (   99.39 ms per token,    10.06 tokens per second)
-       eval time =   11050.94 ms /    12 tokens (  920.91 ms per token,     1.09 tokens per second)
-      total time =   14629.16 ms /    48 tokens
-srv  update_chat_: Parsing chat message: Metal, strong, conductive, durable, essential.
-res          send: sending result for task id = 20
-res          send: task id = 20 pushed to result queue
-slot      release: id  3 | task 20 | stop processing: n_tokens = 59, truncated = 0
-slot        reset: id  3 | task 20 | 
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 32
-que    start_loop: update slots
-srv  update_slots: all slots are idle
-que    start_loop: waiting for new tasks
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive, durable, essential.
-srv  update_chat_: Parsing chat message: Metal, strong, conductive, durable, essential.
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Metal, strong, conductive, durable, essential.
-Parsed message: {"role":"assistant","content":"Metal, strong, conductive, durable, essential."}
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":"stop","index":0,"delta":{}}],"created":1777321766,"id":"chatcmpl-Vd8rSGBHtC7DpZccyf28WMHvLYXqsDfp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":12,"prompt_n":36,"prompt_ms":3578.22,"prompt_per_token_ms":99.395,"prompt_per_second":10.060868252930229,"predicted_n":12,"predicted_ms":11050.944,"predicted_per_token_ms":920.9119999999999,"predicted_per_second":1.0858800840905536}}
-
-
-srv    operator(): all results received, terminating stream
-srv    operator(): http: streamed chunk: data: [DONE]
-
-
-srv    operator(): http: stream ended
-res  remove_waiti: remove task 20 from waiting list. current waiting = 1 (before remove)
-srv          stop: all tasks already finished, no need to cancel
-common_chat_templates_apply_jinja: using differential autoparser
-[1m[38;5;126m=== Starting differential analysis ===
-[0m[1m[38;5;214mPhase 1: Reasoning analysis
-[0m[1m[38;5;214mPhase 2: Content analysis
-[0m[1m[38;5;214mPhase 3: Tool call analysis
-[0m
---- Reasoning & Content Structure ---
-reasoning_mode: TAG_BASED
-reasoning_start: '<think>
-'
-reasoning_end: '</think>'
-content_mode: PLAIN
-content_start: ''
-content_end: ''
-
---- Tool Call Structure ---
-tool_mode: JSON_NATIVE
-supports_tools: true
-supports_parallel_calls: true
-tool_section_start: ''
-tool_section_end: ''
-per_call_start: '<tool_call>
-'
-per_call_end: '</tool_call>'
-func_name_prefix: ''
-func_name_suffix: ''
-func_close: ''
-call_id_prefix: ''
-call_id_suffix: ''
-call_id_pos: 'NONE'
-args_start: ''
-args_end: ''
-arg_name_prefix: ''
-arg_name_suffix: ''
-arg_value_prefix: ''
-arg_value_suffix: ''
-name_field: 'name'
-args_field: 'arguments'
-id_field: ''
-gen_id_field: ''
-parameter_order: 'name, arguments'
-[1m[38;5;126m=== Differential analysis complete ===
-[0mcommon_chat_templates_apply_jinja: generated parser:
-Sequence(Literal(<|im_start|>assistant
-), Space, Repetition(Sequence(Literal(<think>
-), Tag(reasoning, Until(</think>)), Literal(</think>), Space), 0, 1), Tag(content, Until()), End)
-
-parser generation prompt: <|im_start|>assistant
-<think>
-
-</think>
-
-
-srv  params_from_: Grammar lazy: false
-srv  params_from_: Chat format: peg-native
-srv  params_from_: Generation prompt: '<|im_start|>assistant
-<think>
-
-</think>
-
-'
-srv  params_from_: Preserved token: 151667
-srv  params_from_: Preserved token: 151668
-srv  params_from_: Preserved token: 151657
-srv  params_from_: Preserved token: 151658
-srv  params_from_: reasoning budget: tokens=-1, generation_prompt='<|im_start|>assistant
-<think>
-
-</think>
-
-', start=2 toks, end=1 toks, forced=1 toks
-res  add_waiting_: add task 33 to waiting list. current waiting = 0 (before add)
-que          post: new task, id = 33/1, front = 0
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 33
+que          post: new task, id = 15, front = 0
+slot update_slots: id  3 | task 14 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 42
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -2651,402 +2071,81 @@ srv  get_common_p: at index 8, token a: 198, token b: 198
 srv  get_common_p: at index 9, token a: 151644, token b: 151644
 srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 49207, token b: 49207
-srv  get_common_p: at index 13, token a: 258, token b: 258
-srv  get_common_p: at index 14, token a: 2973, token b: 2973
-srv  get_common_p: at index 15, token a: 11, token b: 11
-srv  get_common_p: at index 16, token a: 2588, token b: 2588
-srv  get_common_p: at index 17, token a: 7337, token b: 7337
-srv  get_common_p: at index 18, token a: 11, token b: 11
-srv  get_common_p: at index 19, token a: 3590, token b: 3590
-srv  get_common_p: at index 20, token a: 40811, token b: 40811
-srv  get_common_p: at index 21, token a: 11, token b: 11
-srv  get_common_p: at index 22, token a: 16198, token b: 16198
-srv  get_common_p: at index 23, token a: 311, token b: 311
-srv  get_common_p: at index 24, token a: 60851, token b: 60851
-srv  get_common_p: at index 25, token a: 11, token b: 11
-srv  get_common_p: at index 26, token a: 7565, token b: 7565
-srv  get_common_p: at index 27, token a: 369, token b: 369
-srv  get_common_p: at index 28, token a: 3607, token b: 3607
-srv  get_common_p: at index 29, token a: 13, token b: 13
-srv  get_common_p: at index 30, token a: 151645, token b: 151645
-srv  get_common_p: at index 31, token a: 198, token b: 198
-srv  get_common_p: at index 32, token a: 151644, token b: 151644
-srv  get_common_p: at index 33, token a: 872, token b: 872
-srv  get_common_p: at index 34, token a: 198, token b: 198
-srv  get_common_p: at index 35, token a: 20, token b: 20
-srv  get_common_p: at index 36, token a: 4244, token b: 4244
-srv  get_common_p: at index 37, token a: 389, token b: 389
-srv  get_common_p: at index 38, token a: 11001, token b: 11001
-srv  get_common_p: at index 39, token a: 151645, token b: 151645
-srv  get_common_p: at index 40, token a: 198, token b: 198
-srv  get_common_p: at index 41, token a: 151644, token b: 151644
-srv  get_common_p: at index 42, token a: 77091, token b: 77091
-srv  get_common_p: at index 43, token a: 198, token b: 198
-srv  get_common_p: at index 44, token a: 151667, token b: 65661
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 151668, token b: 3746
-srv  get_common_p: at index 47, token a: 271, token b: 11
-srv  get_common_p: at index 48, token a: 65661, token b: 6786
-srv  get_common_p: at index 49, token a: 11, token b: 533
-srv  get_common_p: at index 50, token a: 3746, token b: 11
-srv  get_common_p: at index 51, token a: 11, token b: 26128
-srv  get_common_p: at index 52, token a: 6786, token b: 11
-srv  get_common_p: at index 53, token a: 533, token b: 7565
-srv  get_common_p: at index 54, token a: 11, token b: 13
-srv  get_common_p: at index 55, token a: 26128, token b: 151645
-srv  get_common_p: at index 56, token a: 11, token b: 198
-srv  get_common_p: at index 57, token a: 7565, token b: 151644
-srv  get_common_p: at index 58, token a: 13, token b: 872
-srv  get_common_p: found start_thinking at idx 44
-srv  get_common_p: found end_thinking at idx 46
-srv  get_common_p: common prefix ends at idx 59
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.863 (> 0.100 thold), f_keep = 1.068
-slot launch_slot_: id  3 | task -1 | launching slot : {"id":3,"n_ctx":65536,"speculative":false,"is_processing":false,"id_task":20,"params":{"seed":4294967295,"temperature":0.5,"dynatemp_range":0.0,"dynatemp_exponent":1.0,"top_k":20,"top_p":0.8500000238418579,"min_p":0.0,"top_n_sigma":-1.0,"xtc_probability":0.0,"xtc_threshold":0.10000000149011612,"typical_p":1.0,"repeat_last_n":64,"repeat_penalty":1.0,"presence_penalty":0.0,"frequency_penalty":0.0,"dry_multiplier":0.0,"dry_base":1.75,"dry_allowed_length":2,"dry_penalty_last_n":65536,"dry_sequence_breakers":["\n",":","\"","*"],"mirostat":0,"mirostat_tau":5.0,"mirostat_eta":0.10000000149011612,"stop":[],"max_tokens":-1,"n_predict":-1,"n_keep":0,"n_discard":0,"ignore_eos":false,"stream":true,"logit_bias":[],"n_probs":0,"min_keep":0,"grammar":"","grammar_lazy":false,"grammar_triggers":[],"preserved_tokens":[151657,151658,151667,151668],"chat_format":"peg-native","reasoning_format":"auto","reasoning_in_content":false,"generation_prompt":"<|im_start|>assistant\n<think>\n\n</think>\n\n","samplers":["penalties","dry","top_n_sigma","top_k","typ_p","top_p","min_p","xtc","temperature"],"speculative.n_max":16,"speculative.n_min":0,"speculative.p_min":0.75,"speculative.type":"none","speculative.ngram_size_n":1024,"speculative.ngram_size_m":1024,"speculative.ngram_m_hits":1024,"timings_per_token":true,"post_sampling_probs":false,"backend_sampling":false,"lora":[]},"next_token":[{"has_next_token":false,"has_new_line":false,"n_remain":-1,"n_decoded":12}],"prompt":"<|im_start|>user\n5 words on bees<|im_end|>\n<|im_start|>assistant\nPollinators, hard workers, social insects, vital to ecosystems, essential for food.<|im_end|>\n<|im_start|>user\n5 words on iron<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n","generated":""}
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 33 | processing task, is_child = 0
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 34, front = 0
-slot update_slots: id  3 | task 33 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 73
-slot update_slots: id  3 | task 33 | keeping n_past = 44 tokens in the cache
-slot update_slots: id  3 | task 33 | number of prompt tokens to process for this slot: 59
-slot update_slots: id  3 | task 33 | BLUFFER: slot task n_tokens: 73
-slot update_slots: id  3 | task 33 | BLUFFER: slot prompt n_tokens: 59
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot update_slots: id  3 | task 33 | n_tokens = 44, memory_seq_rm [44, end)
-srv  update_chat_: Parsing chat message: 
-Parsing PEG input with format peg-native: <|im_start|>assistant
+srv  get_common_p: at index 12, token a: 151667, token b: 49207
+srv  get_common_p: at index 13, token a: 271, token b: 258
+srv  get_common_p: at index 14, token a: 151668, token b: 2973
+srv  get_common_p: at index 15, token a: 271, token b: 11
+srv  get_common_p: at index 16, token a: 49207, token b: 66865
+srv  get_common_p: at index 17, token a: 258, token b: 782
+srv  get_common_p: at index 18, token a: 2973, token b: 11
+srv  get_common_p: at index 19, token a: 11, token b: 3590
+srv  get_common_p: at index 20, token a: 66865, token b: 11
+srv  get_common_p: at index 21, token a: 782, token b: 16198
+srv  get_common_p: at index 22, token a: 11, token b: 11
+srv  get_common_p: at index 23, token a: 3590, token b: 13673
+srv  get_common_p: at index 24, token a: 11, token b: 151645
+srv  get_common_p: at index 25, token a: 16198, token b: 198
+srv  get_common_p: at index 26, token a: 11, token b: 151644
+srv  get_common_p: at index 27, token a: 13673, token b: 872
+srv  get_common_p: found start_thinking at idx 12
+srv  get_common_p: found end_thinking at idx 14
+srv  get_common_p: common prefix ends at idx 28
+slot update_slots: id  3 | task 14 | BLUFFER: slot prompt n_tokens after prefix matching: 28
+slot update_slots: id  3 | task 14 | BLUFFER: slot prompt size() after prefix matching: 28
+slot update_slots: id  3 | task 14 | keeping n_past = 32 tokens in the cache
+slot update_slots: id  3 | task 14 | number of prompt tokens to process for this slot: 28
+slot update_slots: id  3 | task 14 | BLUFFER: slot task n_tokens: 42
+slot update_slots: id  3 | task 14 | BLUFFER: slot prompt n_tokens: 28
+slot update_slots: id  3 | task 14 | BLUFFER: detokenized prompt: '<|im_start|>user
+5 words on bees<|im_end|>
+<|im_start|>assistant
 <think>
 
 </think>
 
-
-srv          stop: all tasks already finished, no need to cancel
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  log_server_r: request:  {"messages":[{"role":"user","content":"5 words on bees"},{"role":"assistant","content":"Pollinators, hard workers, social insects, vital to ecosystems, essential for food."},{"role":"user","content":"5 words on iron"},{"role":"assistant","content":"Metal, strong, conductive, durable, essential."},{"role":"user","content":"5 words on money"}],"stream":true,"return_progress":true,"reasoning_format":"auto","backend_sampling":false,"timings_per_token":true}
-srv  log_server_r: response: 
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321785,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":0,"prompt_ms":3578.22,"prompt_per_token_ms":null,"prompt_per_second":0.0,"predicted_n":12,"predicted_ms":11054.173,"predicted_per_token_ms":921.1810833333334,"predicted_per_second":1.0855628910457615},"prompt_progress":{"total":73,"cache":44,"processed":44,"time_ms":0}}
-
-
-slot init_sampler: id  3 | task 33 | init sampler, took 0.02 ms, tokens: text = 73, total = 73
-slot update_slots: id  3 | task 33 | prompt processing done, n_tokens = 73, batch.n_tokens = 29
-srv  update_slots: decoding batch, n_tokens = 29
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-srv  update_chat_: Parsing chat message: 
-Parsing PEG input with format peg-native: <|im_start|>assistant
+Pollinators, industrious, social, vital, tiny'
+slot update_slots: id  3 | task 14 | BLUFFER: detokenized task:   '<|im_start|>user
+5 words on bees<|im_end|>
+<|im_start|>assistant
+Pollinators, industrious, social, vital, tiny<|im_end|>
+<|im_start|>user
+5 words on iron<|im_end|>
+<|im_start|>assistant
 <think>
 
 </think>
 
+'
+/home/patrick/coding/prism/llama.cpp/tools/server/server-common.cpp:409: GGML_ASSERT(n <= tokens.size()) failed
+[New LWP 107957]
+[New LWP 107956]
+[New LWP 107955]
+[New LWP 107950]
+[New LWP 107949]
+[New LWP 107948]
+[New LWP 107947]
+[New LWP 107946]
+[New LWP 107945]
+[New LWP 107944]
+[New LWP 107943]
+[New LWP 107942]
+[New LWP 107941]
 
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 1, n_remaining = -1, next token:  1130 'Value'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 34
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 35, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 74, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321788,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3578.22,"prompt_per_token_ms":123.38689655172413,"prompt_per_second":8.104588314860463,"predicted_n":0,"predicted_ms":11054.173,"predicted_per_token_ms":null,"predicted_per_second":0.0},"prompt_progress":{"total":73,"cache":44,"processed":73,"time_ms":3009}}
-
-
-srv  update_chat_: Parsing chat message: Value
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"role":"assistant","content":null}}],"created":1777321788,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk"}
-
-data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"Value"}}],"created":1777321788,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":1,"predicted_ms":0.001,"predicted_per_token_ms":0.001,"predicted_per_second":1000000.0}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 2, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 35
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 36, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 75, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Value,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321789,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":2,"predicted_ms":1008.523,"predicted_per_token_ms":504.2615,"predicted_per_second":1.983098055274892}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 3, n_remaining = -1, next token: 11051 ' medium'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-srv  update_chat_: Parsing chat message: Value, medium
-que    start_loop: processing task, id = 36
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 37, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 76, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" medium"}}],"created":1777321790,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":3,"predicted_ms":2044.967,"predicted_per_token_ms":681.6556666666667,"predicted_per_second":1.467016338160958}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 4, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 37
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 38, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 77, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv  update_chat_: Parsing chat message: Value, medium,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium,
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321791,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":4,"predicted_ms":3024.163,"predicted_per_token_ms":756.04075,"predicted_per_second":1.3226800274985178}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 5, n_remaining = -1, next token:  9289 ' exchange'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 38
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 39, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 78, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Value, medium, exchange
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" exchange"}}],"created":1777321792,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":5,"predicted_ms":4043.53,"predicted_per_token_ms":808.706,"predicted_per_second":1.23654331734895}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 6, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 39
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 40, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 79, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Value, medium, exchange,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321793,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":6,"predicted_ms":5027.201,"predicted_per_token_ms":837.8668333333334,"predicted_per_second":1.1935070827683238}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 7, n_remaining = -1, next token:  3553 ' store'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 40
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 41, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 80, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Value, medium, exchange, store
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange, store
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" store"}}],"created":1777321794,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":7,"predicted_ms":6095.832,"predicted_per_token_ms":870.8331428571429,"predicted_per_second":1.1483256100233732}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 8, n_remaining = -1, next token:    11 ','
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 41
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 42, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 81, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Value, medium, exchange, store,
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange, store,
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":","}}],"created":1777321795,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":8,"predicted_ms":7070.678,"predicted_per_token_ms":883.83475,"predicted_per_second":1.131433223235452}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 9, n_remaining = -1, next token:  6629 ' measure'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 42
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 43, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 82, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-srv  update_chat_: Parsing chat message: Value, medium, exchange, store, measure
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange, store, measure
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":" measure"}}],"created":1777321796,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":9,"predicted_ms":8053.991,"predicted_per_token_ms":894.8878888888889,"predicted_per_second":1.1174584128539504}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | n_decoded = 10, n_remaining = -1, next token:    13 '.'
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 43
-que    start_loop: update slots
-srv  update_slots: posting NEXT_RESPONSE
-que          post: new task, id = 44, front = 0
-slot update_slots: id  3 | task 33 | slot decode token, n_ctx = 65536, n_tokens = 83, truncated = 0
-srv  update_slots: decoding batch, n_tokens = 1
-set_adapters_lora: adapters = (nil)
-adapters_lora_are_same: adapters = (nil)
-set_embeddings: value = 0
-srv  update_chat_: Parsing chat message: Value, medium, exchange, store, measure.
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange, store, measure.
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":null,"index":0,"delta":{"content":"."}}],"created":1777321797,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":10,"predicted_ms":9235.667,"predicted_per_token_ms":923.5667,"predicted_per_second":1.0827588305208493}}
-
-
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot process_toke: id  3 | task 33 | stopped by EOS
-slot process_toke: id  3 | task 33 | n_decoded = 11, n_remaining = -1, next token: 151645 ''
-slot print_timing: id  3 | task 33 | 
-prompt eval time =    3017.54 ms /    29 tokens (  104.05 ms per token,     9.61 tokens per second)
-       eval time =   10185.62 ms /    11 tokens (  925.97 ms per token,     1.08 tokens per second)
-      total time =   13203.16 ms /    40 tokens
-srv  update_chat_: Parsing chat message: Value, medium, exchange, store, measure.
-res          send: sending result for task id = 33
-res          send: task id = 33 pushed to result queue
-slot      release: id  3 | task 33 | stop processing: n_tokens = 83, truncated = 0
-slot        reset: id  3 | task 33 | 
-srv  update_slots: run slots completed
-que    start_loop: waiting for new tasks
-que    start_loop: processing new tasks
-que    start_loop: processing task, id = 44
-que    start_loop: update slots
-srv  update_slots: all slots are idle
-que    start_loop: waiting for new tasks
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange, store, measure.
-srv  update_chat_: Parsing chat message: Value, medium, exchange, store, measure.
-Parsing PEG input with format peg-native: <|im_start|>assistant
-<think>
-
-</think>
-
-Value, medium, exchange, store, measure.
-Parsed message: {"role":"assistant","content":"Value, medium, exchange, store, measure."}
-srv    operator(): http: streamed chunk: data: {"choices":[{"finish_reason":"stop","index":0,"delta":{}}],"created":1777321798,"id":"chatcmpl-DGgGOZuVM4Q2fkAEfD8Yz6ueMBYsLzvp","model":"Bonsai-8B-Q1_0.gguf","system_fingerprint":"b8848-bb66e8f70","object":"chat.completion.chunk","timings":{"cache_n":44,"prompt_n":29,"prompt_ms":3017.539,"prompt_per_token_ms":104.05306896551726,"prompt_per_second":9.610480593622816,"predicted_n":11,"predicted_ms":10185.617,"predicted_per_token_ms":925.9651818181818,"predicted_per_second":1.0799542138684382}}
-
-
-srv    operator(): all results received, terminating stream
-srv    operator(): http: streamed chunk: data: [DONE]
-
-
-srv    operator(): http: stream ended
-res  remove_waiti: remove task 33 from waiting list. current waiting = 1 (before remove)
-srv          stop: all tasks already finished, no need to cancel
-que    start_loop: processing new tasks
-que    start_loop: terminate
-srv    operator(): operator(): cleaning up before exit...
-llama_memory_breakdown_print: | memory breakdown [MiB] | total   free     self   model   context   compute    unaccounted |
-llama_memory_breakdown_print: |   - Host               |                 10627 =  1099 +    9216 +     312                |
-~llama_context:        CPU compute buffer size is 312.2305 MiB, matches expectation of 312.2305 MiB
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+0x000079a6ac910813 in __GI___wait4 (pid=108010, stat_loc=0x0, options=0, usage=0x0) at ../sysdeps/unix/sysv/linux/wait4.c:30
+warning: 30	../sysdeps/unix/sysv/linux/wait4.c: No such file or directory
+#0  0x000079a6ac910813 in __GI___wait4 (pid=108010, stat_loc=0x0, options=0, usage=0x0) at ../sysdeps/unix/sysv/linux/wait4.c:30
+30	in ../sysdeps/unix/sysv/linux/wait4.c
+#1  0x000079a6ad861233 in ggml_print_backtrace () from /home/patrick/coding/prism/llama.cpp/build/bin/libggml-base.so.0
+#2  0x000079a6ad8613db in ggml_abort () from /home/patrick/coding/prism/llama.cpp/build/bin/libggml-base.so.0
+#3  0x00005ee09b7fd8c5 in server_tokens::keep_first(unsigned long) ()
+#4  0x00005ee09b859749 in server_context_impl::update_slots() ()
+#5  0x00005ee09b8dc2e1 in server_queue::start_loop(long) ()
+#6  0x00005ee09b7b2f50 in main ()
+[Inferior 1 (process 107936) detached]
