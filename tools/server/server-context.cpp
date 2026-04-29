@@ -984,7 +984,7 @@ private:
                 }
 
                 // fraction of the Longest Common Prefix length with respect to the input prompt length
-                const float sim_cur = float(tokens.get_common_prefix_apart_from_thinking(task.tokens)) / task.tokens.size();
+                const float sim_cur = float(tokens.get_common_prefix_pos_in_cache(task.tokens)) / task.tokens.size();
 
                 // select the current slot if the criteria match
                 if (sim_cur > sim_best && sim_cur > slot_prompt_similarity) {
@@ -2214,6 +2214,7 @@ private:
 
                         // keep track how many tokens we can reuse from the previous state
                         int n_past = 0;
+                        int n_past_new = 0;
 
                         // empty prompt passed -> release the slot and send empty response
                         if (input_tokens.empty()) {
@@ -2268,7 +2269,8 @@ private:
 
                             if (slot.task->params.cache_prompt) {
                                 // reuse any previously computed tokens that are common with the new prompt
-                                n_past = slot.prompt.tokens.get_common_prefix_apart_from_thinking(input_tokens);
+                                n_past = slot.prompt.tokens.get_common_prefix_pos_in_cache(input_tokens);
+                                n_past_new = slot.prompt.tokens.get_common_prefix_pos_in_new(input_tokens);
 
                                 // if there is an alora invoked, don't cache after the invocation start
                                 if (slot.alora_invocation_start > 0) {
@@ -2291,7 +2293,7 @@ private:
                                     GGML_ASSERT(!slot.prompt.tokens.has_mtmd);
 
                                     size_t head_c = n_past; // cache
-                                    size_t head_p = n_past; // current prompt
+                                    size_t head_p = n_past_new; // current prompt
 
                                     if (mctx) {
                                         // we should never reach this

@@ -1988,7 +1988,7 @@ size_t server_prompt_cache::n_tokens() const {
 server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t state_size) {
     // first check if the current state is contained fully in the cache
     for (auto it = states.begin(); it != states.end(); ++it) {
-        const int cur_lcp_len = it->tokens.get_common_prefix_apart_from_thinking(prompt.tokens);
+        const int cur_lcp_len = it->tokens.get_common_prefix_pos_in_cache(prompt.tokens);
 
         if (cur_lcp_len == (int) prompt.tokens.size()) {
             SRV_WRN("%s", " - prompt is already in the cache, skipping\n");
@@ -1998,7 +1998,7 @@ server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t 
 
     // next, remove any cached prompts that are fully contained in the current prompt
     for (auto it = states.begin(); it != states.end();) {
-        const int len = it->tokens.get_common_prefix_apart_from_thinking(prompt.tokens);
+        const int len = it->tokens.get_common_prefix_pos_in_cache(prompt.tokens);
 
         if (len == (int) it->tokens.size()) {
             SRV_WRN(" - removing obsolete cached prompt with length %d\n", len);
@@ -2037,7 +2037,7 @@ server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t 
 }
 
 bool server_prompt_cache::load(server_prompt & prompt, const server_tokens & tokens_new, llama_context * ctx, int32_t id_slot) {
-    const int lcp_best = prompt.tokens.get_common_prefix_apart_from_thinking(tokens_new);
+    const int lcp_best = prompt.tokens.get_common_prefix_pos_in_cache(tokens_new);
 
     float f_keep_best = prompt.tokens.size() > 0 ? float(lcp_best) / prompt.tokens.size() : -1.0f; // empty slot: any cache entry wins
     float sim_best    = float(lcp_best) / tokens_new.size();
@@ -2048,7 +2048,7 @@ bool server_prompt_cache::load(server_prompt & prompt, const server_tokens & tok
 
     // find the most similar cached prompt, that would also preserve the most context
     for (auto it = states.begin(); it != states.end(); ++it) {
-        const int lcp_cur = it->tokens.get_common_prefix_apart_from_thinking(tokens_new);
+        const int lcp_cur = it->tokens.get_common_prefix_pos_in_cache(tokens_new);
 
         const float f_keep_cur = float(lcp_cur) / it->tokens.size();
         const float sim_cur    = float(lcp_cur) / tokens_new.size();
