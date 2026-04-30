@@ -2566,9 +2566,14 @@ private:
                     }
 
                     // add prompt tokens for processing in the current batch
+                    size_t pos_first_new_token = 0;
+                    pos_first_new_token = slot.prompt.tokens.get_common_prefix_pos_in_new(input_tokens);
+                    SRV_INF("BLUFFER pos_first_new_token = %zu\n", pos_first_new_token);
                     while (slot.prompt.n_tokens() < slot.task->n_tokens() && batch.n_tokens < n_batch) {
                         // get next token to process
-                        llama_token cur_tok = input_tokens[slot.prompt.n_tokens()];
+                        // llama_token cur_tok = input_tokens[slot.prompt.n_tokens()];
+                        llama_token cur_tok = input_tokens[pos_first_new_token];
+                        pos_first_new_token++;
                         if (cur_tok == LLAMA_TOKEN_NULL) {
                             break; // end of text chunk
                         }
