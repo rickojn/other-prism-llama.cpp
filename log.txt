@@ -1,5 +1,5 @@
 main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
-build_info: b8853-6b4ac56dc
+build_info: b8854-e8f6bb3da
 system_info: n_threads = 4 (n_threads_batch = 4) / 8 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
 init: using 8 threads for HTTP server
 start: binding port with default address family
@@ -154,7 +154,7 @@ sched_reserve: fused Gated Delta Net (chunked) enabled
 sched_reserve:        CPU compute buffer size =   312.23 MiB
 sched_reserve: graph nodes  = 1267
 sched_reserve: graph splits = 1
-sched_reserve: reserve took 12.06 ms, sched copies = 1
+sched_reserve: reserve took 13.33 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -198,7 +198,7 @@ srv  get_availabl: updating prompt cache
 srv  get_common_p: size of tokens a: 0, size of tokens b: 16
 srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
 srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 65536 tokens, 8589934592 est)
-srv  get_availabl: prompt cache update took 0.01 ms
+srv  get_availabl: prompt cache update took 0.02 ms
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
 slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
 slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 16
@@ -206,6 +206,7 @@ srv  get_common_p: size of tokens a: 0, size of tokens b: 16
 srv  get_common_p: size of tokens a: 0, size of tokens b: 16
 slot update_slots: id  3 | task 0 | BLUFFER common prefix with cached prompt: n_past = 0, n_past_new = 0
 slot update_slots: id  3 | task 0 | BLUFFER attempting to reuse chunks with size > 0, n_past = 0
+slot update_slots: id  3 | task 0 | BLUFFER pos_next = 0
 slot update_slots: id  3 | task 0 | keeping n_past = 0 tokens in the cache
 slot update_slots: id  3 | task 0 | BLUFF: detokenised prompt tokens:
  
@@ -219,9 +220,9 @@ slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
 
 
 slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-slot init_sampler: id  3 | task 0 | init sampler, took 0.22 ms, tokens: text = 16, total = 16
+slot init_sampler: id  3 | task 0 | init sampler, took 0.01 ms, tokens: text = 16, total = 16
 slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 16, batch.n_tokens = 16
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_start|> user 
  5  words  on  water <|im_end|> 
  <|im_start|> assistant 
@@ -232,23 +233,22 @@ srv  update_slots: BLUFFER decoding batch tokens: '<|im_start|> user
  '
 srv  update_slots: BLUFFER decoding batch tokens: 'Life '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' purity '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' reflection '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' fluid '
-srv  update_slots: BLUFFER decoding batch tokens: 'ity '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' essential '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' clean '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' vital '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
 slot print_timing: id  3 | task 0 | 
-prompt eval time =    1869.45 ms /    16 tokens (  116.84 ms per token,     8.56 tokens per second)
-       eval time =    1365.80 ms /    12 tokens (  113.82 ms per token,     8.79 tokens per second)
-      total time =    3235.25 ms /    28 tokens
-slot      release: id  3 | task 0 | stop processing: n_tokens = 27, truncated = 0
+prompt eval time =    1712.20 ms /    16 tokens (  107.01 ms per token,     9.34 tokens per second)
+       eval time =    4932.73 ms /    11 tokens (  448.43 ms per token,     2.23 tokens per second)
+      total time =    6644.92 ms /    27 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 26, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 27, size of tokens b: 41
+srv  get_common_p: size of tokens a: 26, size of tokens b: 40
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -263,24 +263,23 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.659 (> 0.100 thold), f_keep = 1.000
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.650 (> 0.100 thold), f_keep = 1.000
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 13 | processing task, is_child = 0
-slot update_slots: id  3 | task 13 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 41
-srv  get_common_p: size of tokens a: 27, size of tokens b: 41
+slot launch_slot_: id  3 | task 12 | processing task, is_child = 0
+slot update_slots: id  3 | task 12 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 40
+srv  get_common_p: size of tokens a: 26, size of tokens b: 40
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -295,20 +294,19 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: size of tokens a: 27, size of tokens b: 41
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: size of tokens a: 26, size of tokens b: 40
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -323,23 +321,23 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-slot update_slots: id  3 | task 13 | BLUFFER common prefix with cached prompt: n_past = 27, n_past_new = 23
-slot update_slots: id  3 | task 13 | BLUFFER attempting to reuse chunks with size > 0, n_past = 27
-slot update_slots: id  3 | task 13 | keeping n_past = 27 tokens in the cache
-slot update_slots: id  3 | task 13 | BLUFF: detokenised prompt tokens:
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+slot update_slots: id  3 | task 12 | BLUFFER common prefix with cached prompt: n_past = 26, n_past_new = 22
+slot update_slots: id  3 | task 12 | BLUFFER attempting to reuse chunks with size > 0, n_past = 26
+slot update_slots: id  3 | task 12 | BLUFFER pos_next = 22
+slot update_slots: id  3 | task 12 | keeping n_past = 26 tokens in the cache
+slot update_slots: id  3 | task 12 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
 5 words on water<|im_end|>
 <|im_start|>assistant
@@ -347,12 +345,12 @@ slot update_slots: id  3 | task 13 | BLUFF: detokenised prompt tokens:
 
 </think>
 
-Life, purity, reflection, fluidity, essential.
-slot update_slots: id  3 | task 13 | BLUFF: detokensed task tokens:
+Life, fluid, essential, clean, vital.
+slot update_slots: id  3 | task 12 | BLUFF: detokensed task tokens:
  <|im_start|>user
 5 words on water<|im_end|>
 <|im_start|>assistant
-Life, purity, reflection, fluidity, essential.<|im_end|>
+Life, fluid, essential, clean, vital.<|im_end|>
 <|im_start|>user
 5 words on war<|im_end|>
 <|im_start|>assistant
@@ -361,10 +359,10 @@ Life, purity, reflection, fluidity, essential.<|im_end|>
 </think>
 
 
-slot update_slots: id  3 | task 13 | n_tokens = 27, memory_seq_rm [27, end)
+slot update_slots: id  3 | task 12 | n_tokens = 26, memory_seq_rm [26, end)
+slot init_sampler: id  3 | task 12 | init sampler, took 0.02 ms, tokens: text = 40, total = 40
+slot update_slots: id  3 | task 12 | prompt processing done, n_tokens = 40, batch.n_tokens = 14
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-slot init_sampler: id  3 | task 13 | init sampler, took 0.01 ms, tokens: text = 41, total = 41
-slot update_slots: id  3 | task 13 | prompt processing done, n_tokens = 41, batch.n_tokens = 14
 srv  update_slots: BLUFFER decoding batch tokens: '
  5  words  on  war <|im_end|> 
  <|im_start|> assistant 
@@ -379,18 +377,18 @@ srv  update_slots: BLUFFER decoding batch tokens: ' destruction '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' sacrifice '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' resilience '
+srv  update_slots: BLUFFER decoding batch tokens: ' freedom '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' history '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 13 | 
-prompt eval time =    1456.27 ms /    14 tokens (  104.02 ms per token,     9.61 tokens per second)
-       eval time =    1118.68 ms /    11 tokens (  101.70 ms per token,     9.83 tokens per second)
-      total time =    2574.96 ms /    25 tokens
-slot      release: id  3 | task 13 | stop processing: n_tokens = 51, truncated = 0
+slot print_timing: id  3 | task 12 | 
+prompt eval time =    1586.02 ms /    14 tokens (  113.29 ms per token,     8.83 tokens per second)
+       eval time =    6906.66 ms /    11 tokens (  627.88 ms per token,     1.59 tokens per second)
+      total time =    8492.68 ms /    25 tokens
+slot      release: id  3 | task 12 | stop processing: n_tokens = 50, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 51, size of tokens b: 65
+srv  get_common_p: size of tokens a: 50, size of tokens b: 64
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -405,48 +403,47 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 151667, token b: 57974
-srv  get_common_p: at index 38, token a: 271, token b: 11
-srv  get_common_p: at index 39, token a: 151668, token b: 19258
-srv  get_common_p: at index 40, token a: 271, token b: 11
-srv  get_common_p: at index 41, token a: 57974, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 19258, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 27136, token b: 3840
-srv  get_common_p: at index 46, token a: 11, token b: 13
-srv  get_common_p: at index 47, token a: 54962, token b: 151645
-srv  get_common_p: at index 48, token a: 11, token b: 198
-srv  get_common_p: at index 49, token a: 3840, token b: 151644
-srv  get_common_p: at index 50, token a: 13, token b: 872
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.415 (> 0.100 thold), f_keep = 0.529
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 151667, token b: 57974
+srv  get_common_p: at index 37, token a: 271, token b: 11
+srv  get_common_p: at index 38, token a: 151668, token b: 19258
+srv  get_common_p: at index 39, token a: 271, token b: 11
+srv  get_common_p: at index 40, token a: 57974, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 19258, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 27136, token b: 3840
+srv  get_common_p: at index 45, token a: 11, token b: 13
+srv  get_common_p: at index 46, token a: 11290, token b: 151645
+srv  get_common_p: at index 47, token a: 11, token b: 198
+srv  get_common_p: at index 48, token a: 3840, token b: 151644
+srv  get_common_p: at index 49, token a: 13, token b: 872
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.406 (> 0.100 thold), f_keep = 0.520
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 25 | processing task, is_child = 0
-slot update_slots: id  3 | task 25 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 65
-srv  get_common_p: size of tokens a: 51, size of tokens b: 65
+slot launch_slot_: id  3 | task 24 | processing task, is_child = 0
+slot update_slots: id  3 | task 24 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 64
+srv  get_common_p: size of tokens a: 50, size of tokens b: 64
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -461,44 +458,43 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 151667, token b: 57974
-srv  get_common_p: at index 38, token a: 271, token b: 11
-srv  get_common_p: at index 39, token a: 151668, token b: 19258
-srv  get_common_p: at index 40, token a: 271, token b: 11
-srv  get_common_p: at index 41, token a: 57974, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 19258, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 27136, token b: 3840
-srv  get_common_p: at index 46, token a: 11, token b: 13
-srv  get_common_p: at index 47, token a: 54962, token b: 151645
-srv  get_common_p: at index 48, token a: 11, token b: 198
-srv  get_common_p: at index 49, token a: 3840, token b: 151644
-srv  get_common_p: at index 50, token a: 13, token b: 872
-srv  get_common_p: size of tokens a: 51, size of tokens b: 65
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 151667, token b: 57974
+srv  get_common_p: at index 37, token a: 271, token b: 11
+srv  get_common_p: at index 38, token a: 151668, token b: 19258
+srv  get_common_p: at index 39, token a: 271, token b: 11
+srv  get_common_p: at index 40, token a: 57974, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 19258, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 27136, token b: 3840
+srv  get_common_p: at index 45, token a: 11, token b: 13
+srv  get_common_p: at index 46, token a: 11290, token b: 151645
+srv  get_common_p: at index 47, token a: 11, token b: 198
+srv  get_common_p: at index 48, token a: 3840, token b: 151644
+srv  get_common_p: at index 49, token a: 13, token b: 872
+srv  get_common_p: size of tokens a: 50, size of tokens b: 64
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -513,47 +509,47 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 151667, token b: 57974
-srv  get_common_p: at index 38, token a: 271, token b: 11
-srv  get_common_p: at index 39, token a: 151668, token b: 19258
-srv  get_common_p: at index 40, token a: 271, token b: 11
-srv  get_common_p: at index 41, token a: 57974, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 19258, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 27136, token b: 3840
-srv  get_common_p: at index 46, token a: 11, token b: 13
-srv  get_common_p: at index 47, token a: 54962, token b: 151645
-srv  get_common_p: at index 48, token a: 11, token b: 198
-srv  get_common_p: at index 49, token a: 3840, token b: 151644
-srv  get_common_p: at index 50, token a: 13, token b: 872
-slot update_slots: id  3 | task 25 | BLUFFER common prefix with cached prompt: n_past = 27, n_past_new = 23
-slot update_slots: id  3 | task 25 | BLUFFER attempting to reuse chunks with size > 0, n_past = 27
-slot update_slots: id  3 | task 25 | keeping n_past = 27 tokens in the cache
-slot update_slots: id  3 | task 25 | BLUFF: detokenised prompt tokens:
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 151667, token b: 57974
+srv  get_common_p: at index 37, token a: 271, token b: 11
+srv  get_common_p: at index 38, token a: 151668, token b: 19258
+srv  get_common_p: at index 39, token a: 271, token b: 11
+srv  get_common_p: at index 40, token a: 57974, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 19258, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 27136, token b: 3840
+srv  get_common_p: at index 45, token a: 11, token b: 13
+srv  get_common_p: at index 46, token a: 11290, token b: 151645
+srv  get_common_p: at index 47, token a: 11, token b: 198
+srv  get_common_p: at index 48, token a: 3840, token b: 151644
+srv  get_common_p: at index 49, token a: 13, token b: 872
+slot update_slots: id  3 | task 24 | BLUFFER common prefix with cached prompt: n_past = 26, n_past_new = 22
+slot update_slots: id  3 | task 24 | BLUFFER attempting to reuse chunks with size > 0, n_past = 26
+slot update_slots: id  3 | task 24 | BLUFFER pos_next = 22
+slot update_slots: id  3 | task 24 | keeping n_past = 26 tokens in the cache
+slot update_slots: id  3 | task 24 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
 5 words on water<|im_end|>
 <|im_start|>assistant
@@ -561,23 +557,23 @@ slot update_slots: id  3 | task 25 | BLUFF: detokenised prompt tokens:
 
 </think>
 
-Life, purity, reflection, fluidity, essential.
+Life, fluid, essential, clean, vital.
 5 words on war<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
-Conflict, destruction, sacrifice, resilience, history.
-slot update_slots: id  3 | task 25 | BLUFF: detokensed task tokens:
+Conflict, destruction, sacrifice, freedom, history.
+slot update_slots: id  3 | task 24 | BLUFF: detokensed task tokens:
  <|im_start|>user
 5 words on water<|im_end|>
 <|im_start|>assistant
-Life, purity, reflection, fluidity, essential.<|im_end|>
+Life, fluid, essential, clean, vital.<|im_end|>
 <|im_start|>user
 5 words on war<|im_end|>
 <|im_start|>assistant
-Conflict, destruction, sacrifice, resilience, history.<|im_end|>
+Conflict, destruction, sacrifice, freedom, history.<|im_end|>
 <|im_start|>user
 5 words on wheat<|im_end|>
 <|im_start|>assistant
@@ -586,14 +582,14 @@ Conflict, destruction, sacrifice, resilience, history.<|im_end|>
 </think>
 
 
-slot update_slots: id  3 | task 25 | n_tokens = 27, memory_seq_rm [27, end)
+slot update_slots: id  3 | task 24 | n_tokens = 26, memory_seq_rm [26, end)
+slot init_sampler: id  3 | task 24 | init sampler, took 0.01 ms, tokens: text = 64, total = 64
+slot update_slots: id  3 | task 24 | prompt processing done, n_tokens = 64, batch.n_tokens = 38
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-slot init_sampler: id  3 | task 25 | init sampler, took 0.03 ms, tokens: text = 65, total = 65
-slot update_slots: id  3 | task 25 | prompt processing done, n_tokens = 65, batch.n_tokens = 38
 srv  update_slots: BLUFFER decoding batch tokens: '
  5  words  on  war <|im_end|> 
  <|im_start|> assistant 
- Conflict ,  destruction ,  sacrifice ,  resilience ,  history . <|im_end|> 
+ Conflict ,  destruction ,  sacrifice ,  freedom ,  history . <|im_end|> 
  <|im_start|> user 
  5  words  on  wheat <|im_end|> 
  <|im_start|> assistant 
@@ -602,26 +598,26 @@ srv  update_slots: BLUFFER decoding batch tokens: '
  </think> 
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'Har '
-srv  update_slots: BLUFFER decoding batch tokens: 'vest '
+srv  update_slots: BLUFFER decoding batch tokens: 'Gr '
+srv  update_slots: BLUFFER decoding batch tokens: 'ain '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' sust '
-srv  update_slots: BLUFFER decoding batch tokens: 'enance '
+srv  update_slots: BLUFFER decoding batch tokens: ' staple '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' grain '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' growth '
+srv  update_slots: BLUFFER decoding batch tokens: ' nour '
+srv  update_slots: BLUFFER decoding batch tokens: 'ishment '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' harvest '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' agriculture '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 25 | 
-prompt eval time =    3357.77 ms /    38 tokens (   88.36 ms per token,    11.32 tokens per second)
-       eval time =    1316.40 ms /    13 tokens (  101.26 ms per token,     9.88 tokens per second)
-      total time =    4674.16 ms /    51 tokens
-slot      release: id  3 | task 25 | stop processing: n_tokens = 77, truncated = 0
+slot print_timing: id  3 | task 24 | 
+prompt eval time =    3520.01 ms /    38 tokens (   92.63 ms per token,    10.80 tokens per second)
+       eval time =    1936.45 ms /    13 tokens (  148.96 ms per token,     6.71 tokens per second)
+      total time =    5456.47 ms /    51 tokens
+slot      release: id  3 | task 24 | stop processing: n_tokens = 76, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 77, size of tokens b: 91
+srv  get_common_p: size of tokens a: 76, size of tokens b: 90
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -636,73 +632,72 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 57974, token b: 57974
-srv  get_common_p: at index 38, token a: 11, token b: 11
-srv  get_common_p: at index 39, token a: 19258, token b: 19258
-srv  get_common_p: at index 40, token a: 11, token b: 11
-srv  get_common_p: at index 41, token a: 27136, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 54962, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 3840, token b: 3840
-srv  get_common_p: at index 46, token a: 13, token b: 13
-srv  get_common_p: at index 47, token a: 151645, token b: 151645
-srv  get_common_p: at index 48, token a: 198, token b: 198
-srv  get_common_p: at index 49, token a: 151644, token b: 151644
-srv  get_common_p: at index 50, token a: 872, token b: 872
-srv  get_common_p: at index 51, token a: 198, token b: 198
-srv  get_common_p: at index 52, token a: 20, token b: 20
-srv  get_common_p: at index 53, token a: 4244, token b: 4244
-srv  get_common_p: at index 54, token a: 389, token b: 389
-srv  get_common_p: at index 55, token a: 33053, token b: 33053
-srv  get_common_p: at index 56, token a: 151645, token b: 151645
-srv  get_common_p: at index 57, token a: 198, token b: 198
-srv  get_common_p: at index 58, token a: 151644, token b: 151644
-srv  get_common_p: at index 59, token a: 77091, token b: 77091
-srv  get_common_p: at index 60, token a: 198, token b: 198
-srv  get_common_p: at index 61, token a: 151667, token b: 26490
-srv  get_common_p: at index 62, token a: 271, token b: 7019
-srv  get_common_p: at index 63, token a: 151668, token b: 11
-srv  get_common_p: at index 64, token a: 271, token b: 10235
-srv  get_common_p: at index 65, token a: 26490, token b: 10220
-srv  get_common_p: at index 66, token a: 7019, token b: 11
-srv  get_common_p: at index 67, token a: 11, token b: 23925
-srv  get_common_p: at index 68, token a: 10235, token b: 11
-srv  get_common_p: at index 69, token a: 10220, token b: 6513
-srv  get_common_p: at index 70, token a: 11, token b: 11
-srv  get_common_p: at index 71, token a: 23925, token b: 23429
-srv  get_common_p: at index 72, token a: 11, token b: 13
-srv  get_common_p: at index 73, token a: 6513, token b: 151645
-srv  get_common_p: at index 74, token a: 11, token b: 198
-srv  get_common_p: at index 75, token a: 23429, token b: 151644
-srv  get_common_p: at index 76, token a: 13, token b: 872
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.297 (> 0.100 thold), f_keep = 0.351
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 57974, token b: 57974
+srv  get_common_p: at index 37, token a: 11, token b: 11
+srv  get_common_p: at index 38, token a: 19258, token b: 19258
+srv  get_common_p: at index 39, token a: 11, token b: 11
+srv  get_common_p: at index 40, token a: 27136, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 11290, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 3840, token b: 3840
+srv  get_common_p: at index 45, token a: 13, token b: 13
+srv  get_common_p: at index 46, token a: 151645, token b: 151645
+srv  get_common_p: at index 47, token a: 198, token b: 198
+srv  get_common_p: at index 48, token a: 151644, token b: 151644
+srv  get_common_p: at index 49, token a: 872, token b: 872
+srv  get_common_p: at index 50, token a: 198, token b: 198
+srv  get_common_p: at index 51, token a: 20, token b: 20
+srv  get_common_p: at index 52, token a: 4244, token b: 4244
+srv  get_common_p: at index 53, token a: 389, token b: 389
+srv  get_common_p: at index 54, token a: 33053, token b: 33053
+srv  get_common_p: at index 55, token a: 151645, token b: 151645
+srv  get_common_p: at index 56, token a: 198, token b: 198
+srv  get_common_p: at index 57, token a: 151644, token b: 151644
+srv  get_common_p: at index 58, token a: 77091, token b: 77091
+srv  get_common_p: at index 59, token a: 198, token b: 198
+srv  get_common_p: at index 60, token a: 151667, token b: 6464
+srv  get_common_p: at index 61, token a: 271, token b: 466
+srv  get_common_p: at index 62, token a: 151668, token b: 11
+srv  get_common_p: at index 63, token a: 271, token b: 48956
+srv  get_common_p: at index 64, token a: 6464, token b: 11
+srv  get_common_p: at index 65, token a: 466, token b: 45698
+srv  get_common_p: at index 66, token a: 11, token b: 16025
+srv  get_common_p: at index 67, token a: 48956, token b: 11
+srv  get_common_p: at index 68, token a: 11, token b: 23429
+srv  get_common_p: at index 69, token a: 45698, token b: 11
+srv  get_common_p: at index 70, token a: 16025, token b: 28929
+srv  get_common_p: at index 71, token a: 11, token b: 13
+srv  get_common_p: at index 72, token a: 23429, token b: 151645
+srv  get_common_p: at index 73, token a: 11, token b: 198
+srv  get_common_p: at index 74, token a: 28929, token b: 151644
+srv  get_common_p: at index 75, token a: 13, token b: 872
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.289 (> 0.100 thold), f_keep = 0.342
 srv  get_availabl: updating prompt cache
-srv   prompt_save:  - saving prompt with length 77, total state size = 10.830 MiB
-srv  get_common_p: size of tokens a: 77, size of tokens b: 91
+srv   prompt_save:  - saving prompt with length 76, total state size = 10.689 MiB
+srv  get_common_p: size of tokens a: 76, size of tokens b: 90
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -717,71 +712,70 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 57974, token b: 57974
-srv  get_common_p: at index 38, token a: 11, token b: 11
-srv  get_common_p: at index 39, token a: 19258, token b: 19258
-srv  get_common_p: at index 40, token a: 11, token b: 11
-srv  get_common_p: at index 41, token a: 27136, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 54962, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 3840, token b: 3840
-srv  get_common_p: at index 46, token a: 13, token b: 13
-srv  get_common_p: at index 47, token a: 151645, token b: 151645
-srv  get_common_p: at index 48, token a: 198, token b: 198
-srv  get_common_p: at index 49, token a: 151644, token b: 151644
-srv  get_common_p: at index 50, token a: 872, token b: 872
-srv  get_common_p: at index 51, token a: 198, token b: 198
-srv  get_common_p: at index 52, token a: 20, token b: 20
-srv  get_common_p: at index 53, token a: 4244, token b: 4244
-srv  get_common_p: at index 54, token a: 389, token b: 389
-srv  get_common_p: at index 55, token a: 33053, token b: 33053
-srv  get_common_p: at index 56, token a: 151645, token b: 151645
-srv  get_common_p: at index 57, token a: 198, token b: 198
-srv  get_common_p: at index 58, token a: 151644, token b: 151644
-srv  get_common_p: at index 59, token a: 77091, token b: 77091
-srv  get_common_p: at index 60, token a: 198, token b: 198
-srv  get_common_p: at index 61, token a: 151667, token b: 26490
-srv  get_common_p: at index 62, token a: 271, token b: 7019
-srv  get_common_p: at index 63, token a: 151668, token b: 11
-srv  get_common_p: at index 64, token a: 271, token b: 10235
-srv  get_common_p: at index 65, token a: 26490, token b: 10220
-srv  get_common_p: at index 66, token a: 7019, token b: 11
-srv  get_common_p: at index 67, token a: 11, token b: 23925
-srv  get_common_p: at index 68, token a: 10235, token b: 11
-srv  get_common_p: at index 69, token a: 10220, token b: 6513
-srv  get_common_p: at index 70, token a: 11, token b: 11
-srv  get_common_p: at index 71, token a: 23925, token b: 23429
-srv  get_common_p: at index 72, token a: 11, token b: 13
-srv  get_common_p: at index 73, token a: 6513, token b: 151645
-srv  get_common_p: at index 74, token a: 11, token b: 198
-srv  get_common_p: at index 75, token a: 23429, token b: 151644
-srv  get_common_p: at index 76, token a: 13, token b: 872
-srv          load:  - looking for better prompt, base f_keep = 0.351, sim = 0.297
-srv  get_common_p: size of tokens a: 77, size of tokens b: 91
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 57974, token b: 57974
+srv  get_common_p: at index 37, token a: 11, token b: 11
+srv  get_common_p: at index 38, token a: 19258, token b: 19258
+srv  get_common_p: at index 39, token a: 11, token b: 11
+srv  get_common_p: at index 40, token a: 27136, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 11290, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 3840, token b: 3840
+srv  get_common_p: at index 45, token a: 13, token b: 13
+srv  get_common_p: at index 46, token a: 151645, token b: 151645
+srv  get_common_p: at index 47, token a: 198, token b: 198
+srv  get_common_p: at index 48, token a: 151644, token b: 151644
+srv  get_common_p: at index 49, token a: 872, token b: 872
+srv  get_common_p: at index 50, token a: 198, token b: 198
+srv  get_common_p: at index 51, token a: 20, token b: 20
+srv  get_common_p: at index 52, token a: 4244, token b: 4244
+srv  get_common_p: at index 53, token a: 389, token b: 389
+srv  get_common_p: at index 54, token a: 33053, token b: 33053
+srv  get_common_p: at index 55, token a: 151645, token b: 151645
+srv  get_common_p: at index 56, token a: 198, token b: 198
+srv  get_common_p: at index 57, token a: 151644, token b: 151644
+srv  get_common_p: at index 58, token a: 77091, token b: 77091
+srv  get_common_p: at index 59, token a: 198, token b: 198
+srv  get_common_p: at index 60, token a: 151667, token b: 6464
+srv  get_common_p: at index 61, token a: 271, token b: 466
+srv  get_common_p: at index 62, token a: 151668, token b: 11
+srv  get_common_p: at index 63, token a: 271, token b: 48956
+srv  get_common_p: at index 64, token a: 6464, token b: 11
+srv  get_common_p: at index 65, token a: 466, token b: 45698
+srv  get_common_p: at index 66, token a: 11, token b: 16025
+srv  get_common_p: at index 67, token a: 48956, token b: 11
+srv  get_common_p: at index 68, token a: 11, token b: 23429
+srv  get_common_p: at index 69, token a: 45698, token b: 11
+srv  get_common_p: at index 70, token a: 16025, token b: 28929
+srv  get_common_p: at index 71, token a: 11, token b: 13
+srv  get_common_p: at index 72, token a: 23429, token b: 151645
+srv  get_common_p: at index 73, token a: 11, token b: 198
+srv  get_common_p: at index 74, token a: 28929, token b: 151644
+srv  get_common_p: at index 75, token a: 13, token b: 872
+srv          load:  - looking for better prompt, base f_keep = 0.342, sim = 0.289
+srv  get_common_p: size of tokens a: 76, size of tokens b: 90
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -796,76 +790,75 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 57974, token b: 57974
-srv  get_common_p: at index 38, token a: 11, token b: 11
-srv  get_common_p: at index 39, token a: 19258, token b: 19258
-srv  get_common_p: at index 40, token a: 11, token b: 11
-srv  get_common_p: at index 41, token a: 27136, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 54962, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 3840, token b: 3840
-srv  get_common_p: at index 46, token a: 13, token b: 13
-srv  get_common_p: at index 47, token a: 151645, token b: 151645
-srv  get_common_p: at index 48, token a: 198, token b: 198
-srv  get_common_p: at index 49, token a: 151644, token b: 151644
-srv  get_common_p: at index 50, token a: 872, token b: 872
-srv  get_common_p: at index 51, token a: 198, token b: 198
-srv  get_common_p: at index 52, token a: 20, token b: 20
-srv  get_common_p: at index 53, token a: 4244, token b: 4244
-srv  get_common_p: at index 54, token a: 389, token b: 389
-srv  get_common_p: at index 55, token a: 33053, token b: 33053
-srv  get_common_p: at index 56, token a: 151645, token b: 151645
-srv  get_common_p: at index 57, token a: 198, token b: 198
-srv  get_common_p: at index 58, token a: 151644, token b: 151644
-srv  get_common_p: at index 59, token a: 77091, token b: 77091
-srv  get_common_p: at index 60, token a: 198, token b: 198
-srv  get_common_p: at index 61, token a: 151667, token b: 26490
-srv  get_common_p: at index 62, token a: 271, token b: 7019
-srv  get_common_p: at index 63, token a: 151668, token b: 11
-srv  get_common_p: at index 64, token a: 271, token b: 10235
-srv  get_common_p: at index 65, token a: 26490, token b: 10220
-srv  get_common_p: at index 66, token a: 7019, token b: 11
-srv  get_common_p: at index 67, token a: 11, token b: 23925
-srv  get_common_p: at index 68, token a: 10235, token b: 11
-srv  get_common_p: at index 69, token a: 10220, token b: 6513
-srv  get_common_p: at index 70, token a: 11, token b: 11
-srv  get_common_p: at index 71, token a: 23925, token b: 23429
-srv  get_common_p: at index 72, token a: 11, token b: 13
-srv  get_common_p: at index 73, token a: 6513, token b: 151645
-srv  get_common_p: at index 74, token a: 11, token b: 198
-srv  get_common_p: at index 75, token a: 23429, token b: 151644
-srv  get_common_p: at index 76, token a: 13, token b: 872
-srv        update:  - cache state: 1 prompts, 10.830 MiB (limits: 8192.000 MiB, 65536 tokens, 65536 est)
-srv        update:    - prompt 0x59c00de7d9d0:      77 tokens, checkpoints:  0,    10.830 MiB
-srv  get_availabl: prompt cache update took 19.60 ms
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 57974, token b: 57974
+srv  get_common_p: at index 37, token a: 11, token b: 11
+srv  get_common_p: at index 38, token a: 19258, token b: 19258
+srv  get_common_p: at index 39, token a: 11, token b: 11
+srv  get_common_p: at index 40, token a: 27136, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 11290, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 3840, token b: 3840
+srv  get_common_p: at index 45, token a: 13, token b: 13
+srv  get_common_p: at index 46, token a: 151645, token b: 151645
+srv  get_common_p: at index 47, token a: 198, token b: 198
+srv  get_common_p: at index 48, token a: 151644, token b: 151644
+srv  get_common_p: at index 49, token a: 872, token b: 872
+srv  get_common_p: at index 50, token a: 198, token b: 198
+srv  get_common_p: at index 51, token a: 20, token b: 20
+srv  get_common_p: at index 52, token a: 4244, token b: 4244
+srv  get_common_p: at index 53, token a: 389, token b: 389
+srv  get_common_p: at index 54, token a: 33053, token b: 33053
+srv  get_common_p: at index 55, token a: 151645, token b: 151645
+srv  get_common_p: at index 56, token a: 198, token b: 198
+srv  get_common_p: at index 57, token a: 151644, token b: 151644
+srv  get_common_p: at index 58, token a: 77091, token b: 77091
+srv  get_common_p: at index 59, token a: 198, token b: 198
+srv  get_common_p: at index 60, token a: 151667, token b: 6464
+srv  get_common_p: at index 61, token a: 271, token b: 466
+srv  get_common_p: at index 62, token a: 151668, token b: 11
+srv  get_common_p: at index 63, token a: 271, token b: 48956
+srv  get_common_p: at index 64, token a: 6464, token b: 11
+srv  get_common_p: at index 65, token a: 466, token b: 45698
+srv  get_common_p: at index 66, token a: 11, token b: 16025
+srv  get_common_p: at index 67, token a: 48956, token b: 11
+srv  get_common_p: at index 68, token a: 11, token b: 23429
+srv  get_common_p: at index 69, token a: 45698, token b: 11
+srv  get_common_p: at index 70, token a: 16025, token b: 28929
+srv  get_common_p: at index 71, token a: 11, token b: 13
+srv  get_common_p: at index 72, token a: 23429, token b: 151645
+srv  get_common_p: at index 73, token a: 11, token b: 198
+srv  get_common_p: at index 74, token a: 28929, token b: 151644
+srv  get_common_p: at index 75, token a: 13, token b: 872
+srv        update:  - cache state: 1 prompts, 10.689 MiB (limits: 8192.000 MiB, 65536 tokens, 65536 est)
+srv        update:    - prompt 0x6105fc6735e0:      76 tokens, checkpoints:  0,    10.689 MiB
+srv  get_availabl: prompt cache update took 15.69 ms
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 39 | processing task, is_child = 0
-slot update_slots: id  3 | task 39 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 91
-srv  get_common_p: size of tokens a: 77, size of tokens b: 91
+slot launch_slot_: id  3 | task 38 | processing task, is_child = 0
+slot update_slots: id  3 | task 38 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 90
+srv  get_common_p: size of tokens a: 76, size of tokens b: 90
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -880,70 +873,69 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 57974, token b: 57974
-srv  get_common_p: at index 38, token a: 11, token b: 11
-srv  get_common_p: at index 39, token a: 19258, token b: 19258
-srv  get_common_p: at index 40, token a: 11, token b: 11
-srv  get_common_p: at index 41, token a: 27136, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 54962, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 3840, token b: 3840
-srv  get_common_p: at index 46, token a: 13, token b: 13
-srv  get_common_p: at index 47, token a: 151645, token b: 151645
-srv  get_common_p: at index 48, token a: 198, token b: 198
-srv  get_common_p: at index 49, token a: 151644, token b: 151644
-srv  get_common_p: at index 50, token a: 872, token b: 872
-srv  get_common_p: at index 51, token a: 198, token b: 198
-srv  get_common_p: at index 52, token a: 20, token b: 20
-srv  get_common_p: at index 53, token a: 4244, token b: 4244
-srv  get_common_p: at index 54, token a: 389, token b: 389
-srv  get_common_p: at index 55, token a: 33053, token b: 33053
-srv  get_common_p: at index 56, token a: 151645, token b: 151645
-srv  get_common_p: at index 57, token a: 198, token b: 198
-srv  get_common_p: at index 58, token a: 151644, token b: 151644
-srv  get_common_p: at index 59, token a: 77091, token b: 77091
-srv  get_common_p: at index 60, token a: 198, token b: 198
-srv  get_common_p: at index 61, token a: 151667, token b: 26490
-srv  get_common_p: at index 62, token a: 271, token b: 7019
-srv  get_common_p: at index 63, token a: 151668, token b: 11
-srv  get_common_p: at index 64, token a: 271, token b: 10235
-srv  get_common_p: at index 65, token a: 26490, token b: 10220
-srv  get_common_p: at index 66, token a: 7019, token b: 11
-srv  get_common_p: at index 67, token a: 11, token b: 23925
-srv  get_common_p: at index 68, token a: 10235, token b: 11
-srv  get_common_p: at index 69, token a: 10220, token b: 6513
-srv  get_common_p: at index 70, token a: 11, token b: 11
-srv  get_common_p: at index 71, token a: 23925, token b: 23429
-srv  get_common_p: at index 72, token a: 11, token b: 13
-srv  get_common_p: at index 73, token a: 6513, token b: 151645
-srv  get_common_p: at index 74, token a: 11, token b: 198
-srv  get_common_p: at index 75, token a: 23429, token b: 151644
-srv  get_common_p: at index 76, token a: 13, token b: 872
-srv  get_common_p: size of tokens a: 77, size of tokens b: 91
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 57974, token b: 57974
+srv  get_common_p: at index 37, token a: 11, token b: 11
+srv  get_common_p: at index 38, token a: 19258, token b: 19258
+srv  get_common_p: at index 39, token a: 11, token b: 11
+srv  get_common_p: at index 40, token a: 27136, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 11290, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 3840, token b: 3840
+srv  get_common_p: at index 45, token a: 13, token b: 13
+srv  get_common_p: at index 46, token a: 151645, token b: 151645
+srv  get_common_p: at index 47, token a: 198, token b: 198
+srv  get_common_p: at index 48, token a: 151644, token b: 151644
+srv  get_common_p: at index 49, token a: 872, token b: 872
+srv  get_common_p: at index 50, token a: 198, token b: 198
+srv  get_common_p: at index 51, token a: 20, token b: 20
+srv  get_common_p: at index 52, token a: 4244, token b: 4244
+srv  get_common_p: at index 53, token a: 389, token b: 389
+srv  get_common_p: at index 54, token a: 33053, token b: 33053
+srv  get_common_p: at index 55, token a: 151645, token b: 151645
+srv  get_common_p: at index 56, token a: 198, token b: 198
+srv  get_common_p: at index 57, token a: 151644, token b: 151644
+srv  get_common_p: at index 58, token a: 77091, token b: 77091
+srv  get_common_p: at index 59, token a: 198, token b: 198
+srv  get_common_p: at index 60, token a: 151667, token b: 6464
+srv  get_common_p: at index 61, token a: 271, token b: 466
+srv  get_common_p: at index 62, token a: 151668, token b: 11
+srv  get_common_p: at index 63, token a: 271, token b: 48956
+srv  get_common_p: at index 64, token a: 6464, token b: 11
+srv  get_common_p: at index 65, token a: 466, token b: 45698
+srv  get_common_p: at index 66, token a: 11, token b: 16025
+srv  get_common_p: at index 67, token a: 48956, token b: 11
+srv  get_common_p: at index 68, token a: 11, token b: 23429
+srv  get_common_p: at index 69, token a: 45698, token b: 11
+srv  get_common_p: at index 70, token a: 16025, token b: 28929
+srv  get_common_p: at index 71, token a: 11, token b: 13
+srv  get_common_p: at index 72, token a: 23429, token b: 151645
+srv  get_common_p: at index 73, token a: 11, token b: 198
+srv  get_common_p: at index 74, token a: 28929, token b: 151644
+srv  get_common_p: at index 75, token a: 13, token b: 872
+srv  get_common_p: size of tokens a: 76, size of tokens b: 90
 srv  get_common_p: at index 0, token a: 151644, token b: 151644
 srv  get_common_p: at index 1, token a: 872, token b: 872
 srv  get_common_p: at index 2, token a: 198, token b: 198
@@ -958,73 +950,73 @@ srv  get_common_p: at index 10, token a: 77091, token b: 77091
 srv  get_common_p: at index 11, token a: 198, token b: 198
 srv  get_common_p: at index 12, token a: 151667, token b: 25749
 srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
+srv  get_common_p: at index 14, token a: 151668, token b: 15590
 srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 21844
+srv  get_common_p: at index 16, token a: 25749, token b: 7565
 srv  get_common_p: at index 17, token a: 11, token b: 11
-srv  get_common_p: at index 18, token a: 52400, token b: 15590
-srv  get_common_p: at index 19, token a: 11, token b: 487
-srv  get_common_p: at index 20, token a: 21844, token b: 11
-srv  get_common_p: at index 21, token a: 11, token b: 7565
-srv  get_common_p: at index 22, token a: 15590, token b: 13
-srv  get_common_p: at index 23, token a: 487, token b: 151645
-srv  get_common_p: at index 24, token a: 11, token b: 198
-srv  get_common_p: at index 25, token a: 7565, token b: 151644
-srv  get_common_p: at index 26, token a: 13, token b: 872
-srv  get_common_p: at index 27, token a: 198, token b: 198
-srv  get_common_p: at index 28, token a: 20, token b: 20
-srv  get_common_p: at index 29, token a: 4244, token b: 4244
-srv  get_common_p: at index 30, token a: 389, token b: 389
-srv  get_common_p: at index 31, token a: 4116, token b: 4116
-srv  get_common_p: at index 32, token a: 151645, token b: 151645
-srv  get_common_p: at index 33, token a: 198, token b: 198
-srv  get_common_p: at index 34, token a: 151644, token b: 151644
-srv  get_common_p: at index 35, token a: 77091, token b: 77091
-srv  get_common_p: at index 36, token a: 198, token b: 198
-srv  get_common_p: at index 37, token a: 57974, token b: 57974
-srv  get_common_p: at index 38, token a: 11, token b: 11
-srv  get_common_p: at index 39, token a: 19258, token b: 19258
-srv  get_common_p: at index 40, token a: 11, token b: 11
-srv  get_common_p: at index 41, token a: 27136, token b: 27136
-srv  get_common_p: at index 42, token a: 11, token b: 11
-srv  get_common_p: at index 43, token a: 54962, token b: 54962
-srv  get_common_p: at index 44, token a: 11, token b: 11
-srv  get_common_p: at index 45, token a: 3840, token b: 3840
-srv  get_common_p: at index 46, token a: 13, token b: 13
-srv  get_common_p: at index 47, token a: 151645, token b: 151645
-srv  get_common_p: at index 48, token a: 198, token b: 198
-srv  get_common_p: at index 49, token a: 151644, token b: 151644
-srv  get_common_p: at index 50, token a: 872, token b: 872
-srv  get_common_p: at index 51, token a: 198, token b: 198
-srv  get_common_p: at index 52, token a: 20, token b: 20
-srv  get_common_p: at index 53, token a: 4244, token b: 4244
-srv  get_common_p: at index 54, token a: 389, token b: 389
-srv  get_common_p: at index 55, token a: 33053, token b: 33053
-srv  get_common_p: at index 56, token a: 151645, token b: 151645
-srv  get_common_p: at index 57, token a: 198, token b: 198
-srv  get_common_p: at index 58, token a: 151644, token b: 151644
-srv  get_common_p: at index 59, token a: 77091, token b: 77091
-srv  get_common_p: at index 60, token a: 198, token b: 198
-srv  get_common_p: at index 61, token a: 151667, token b: 26490
-srv  get_common_p: at index 62, token a: 271, token b: 7019
-srv  get_common_p: at index 63, token a: 151668, token b: 11
-srv  get_common_p: at index 64, token a: 271, token b: 10235
-srv  get_common_p: at index 65, token a: 26490, token b: 10220
-srv  get_common_p: at index 66, token a: 7019, token b: 11
-srv  get_common_p: at index 67, token a: 11, token b: 23925
-srv  get_common_p: at index 68, token a: 10235, token b: 11
-srv  get_common_p: at index 69, token a: 10220, token b: 6513
-srv  get_common_p: at index 70, token a: 11, token b: 11
-srv  get_common_p: at index 71, token a: 23925, token b: 23429
-srv  get_common_p: at index 72, token a: 11, token b: 13
-srv  get_common_p: at index 73, token a: 6513, token b: 151645
-srv  get_common_p: at index 74, token a: 11, token b: 198
-srv  get_common_p: at index 75, token a: 23429, token b: 151644
-srv  get_common_p: at index 76, token a: 13, token b: 872
-slot update_slots: id  3 | task 39 | BLUFFER common prefix with cached prompt: n_past = 27, n_past_new = 23
-slot update_slots: id  3 | task 39 | BLUFFER attempting to reuse chunks with size > 0, n_past = 27
-slot update_slots: id  3 | task 39 | keeping n_past = 27 tokens in the cache
-slot update_slots: id  3 | task 39 | BLUFF: detokenised prompt tokens:
+srv  get_common_p: at index 18, token a: 15590, token b: 4240
+srv  get_common_p: at index 19, token a: 11, token b: 11
+srv  get_common_p: at index 20, token a: 7565, token b: 16198
+srv  get_common_p: at index 21, token a: 11, token b: 13
+srv  get_common_p: at index 22, token a: 4240, token b: 151645
+srv  get_common_p: at index 23, token a: 11, token b: 198
+srv  get_common_p: at index 24, token a: 16198, token b: 151644
+srv  get_common_p: at index 25, token a: 13, token b: 872
+srv  get_common_p: at index 26, token a: 198, token b: 198
+srv  get_common_p: at index 27, token a: 20, token b: 20
+srv  get_common_p: at index 28, token a: 4244, token b: 4244
+srv  get_common_p: at index 29, token a: 389, token b: 389
+srv  get_common_p: at index 30, token a: 4116, token b: 4116
+srv  get_common_p: at index 31, token a: 151645, token b: 151645
+srv  get_common_p: at index 32, token a: 198, token b: 198
+srv  get_common_p: at index 33, token a: 151644, token b: 151644
+srv  get_common_p: at index 34, token a: 77091, token b: 77091
+srv  get_common_p: at index 35, token a: 198, token b: 198
+srv  get_common_p: at index 36, token a: 57974, token b: 57974
+srv  get_common_p: at index 37, token a: 11, token b: 11
+srv  get_common_p: at index 38, token a: 19258, token b: 19258
+srv  get_common_p: at index 39, token a: 11, token b: 11
+srv  get_common_p: at index 40, token a: 27136, token b: 27136
+srv  get_common_p: at index 41, token a: 11, token b: 11
+srv  get_common_p: at index 42, token a: 11290, token b: 11290
+srv  get_common_p: at index 43, token a: 11, token b: 11
+srv  get_common_p: at index 44, token a: 3840, token b: 3840
+srv  get_common_p: at index 45, token a: 13, token b: 13
+srv  get_common_p: at index 46, token a: 151645, token b: 151645
+srv  get_common_p: at index 47, token a: 198, token b: 198
+srv  get_common_p: at index 48, token a: 151644, token b: 151644
+srv  get_common_p: at index 49, token a: 872, token b: 872
+srv  get_common_p: at index 50, token a: 198, token b: 198
+srv  get_common_p: at index 51, token a: 20, token b: 20
+srv  get_common_p: at index 52, token a: 4244, token b: 4244
+srv  get_common_p: at index 53, token a: 389, token b: 389
+srv  get_common_p: at index 54, token a: 33053, token b: 33053
+srv  get_common_p: at index 55, token a: 151645, token b: 151645
+srv  get_common_p: at index 56, token a: 198, token b: 198
+srv  get_common_p: at index 57, token a: 151644, token b: 151644
+srv  get_common_p: at index 58, token a: 77091, token b: 77091
+srv  get_common_p: at index 59, token a: 198, token b: 198
+srv  get_common_p: at index 60, token a: 151667, token b: 6464
+srv  get_common_p: at index 61, token a: 271, token b: 466
+srv  get_common_p: at index 62, token a: 151668, token b: 11
+srv  get_common_p: at index 63, token a: 271, token b: 48956
+srv  get_common_p: at index 64, token a: 6464, token b: 11
+srv  get_common_p: at index 65, token a: 466, token b: 45698
+srv  get_common_p: at index 66, token a: 11, token b: 16025
+srv  get_common_p: at index 67, token a: 48956, token b: 11
+srv  get_common_p: at index 68, token a: 11, token b: 23429
+srv  get_common_p: at index 69, token a: 45698, token b: 11
+srv  get_common_p: at index 70, token a: 16025, token b: 28929
+srv  get_common_p: at index 71, token a: 11, token b: 13
+srv  get_common_p: at index 72, token a: 23429, token b: 151645
+srv  get_common_p: at index 73, token a: 11, token b: 198
+srv  get_common_p: at index 74, token a: 28929, token b: 151644
+srv  get_common_p: at index 75, token a: 13, token b: 872
+slot update_slots: id  3 | task 38 | BLUFFER common prefix with cached prompt: n_past = 26, n_past_new = 22
+slot update_slots: id  3 | task 38 | BLUFFER attempting to reuse chunks with size > 0, n_past = 26
+slot update_slots: id  3 | task 38 | BLUFFER pos_next = 22
+slot update_slots: id  3 | task 38 | keeping n_past = 26 tokens in the cache
+slot update_slots: id  3 | task 38 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
 5 words on water<|im_end|>
 <|im_start|>assistant
@@ -1032,10 +1024,10 @@ slot update_slots: id  3 | task 39 | BLUFF: detokenised prompt tokens:
 
 </think>
 
-Life, purity, reflection, fluidity, essential.
+Life, fluid, essential, clean, vital.
 5 words on war<|im_end|>
 <|im_start|>assistant
-Conflict, destruction, sacrifice, resilience, history.<|im_end|>
+Conflict, destruction, sacrifice, freedom, history.<|im_end|>
 <|im_start|>user
 5 words on wheat<|im_end|>
 <|im_start|>assistant
@@ -1043,20 +1035,20 @@ Conflict, destruction, sacrifice, resilience, history.<|im_end|>
 
 </think>
 
-Harvest, sustenance, grain, growth, harvest.
-slot update_slots: id  3 | task 39 | BLUFF: detokensed task tokens:
+Grain, staple, nourishment, harvest, agriculture.
+slot update_slots: id  3 | task 38 | BLUFF: detokensed task tokens:
  <|im_start|>user
 5 words on water<|im_end|>
 <|im_start|>assistant
-Life, purity, reflection, fluidity, essential.<|im_end|>
+Life, fluid, essential, clean, vital.<|im_end|>
 <|im_start|>user
 5 words on war<|im_end|>
 <|im_start|>assistant
-Conflict, destruction, sacrifice, resilience, history.<|im_end|>
+Conflict, destruction, sacrifice, freedom, history.<|im_end|>
 <|im_start|>user
 5 words on wheat<|im_end|>
 <|im_start|>assistant
-Harvest, sustenance, grain, growth, harvest.<|im_end|>
+Grain, staple, nourishment, harvest, agriculture.<|im_end|>
 <|im_start|>user
 5 words on whims<|im_end|>
 <|im_start|>assistant
@@ -1065,17 +1057,17 @@ Harvest, sustenance, grain, growth, harvest.<|im_end|>
 </think>
 
 
-slot update_slots: id  3 | task 39 | n_tokens = 27, memory_seq_rm [27, end)
-slot init_sampler: id  3 | task 39 | init sampler, took 0.02 ms, tokens: text = 91, total = 91
-slot update_slots: id  3 | task 39 | prompt processing done, n_tokens = 91, batch.n_tokens = 64
+slot update_slots: id  3 | task 38 | n_tokens = 26, memory_seq_rm [26, end)
+slot init_sampler: id  3 | task 38 | init sampler, took 0.05 ms, tokens: text = 90, total = 90
+slot update_slots: id  3 | task 38 | prompt processing done, n_tokens = 90, batch.n_tokens = 64
 srv  update_slots: BLUFFER decoding batch tokens: '
  5  words  on  war <|im_end|> 
  <|im_start|> assistant 
- Conflict ,  destruction ,  sacrifice ,  resilience ,  history . <|im_end|> 
+ Conflict ,  destruction ,  sacrifice ,  freedom ,  history . <|im_end|> 
  <|im_start|> user 
  5  words  on  wheat <|im_end|> 
  <|im_start|> assistant 
- Har vest ,  sust enance ,  grain ,  growth ,  harvest . <|im_end|> 
+ Gr ain ,  staple ,  nour ishment ,  harvest ,  agriculture . <|im_end|> 
  <|im_start|> user 
  5  words  on  whims <|im_end|> 
  <|im_start|> assistant 
@@ -1085,22 +1077,21 @@ srv  update_slots: BLUFFER decoding batch tokens: '
 
  '
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  update_slots: BLUFFER decoding batch tokens: 'F '
-srv  update_slots: BLUFFER decoding batch tokens: 'ancy '
+srv  update_slots: BLUFFER decoding batch tokens: 'Fun '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' playful '
+srv  update_slots: BLUFFER decoding batch tokens: ' imagination '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' imaginative '
+srv  update_slots: BLUFFER decoding batch tokens: ' play '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' joyful '
+srv  update_slots: BLUFFER decoding batch tokens: ' joy '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' spontaneous '
+srv  update_slots: BLUFFER decoding batch tokens: ' curiosity '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 39 | 
-prompt eval time =    5044.00 ms /    64 tokens (   78.81 ms per token,    12.69 tokens per second)
-       eval time =    1282.57 ms /    12 tokens (  106.88 ms per token,     9.36 tokens per second)
-      total time =    6326.58 ms /    76 tokens
-slot      release: id  3 | task 39 | stop processing: n_tokens = 102, truncated = 0
+slot print_timing: id  3 | task 38 | 
+prompt eval time =    5477.97 ms /    64 tokens (   85.59 ms per token,    11.68 tokens per second)
+       eval time =    3921.28 ms /    11 tokens (  356.48 ms per token,     2.81 tokens per second)
+      total time =    9399.25 ms /    75 tokens
+slot      release: id  3 | task 38 | stop processing: n_tokens = 100, truncated = 0
 srv  update_slots: all slots are idle
 srv    operator(): operator(): cleaning up before exit...
 llama_memory_breakdown_print: | memory breakdown [MiB] | total   free     self   model   context   compute    unaccounted |

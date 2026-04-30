@@ -2346,7 +2346,10 @@ private:
                                 n_past = 0;
                             }
 
-                            llama_pos pos_next = slot.prompt.tokens.pos_next(n_past);
+                            // llama_pos pos_next = slot.prompt.tokens.pos_next(n_past);
+                            llama_pos pos_next = slot.prompt.tokens.pos_next(n_past_new);
+                            SLT_INF(slot, "BLUFFER pos_next = %d\n", pos_next);
+
 
                             // note: when n_swa == 0, the model does not use SWA
                             const auto n_swa = std::max(0, llama_model_n_swa(model));
