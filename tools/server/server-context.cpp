@@ -2291,8 +2291,9 @@ private:
                                 }
 
                                 // reuse chunks from the cached prompt by shifting their KV cache in the new position
-                                SLT_INF(slot, "BLUFFER attempting to reuse chunks with size > %d, n_past = %d\n", n_cache_reuse, n_past);
+                                SLT_INF(slot, "BLUFFER can_cache_reuse = %d, n_cache_reuse = %d\n", can_cache_reuse, n_cache_reuse);
                                 if (can_cache_reuse && n_cache_reuse > 0) {
+                                    SRV_INF("BLUFFER can_cache_reuse = true and n_cache_reuse > 0, n_cache_reuse = %d\n", n_cache_reuse);
                                     GGML_ASSERT(!slot.prompt.tokens.has_mtmd);
 
                                     size_t head_c = n_past; // cache
