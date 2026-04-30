@@ -2566,14 +2566,22 @@ private:
                     }
 
                     // add prompt tokens for processing in the current batch
-                    size_t pos_first_new_token = 0;
+                    size_t pos_first_new_token, pos_first_new_token_cache, diff = 0;
                     pos_first_new_token = slot.prompt.tokens.get_common_prefix_pos_in_new(input_tokens);
+                    pos_first_new_token_cache = slot.prompt.tokens.get_common_prefix_pos_in_cache(input_tokens);
+                    diff = pos_first_new_token_cache - pos_first_new_token;
                     SRV_INF("BLUFFER pos_first_new_token = %zu\n", pos_first_new_token);
-                    while (slot.prompt.n_tokens() < slot.task->n_tokens() && batch.n_tokens < n_batch) {
+                    SRV_INF("BLUFFER pos_first_new_token_cache = %zu\n", pos_first_new_token_cache);
+                    SRV_INF("BLUFFER diff = %zu\n", diff);
+                    SRV_INF("BLUFFER slot.prompt.tokens.size() = %zu\n", slot.prompt.tokens.size());
+                    SRV_INF("BLUFFER slot.prompt.n_tokens() = %zu\n", slot.prompt.n_tokens());
+                    SRV_INF("BLUFFER slot.task->n_tokens() = %zu\n", slot.task->n_tokens());
+                    while (slot.prompt.n_tokens() < slot.task->n_tokens() + (int)diff && batch.n_tokens < n_batch) {
                         // get next token to process
                         // llama_token cur_tok = input_tokens[slot.prompt.n_tokens()];
                         llama_token cur_tok = input_tokens[pos_first_new_token];
                         pos_first_new_token++;
+                        SRV_INF("BLUFFER next token position will be %zu\n", pos_first_new_token);
                         if (cur_tok == LLAMA_TOKEN_NULL) {
                             break; // end of text chunk
                         }
