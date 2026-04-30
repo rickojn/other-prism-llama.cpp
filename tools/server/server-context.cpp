@@ -2272,6 +2272,8 @@ private:
                                 n_past = slot.prompt.tokens.get_common_prefix_pos_in_cache(input_tokens);
                                 n_past_new = slot.prompt.tokens.get_common_prefix_pos_in_new(input_tokens);
 
+                                SLT_INF(slot, "BLUFFER common prefix with cached prompt: n_past = %d, n_past_new = %d\n", n_past, n_past_new);
+
                                 // if there is an alora invoked, don't cache after the invocation start
                                 if (slot.alora_invocation_start > 0) {
                                     SLT_DBG(slot, "only caching to alora invocation start (n_past = %d, alora_invocation_start = %d)\n", n_past, slot.alora_invocation_start);
@@ -2289,6 +2291,7 @@ private:
                                 }
 
                                 // reuse chunks from the cached prompt by shifting their KV cache in the new position
+                                SLT_INF(slot, "BLUFFER attempting to reuse chunks with size > %d, n_past = %d\n", n_cache_reuse, n_past);
                                 if (can_cache_reuse && n_cache_reuse > 0) {
                                     GGML_ASSERT(!slot.prompt.tokens.has_mtmd);
 
@@ -2311,6 +2314,7 @@ private:
                                                slot.prompt.tokens[head_c + n_match] == input_tokens[head_p + n_match]) {
                                             n_match++;
                                         }
+                                        SLT_INF(slot, "found matching chunk with size %zu at cache pos %zu and prompt pos %zu\n", n_match, head_c, head_p);
 
                                         if (n_match >= (size_t) n_cache_reuse) {
                                             SLT_INF(slot, "reusing chunk with size %zu, shifting KV cache [%zu, %zu) -> [%zu, %zu)\n", n_match, head_c, head_c + n_match, head_p, head_p + n_match);
@@ -2733,6 +2737,7 @@ private:
 
         int32_t i_next = 0;
 
+
         // process the created batch of tokens
         for (int32_t i = 0; i < batch.n_tokens; i = i_next) {
             const int32_t n_tokens = std::min(n_batch, batch.n_tokens - i);
@@ -2746,6 +2751,17 @@ private:
                 batch.seq_id   + i,
                 batch.logits   + i,
             };
+
+            // build string of detokenized batch tokens for logging
+
+            std::stringstream ss;
+            for (int j = 0; j < n_tokens; j++) {
+                const auto token = batch_view.token[j];
+                const auto piece = token != LLAMA_TOKEN_NULL ? common_token_to_piece(ctx, token) : "[mtmd]";
+                ss << piece << " ";
+            }
+            SRV_INF("BLUFFER decoding batch tokens: '%s'\n", ss.str().c_str());
+
 
             const int ret = llama_decode(ctx, batch_view);
 
