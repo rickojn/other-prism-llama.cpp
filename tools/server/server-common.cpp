@@ -455,7 +455,7 @@ size_t server_tokens::get_common_prefix_pos_in_cache(const server_tokens & b) co
     SRV_INF("size of tokens a: %zu, size of tokens b: %zu\n", tokens.size(), b.tokens.size());
 
     for (size_t i = 0; i < max_idx; ++i) {
-        SRV_INF("at index %zu, token a: %d, token b: %d\n", i, tokens[i], b.tokens[i]);
+        // SRV_INF("at index %zu, token a: %d, token b: %d\n", i, tokens[i], b.tokens[i]);
      
     }
 
