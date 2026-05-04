@@ -2271,8 +2271,9 @@ private:
 
                             if (slot.task->params.cache_prompt) {
                                 // reuse any previously computed tokens that are common with the new prompt
-                                n_past = slot.prompt.tokens.get_common_prefix_pos_in_cache(input_tokens);
-                                n_past_new = slot.prompt.tokens.get_common_prefix_pos_in_new(input_tokens);
+                                common_prefix_response tokens_common_prefix = slot.prompt.tokens.get_common_prefix_ignoring_thinking(input_tokens);
+                                n_past = tokens_common_prefix.cached_position;
+                                n_past_new = tokens_common_prefix.input_position;
 
                                 SLT_INF(slot, "BLUFFER common prefix with cached prompt: n_past = %d, n_past_new = %d\n", n_past, n_past_new);
 
