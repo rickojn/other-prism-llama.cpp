@@ -2039,7 +2039,8 @@ server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t 
 }
 
 bool server_prompt_cache::load(server_prompt & prompt, const server_tokens & tokens_new, llama_context * ctx, int32_t id_slot) {
-    const int lcp_best = prompt.tokens.get_common_prefix_pos_in_cache(tokens_new);
+    common_prefix_response res = prompt.tokens.get_common_prefix_ignoring_thinking(tokens_new);
+    const int lcp_best = res.cached_position;
 
     float f_keep_best = prompt.tokens.size() > 0 ? float(lcp_best) / prompt.tokens.size() : -1.0f; // empty slot: any cache entry wins
     float sim_best    = float(lcp_best) / tokens_new.size();
@@ -2050,7 +2051,8 @@ bool server_prompt_cache::load(server_prompt & prompt, const server_tokens & tok
 
     // find the most similar cached prompt, that would also preserve the most context
     for (auto it = states.begin(); it != states.end(); ++it) {
-        const int lcp_cur = it->tokens.get_common_prefix_pos_in_cache(tokens_new);
+        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(tokens_new);
+        const int lcp_cur = res.cached_position;
 
         const float f_keep_cur = float(lcp_cur) / it->tokens.size();
         const float sim_cur    = float(lcp_cur) / tokens_new.size();
