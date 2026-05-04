@@ -1988,7 +1988,8 @@ size_t server_prompt_cache::n_tokens() const {
 server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t state_size) {
     // first check if the current state is contained fully in the cache
     for (auto it = states.begin(); it != states.end(); ++it) {
-        const int cur_lcp_len = it->tokens.get_common_prefix_pos_in_cache(prompt.tokens);
+        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(prompt.tokens);
+        const int cur_lcp_len = res.cached_position;
 
         if (cur_lcp_len == (int) prompt.tokens.size()) {
             SRV_WRN("%s", " - prompt is already in the cache, skipping\n");
@@ -1998,7 +1999,8 @@ server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t 
 
     // next, remove any cached prompts that are fully contained in the current prompt
     for (auto it = states.begin(); it != states.end();) {
-        const int len = it->tokens.get_common_prefix_pos_in_cache(prompt.tokens);
+        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(prompt.tokens);
+        const int len = res.cached_position;
 
         if (len == (int) it->tokens.size()) {
             SRV_WRN(" - removing obsolete cached prompt with length %d\n", len);
