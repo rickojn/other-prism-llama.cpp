@@ -2570,8 +2570,9 @@ private:
 
                     // add prompt tokens for processing in the current batch
                     size_t pos_first_new_token, pos_first_new_token_cache, diff = 0;
-                    pos_first_new_token = slot.prompt.tokens.get_common_prefix_pos_in_new(input_tokens);
-                    pos_first_new_token_cache = slot.prompt.tokens.get_common_prefix_pos_in_cache(input_tokens);
+                    common_prefix_response tokens_common_prefix = slot.prompt.tokens.get_common_prefix_ignoring_thinking(input_tokens);
+                    pos_first_new_token = tokens_common_prefix.input_position;
+                    pos_first_new_token_cache = tokens_common_prefix.cached_position;
                     diff = pos_first_new_token_cache - pos_first_new_token;
                     SRV_INF("BLUFFER pos_first_new_token = %zu\n", pos_first_new_token);
                     SRV_INF("BLUFFER pos_first_new_token_cache = %zu\n", pos_first_new_token_cache);
