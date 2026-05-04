@@ -117,6 +117,13 @@ bool are_lora_equal(
 // get the ids of all enabled loras
 std::vector<size_t> lora_get_enabled_ids(const std::vector<common_adapter_lora_info> & loras);
 
+struct common_prefix_response{
+    size_t cached_position;
+    size_t input_position;
+};
+
+
+
 //
 // server_tokens
 //
@@ -207,6 +214,8 @@ public:
     void keep_first(size_t n);
 
     std::string detokenize(const llama_context * ctx, bool special) const;
+
+    common_prefix_response get_common_prefix_ignoring_thinking(const server_tokens &b) const;
 
     size_t get_common_prefix_pos_in_cache(const server_tokens & b) const;
 

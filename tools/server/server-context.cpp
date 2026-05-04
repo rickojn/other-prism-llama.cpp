@@ -984,7 +984,9 @@ private:
                 }
 
                 // fraction of the Longest Common Prefix length with respect to the input prompt length
-                const float sim_cur = float(tokens.get_common_prefix_pos_in_cache(task.tokens)) / task.tokens.size();
+                common_prefix_response tokens_common_prefix = tokens.get_common_prefix_ignoring_thinking(task.tokens);
+
+                const float sim_cur = float(tokens_common_prefix.cached_position) / task.tokens.size();
 
                 // select the current slot if the criteria match
                 if (sim_cur > sim_best && sim_cur > slot_prompt_similarity) {
@@ -2349,7 +2351,7 @@ private:
 
                             // llama_pos pos_next = slot.prompt.tokens.pos_next(n_past);
                             llama_pos pos_next = slot.prompt.tokens.pos_next(n_past_new);
-                            SLT_INF(slot, "BLUFFER pos_next = %d\n", pos_next);
+                            // SLT_INF(slot, "BLUFFER pos_next = %d\n", pos_next);
 
 
                             // note: when n_swa == 0, the model does not use SWA
