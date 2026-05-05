@@ -1,5 +1,5 @@
 main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
-build_info: b8859-1fa989c40
+build_info: b8866-c9e55ab79
 system_info: n_threads = 4 (n_threads_batch = 4) / 8 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
 init: using 8 threads for HTTP server
 start: binding port with default address family
@@ -9,7 +9,7 @@ common_init_result: fitting params to device memory, for bugs during this step t
 llama_params_fit_impl: projected to use 10627 MiB of host memory vs. 15851 MiB of total host memory
 llama_params_fit_impl: will leave 5223 >= 1024 MiB of system memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.48 seconds
+llama_params_fit: fitting params to free memory took 0.49 seconds
 llama_model_loader: loaded meta data with 32 key-value pairs and 399 tensors from ./models/Bonsai-8B-Q1_0.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
 llama_model_loader: - kv   0:                       general.architecture str              = qwen3
@@ -154,7 +154,7 @@ sched_reserve: fused Gated Delta Net (chunked) enabled
 sched_reserve:        CPU compute buffer size =   312.23 MiB
 sched_reserve: graph nodes  = 1267
 sched_reserve: graph splits = 1
-sched_reserve: reserve took 4.66 ms, sched copies = 1
+sched_reserve: reserve took 4.99 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -195,24 +195,22 @@ srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
 slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
 srv  get_availabl: updating prompt cache
-srv  get_common_p: size of tokens a: 0, size of tokens b: 16
+srv  get_common_p: size of tokens a: 0, size of tokens b: 20
 srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
 srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 65536 tokens, 8589934592 est)
 srv  get_availabl: prompt cache update took 0.01 ms
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
 slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
-slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 16
-srv  get_common_p: size of tokens a: 0, size of tokens b: 16
-srv  get_common_p: size of tokens a: 0, size of tokens b: 16
+slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 20
+srv  get_common_p: size of tokens a: 0, size of tokens b: 20
 slot update_slots: id  3 | task 0 | BLUFFER common prefix with cached prompt: n_past = 0, n_past_new = 0
 slot update_slots: id  3 | task 0 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 0 | BLUFFER pos_next = 0
 slot update_slots: id  3 | task 0 | keeping n_past = 0 tokens in the cache
 slot update_slots: id  3 | task 0 | BLUFF: detokenised prompt tokens:
  
 slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
  <|im_start|>user
-5 words on water<|im_end|>
+200 words on rowan trees<|im_end|>
 <|im_start|>assistant
 <think>
 
@@ -221,14 +219,13 @@ slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
 
 slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 0, size of tokens b: 16
-srv  get_common_p: size of tokens a: 0, size of tokens b: 16
+srv  get_common_p: size of tokens a: 0, size of tokens b: 20
 srv  update_slots: BLUFFER pos_first_new_token = 0
 srv  update_slots: BLUFFER pos_first_new_token_cache = 0
 srv  update_slots: BLUFFER diff = 0
 srv  update_slots: BLUFFER slot.prompt.tokens.size() = 0
 srv  update_slots: BLUFFER slot.prompt.n_tokens() = 0
-srv  update_slots: BLUFFER slot.task->n_tokens() = 16
+srv  update_slots: BLUFFER slot.task->n_tokens() = 20
 srv  update_slots: BLUFFER next token position will be 1
 srv  update_slots: BLUFFER next token position will be 2
 srv  update_slots: BLUFFER next token position will be 3
@@ -245,240 +242,454 @@ srv  update_slots: BLUFFER next token position will be 13
 srv  update_slots: BLUFFER next token position will be 14
 srv  update_slots: BLUFFER next token position will be 15
 srv  update_slots: BLUFFER next token position will be 16
-slot init_sampler: id  3 | task 0 | init sampler, took 0.01 ms, tokens: text = 16, total = 16
-slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 16, batch.n_tokens = 16
+srv  update_slots: BLUFFER next token position will be 17
+srv  update_slots: BLUFFER next token position will be 18
+srv  update_slots: BLUFFER next token position will be 19
+srv  update_slots: BLUFFER next token position will be 20
+slot init_sampler: id  3 | task 0 | init sampler, took 0.01 ms, tokens: text = 20, total = 20
+slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 20, batch.n_tokens = 20
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_start|> user 
- 5  words  on  water <|im_end|> 
+ 2 0 0  words  on  row an  trees <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
  </think> 
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'Life '
+srv  update_slots: BLUFFER decoding batch tokens: 'Row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' purity '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' known '
+srv  update_slots: BLUFFER decoding batch tokens: ' as '
+srv  update_slots: BLUFFER decoding batch tokens: ' Sor '
+srv  update_slots: BLUFFER decoding batch tokens: 'bus '
+srv  update_slots: BLUFFER decoding batch tokens: ' auc '
+srv  update_slots: BLUFFER decoding batch tokens: 'up '
+srv  update_slots: BLUFFER decoding batch tokens: 'aria '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' fluid '
-srv  update_slots: BLUFFER decoding batch tokens: 'ity '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' small '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' medium '
+srv  update_slots: BLUFFER decoding batch tokens: '-sized '
+srv  update_slots: BLUFFER decoding batch tokens: ' decid '
+srv  update_slots: BLUFFER decoding batch tokens: 'uous '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: ' native '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' Europe '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' reflection '
+srv  update_slots: BLUFFER decoding batch tokens: ' Asia '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' sust '
-srv  update_slots: BLUFFER decoding batch tokens: 'enance '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' North '
+srv  update_slots: BLUFFER decoding batch tokens: ' Africa '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' commonly '
+srv  update_slots: BLUFFER decoding batch tokens: ' found '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' wood '
+srv  update_slots: BLUFFER decoding batch tokens: 'lands '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' hed '
+srv  update_slots: BLUFFER decoding batch tokens: 'ger '
+srv  update_slots: BLUFFER decoding batch tokens: 'ows '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' along '
+srv  update_slots: BLUFFER decoding batch tokens: ' river '
+srv  update_slots: BLUFFER decoding batch tokens: 'banks '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' These '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' known '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' clusters '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' white '
+srv  update_slots: BLUFFER decoding batch tokens: ' flowers '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' spring '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' which '
+srv  update_slots: BLUFFER decoding batch tokens: ' attract '
+srv  update_slots: BLUFFER decoding batch tokens: ' poll '
+srv  update_slots: BLUFFER decoding batch tokens: 'in '
+srv  update_slots: BLUFFER decoding batch tokens: 'ators '
+srv  update_slots: BLUFFER decoding batch tokens: ' like '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' butterflies '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' In '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' fall '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' produce '
+srv  update_slots: BLUFFER decoding batch tokens: ' small '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' red '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' favorite '
+srv  update_slots: BLUFFER decoding batch tokens: ' food '
+srv  update_slots: BLUFFER decoding batch tokens: ' source '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' birds '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' particularly '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' great '
+srv  update_slots: BLUFFER decoding batch tokens: ' tit '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' blue '
+srv  update_slots: BLUFFER decoding batch tokens: ' tit '
+srv  update_slots: BLUFFER decoding batch tokens: '.
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' hard '
+srv  update_slots: BLUFFER decoding batch tokens: 'y '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' thrive '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' variety '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' conditions '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' poor '
+srv  update_slots: BLUFFER decoding batch tokens: ' soil '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' urban '
+srv  update_slots: BLUFFER decoding batch tokens: ' environments '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' often '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' as '
+srv  update_slots: BLUFFER decoding batch tokens: ' orn '
+srv  update_slots: BLUFFER decoding batch tokens: 'amental '
+srv  update_slots: BLUFFER decoding batch tokens: ' plants '
+srv  update_slots: BLUFFER decoding batch tokens: ' due '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' attractive '
+srv  update_slots: BLUFFER decoding batch tokens: ' foliage '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' The '
+srv  update_slots: BLUFFER decoding batch tokens: ' leaves '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' tree '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' typically '
+srv  update_slots: BLUFFER decoding batch tokens: ' oval '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' lance '
+srv  update_slots: BLUFFER decoding batch tokens: '-shaped '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' with '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' w '
+srv  update_slots: BLUFFER decoding batch tokens: 'axy '
+srv  update_slots: BLUFFER decoding batch tokens: ' texture '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' slight '
+srv  update_slots: BLUFFER decoding batch tokens: ' scent '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' The '
+srv  update_slots: BLUFFER decoding batch tokens: ' tree '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' fruit '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' edible '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' has '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' tang '
+srv  update_slots: BLUFFER decoding batch tokens: 'y '
+srv  update_slots: BLUFFER decoding batch tokens: ' flavor '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' making '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' useful '
+srv  update_slots: BLUFFER decoding batch tokens: ' plant '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' gardens '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' wildlife '
+srv  update_slots: BLUFFER decoding batch tokens: '.
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'One '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' most '
+srv  update_slots: BLUFFER decoding batch tokens: ' notable '
+srv  update_slots: BLUFFER decoding batch tokens: ' features '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' tree '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' its '
+srv  update_slots: BLUFFER decoding batch tokens: ' historical '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' cultural '
+srv  update_slots: BLUFFER decoding batch tokens: ' significance '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' In '
+srv  update_slots: BLUFFER decoding batch tokens: ' European '
+srv  update_slots: BLUFFER decoding batch tokens: ' folklore '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ' has '
+srv  update_slots: BLUFFER decoding batch tokens: ' been '
+srv  update_slots: BLUFFER decoding batch tokens: ' associated '
+srv  update_slots: BLUFFER decoding batch tokens: ' with '
+srv  update_slots: BLUFFER decoding batch tokens: ' luck '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' protection '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' even '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' supernatural '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' It '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' historically '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' its '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' which '
+srv  update_slots: BLUFFER decoding batch tokens: ' were '
+srv  update_slots: BLUFFER decoding batch tokens: ' considered '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' nutritious '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' medicinal '
+srv  update_slots: BLUFFER decoding batch tokens: ' food '
+srv  update_slots: BLUFFER decoding batch tokens: '.
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'In '
+srv  update_slots: BLUFFER decoding batch tokens: ' modern '
+srv  update_slots: BLUFFER decoding batch tokens: ' times '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' valued '
+srv  update_slots: BLUFFER decoding batch tokens: ' not '
+srv  update_slots: BLUFFER decoding batch tokens: ' only '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' beauty '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' utility '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' role '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' biodiversity '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' ecological '
+srv  update_slots: BLUFFER decoding batch tokens: ' balance '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' provide '
+srv  update_slots: BLUFFER decoding batch tokens: ' habitat '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' birds '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' small '
+srv  update_slots: BLUFFER decoding batch tokens: ' mammals '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' contribute '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' food '
+srv  update_slots: BLUFFER decoding batch tokens: ' chain '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Despite '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' usefulness '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' sometimes '
+srv  update_slots: BLUFFER decoding batch tokens: ' considered '
+srv  update_slots: BLUFFER decoding batch tokens: ' invasive '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' certain '
+srv  update_slots: BLUFFER decoding batch tokens: ' regions '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' important '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' manage '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' right '
+srv  update_slots: BLUFFER decoding batch tokens: ' environments '
+srv  update_slots: BLUFFER decoding batch tokens: '.
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Whether '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' beauty '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' fruit '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' cultural '
+srv  update_slots: BLUFFER decoding batch tokens: ' importance '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: ' remain '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' valuable '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' interesting '
+srv  update_slots: BLUFFER decoding batch tokens: ' addition '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' many '
+srv  update_slots: BLUFFER decoding batch tokens: ' landscapes '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
 slot print_timing: id  3 | task 0 | 
-prompt eval time =    1305.94 ms /    16 tokens (   81.62 ms per token,    12.25 tokens per second)
-       eval time =    1214.86 ms /    13 tokens (   93.45 ms per token,    10.70 tokens per second)
-      total time =    2520.80 ms /    29 tokens
-slot      release: id  3 | task 0 | stop processing: n_tokens = 28, truncated = 0
+prompt eval time =    1965.46 ms /    20 tokens (   98.27 ms per token,    10.18 tokens per second)
+       eval time =   45369.09 ms /   338 tokens (  134.23 ms per token,     7.45 tokens per second)
+      total time =   47334.55 ms /   358 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 357, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 28, size of tokens b: 42
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.667 (> 0.100 thold), f_keep = 1.000
+srv  get_common_p: size of tokens a: 357, size of tokens b: 375
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.952 (> 0.100 thold), f_keep = 1.000
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 14 | processing task, is_child = 0
-slot update_slots: id  3 | task 14 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 42
-srv  get_common_p: size of tokens a: 28, size of tokens b: 42
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: size of tokens a: 28, size of tokens b: 42
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-slot update_slots: id  3 | task 14 | BLUFFER common prefix with cached prompt: n_past = 28, n_past_new = 24
-slot update_slots: id  3 | task 14 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 14 | BLUFFER pos_next = 24
-slot update_slots: id  3 | task 14 | keeping n_past = 28 tokens in the cache
-slot update_slots: id  3 | task 14 | BLUFF: detokenised prompt tokens:
+slot launch_slot_: id  3 | task 339 | processing task, is_child = 0
+slot update_slots: id  3 | task 339 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 375
+srv  get_common_p: size of tokens a: 357, size of tokens b: 375
+slot update_slots: id  3 | task 339 | BLUFFER common prefix with cached prompt: n_past = 357, n_past_new = 353
+slot update_slots: id  3 | task 339 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 339 | keeping n_past = 357 tokens in the cache
+slot update_slots: id  3 | task 339 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
-5 words on water<|im_end|>
+200 words on rowan trees<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
-Life, purity, fluidity, reflection, sustenance.
-slot update_slots: id  3 | task 14 | BLUFF: detokensed task tokens:
+Rowan trees, also known as Sorbus aucuparia, are small to medium-sized deciduous trees native to Europe, Asia, and North Africa. They are commonly found in woodlands, hedgerows, and along riverbanks. These trees are known for their clusters of white flowers in the spring, which attract pollinators like bees and butterflies. In the fall, they produce small, red berries that are a favorite food source for birds, particularly the great tit and the blue tit.
+
+Rowan trees are hardy and can thrive in a variety of conditions, including poor soil and urban environments. They are often used as ornamental plants due to their attractive foliage and berries. The leaves of the rowan tree are typically oval or lance-shaped, with a waxy texture and a slight scent. The tree's fruit is edible and has a tangy flavor, making it a useful plant in gardens and for wildlife.
+
+One of the most notable features of the rowan tree is its historical and cultural significance. In European folklore, it has been associated with luck, protection, and even the supernatural. It was also historically used for its berries, which were considered a nutritious and medicinal food.
+
+In modern times, rowan trees are valued not only for their beauty and utility but also for their role in biodiversity and ecological balance. They provide habitat for birds and small mammals, and their berries contribute to the food chain. Despite their usefulness, rowan trees are sometimes considered invasive in certain regions, so they are important to manage in the right environments.
+
+Whether for their beauty, their fruit, or their cultural importance, rowan trees remain a valuable and interesting addition to many landscapes.
+slot update_slots: id  3 | task 339 | BLUFF: detokensed task tokens:
  <|im_start|>user
-5 words on water<|im_end|>
+200 words on rowan trees<|im_end|>
 <|im_start|>assistant
-Life, purity, fluidity, reflection, sustenance.<|im_end|>
+Rowan trees, also known as Sorbus aucuparia, are small to medium-sized deciduous trees native to Europe, Asia, and North Africa. They are commonly found in woodlands, hedgerows, and along riverbanks. These trees are known for their clusters of white flowers in the spring, which attract pollinators like bees and butterflies. In the fall, they produce small, red berries that are a favorite food source for birds, particularly the great tit and the blue tit.
+
+Rowan trees are hardy and can thrive in a variety of conditions, including poor soil and urban environments. They are often used as ornamental plants due to their attractive foliage and berries. The leaves of the rowan tree are typically oval or lance-shaped, with a waxy texture and a slight scent. The tree's fruit is edible and has a tangy flavor, making it a useful plant in gardens and for wildlife.
+
+One of the most notable features of the rowan tree is its historical and cultural significance. In European folklore, it has been associated with luck, protection, and even the supernatural. It was also historically used for its berries, which were considered a nutritious and medicinal food.
+
+In modern times, rowan trees are valued not only for their beauty and utility but also for their role in biodiversity and ecological balance. They provide habitat for birds and small mammals, and their berries contribute to the food chain. Despite their usefulness, rowan trees are sometimes considered invasive in certain regions, so they are important to manage in the right environments.
+
+Whether for their beauty, their fruit, or their cultural importance, rowan trees remain a valuable and interesting addition to many landscapes.<|im_end|>
 <|im_start|>user
-5 words on war<|im_end|>
+200 words on rowan berries<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
 
-slot update_slots: id  3 | task 14 | n_tokens = 28, memory_seq_rm [28, end)
-srv  get_common_p: size of tokens a: 28, size of tokens b: 42
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: size of tokens a: 28, size of tokens b: 42
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  update_slots: BLUFFER pos_first_new_token = 24
-srv  update_slots: BLUFFER pos_first_new_token_cache = 28
+slot update_slots: id  3 | task 339 | n_tokens = 357, memory_seq_rm [357, end)
+srv  get_common_p: size of tokens a: 357, size of tokens b: 375
+srv  update_slots: BLUFFER pos_first_new_token = 353
+srv  update_slots: BLUFFER pos_first_new_token_cache = 357
 srv  update_slots: BLUFFER diff = 4
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 28
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 28
-srv  update_slots: BLUFFER slot.task->n_tokens() = 42
-srv  update_slots: BLUFFER next token position will be 25
-srv  update_slots: BLUFFER next token position will be 26
-srv  update_slots: BLUFFER next token position will be 27
-srv  update_slots: BLUFFER next token position will be 28
-srv  update_slots: BLUFFER next token position will be 29
-srv  update_slots: BLUFFER next token position will be 30
-srv  update_slots: BLUFFER next token position will be 31
-srv  update_slots: BLUFFER next token position will be 32
-srv  update_slots: BLUFFER next token position will be 33
-srv  update_slots: BLUFFER next token position will be 34
-srv  update_slots: BLUFFER next token position will be 35
-srv  update_slots: BLUFFER next token position will be 36
-srv  update_slots: BLUFFER next token position will be 37
-srv  update_slots: BLUFFER next token position will be 38
-srv  update_slots: BLUFFER next token position will be 39
-srv  update_slots: BLUFFER next token position will be 40
-srv  update_slots: BLUFFER next token position will be 41
-srv  update_slots: BLUFFER next token position will be 42
-slot init_sampler: id  3 | task 14 | init sampler, took 0.01 ms, tokens: text = 46, total = 46
-slot update_slots: id  3 | task 14 | prompt processing done, n_tokens = 46, batch.n_tokens = 18
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 357
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 357
+srv  update_slots: BLUFFER slot.task->n_tokens() = 375
+srv  update_slots: BLUFFER next token position will be 354
+srv  update_slots: BLUFFER next token position will be 355
+srv  update_slots: BLUFFER next token position will be 356
+srv  update_slots: BLUFFER next token position will be 357
+srv  update_slots: BLUFFER next token position will be 358
+srv  update_slots: BLUFFER next token position will be 359
+srv  update_slots: BLUFFER next token position will be 360
+srv  update_slots: BLUFFER next token position will be 361
+srv  update_slots: BLUFFER next token position will be 362
+srv  update_slots: BLUFFER next token position will be 363
+srv  update_slots: BLUFFER next token position will be 364
+srv  update_slots: BLUFFER next token position will be 365
+srv  update_slots: BLUFFER next token position will be 366
+srv  update_slots: BLUFFER next token position will be 367
+srv  update_slots: BLUFFER next token position will be 368
+srv  update_slots: BLUFFER next token position will be 369
+srv  update_slots: BLUFFER next token position will be 370
+srv  update_slots: BLUFFER next token position will be 371
+srv  update_slots: BLUFFER next token position will be 372
+srv  update_slots: BLUFFER next token position will be 373
+srv  update_slots: BLUFFER next token position will be 374
+srv  update_slots: BLUFFER next token position will be 375
+slot init_sampler: id  3 | task 339 | init sampler, took 0.08 ms, tokens: text = 379, total = 379
+slot update_slots: id  3 | task 339 | prompt processing done, n_tokens = 379, batch.n_tokens = 22
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
  <|im_start|> user 
- 5  words  on  war <|im_end|> 
+ 2 0 0  words  on  row an  berries <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
@@ -486,948 +697,331 @@ srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|>
 
  '
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  update_slots: BLUFFER decoding batch tokens: 'Conflict '
+srv  update_slots: BLUFFER decoding batch tokens: 'Row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' destruction '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' sor '
+srv  update_slots: BLUFFER decoding batch tokens: 'bus '
+srv  update_slots: BLUFFER decoding batch tokens: ' auc '
+srv  update_slots: BLUFFER decoding batch tokens: 'up '
+srv  update_slots: BLUFFER decoding batch tokens: 'aria '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' sacrifice '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' small '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' power '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' memory '
+srv  update_slots: BLUFFER decoding batch tokens: ' red '
+srv  update_slots: BLUFFER decoding batch tokens: ' fruits '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ' grow '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' clusters '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 14 | 
-prompt eval time =    1454.43 ms /    18 tokens (   80.80 ms per token,    12.38 tokens per second)
-       eval time =    1003.52 ms /    11 tokens (   91.23 ms per token,    10.96 tokens per second)
-      total time =    2457.96 ms /    29 tokens
-slot      release: id  3 | task 14 | stop processing: n_tokens = 56, truncated = 0
-srv  update_slots: all slots are idle
-srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 56, size of tokens b: 66
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.848 (> 0.100 thold), f_keep = 1.000
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 26 | processing task, is_child = 0
-slot update_slots: id  3 | task 26 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 66
-srv  get_common_p: size of tokens a: 56, size of tokens b: 66
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  get_common_p: size of tokens a: 56, size of tokens b: 66
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-slot update_slots: id  3 | task 26 | BLUFFER common prefix with cached prompt: n_past = 56, n_past_new = 48
-slot update_slots: id  3 | task 26 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 26 | BLUFFER pos_next = 48
-slot update_slots: id  3 | task 26 | keeping n_past = 56 tokens in the cache
-slot update_slots: id  3 | task 26 | BLUFF: detokenised prompt tokens:
- <|im_start|>user
-5 words on water<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-Life, purity, fluidity, reflection, sustenance.<|im_end|>
-<|im_start|>user
-5 words on war<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-Conflict, destruction, sacrifice, power, memory.
-slot update_slots: id  3 | task 26 | BLUFF: detokensed task tokens:
- <|im_start|>user
-5 words on water<|im_end|>
-<|im_start|>assistant
-Life, purity, fluidity, reflection, sustenance.<|im_end|>
-<|im_start|>user
-5 words on war<|im_end|>
-<|im_start|>assistant
-Conflict, destruction, sacrifice, power, memory.<|im_end|>
-<|im_start|>user
-5 words on wheat<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-
-slot update_slots: id  3 | task 26 | n_tokens = 56, memory_seq_rm [56, end)
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 56, size of tokens b: 66
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  get_common_p: size of tokens a: 56, size of tokens b: 66
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  update_slots: BLUFFER pos_first_new_token = 48
-srv  update_slots: BLUFFER pos_first_new_token_cache = 56
-srv  update_slots: BLUFFER diff = 8
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 56
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 56
-srv  update_slots: BLUFFER slot.task->n_tokens() = 66
-srv  update_slots: BLUFFER next token position will be 49
-srv  update_slots: BLUFFER next token position will be 50
-srv  update_slots: BLUFFER next token position will be 51
-srv  update_slots: BLUFFER next token position will be 52
-srv  update_slots: BLUFFER next token position will be 53
-srv  update_slots: BLUFFER next token position will be 54
-srv  update_slots: BLUFFER next token position will be 55
-srv  update_slots: BLUFFER next token position will be 56
-srv  update_slots: BLUFFER next token position will be 57
-srv  update_slots: BLUFFER next token position will be 58
-srv  update_slots: BLUFFER next token position will be 59
-srv  update_slots: BLUFFER next token position will be 60
-srv  update_slots: BLUFFER next token position will be 61
-srv  update_slots: BLUFFER next token position will be 62
-srv  update_slots: BLUFFER next token position will be 63
-srv  update_slots: BLUFFER next token position will be 64
-srv  update_slots: BLUFFER next token position will be 65
-srv  update_slots: BLUFFER next token position will be 66
-slot init_sampler: id  3 | task 26 | init sampler, took 0.02 ms, tokens: text = 74, total = 74
-slot update_slots: id  3 | task 26 | prompt processing done, n_tokens = 74, batch.n_tokens = 18
-srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
- <|im_start|> user 
- 5  words  on  wheat <|im_end|> 
- <|im_start|> assistant 
- <think> 
-
- </think> 
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' typically '
+srv  update_slots: BLUFFER decoding batch tokens: ' harvested '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' fall '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' when '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' turn '
+srv  update_slots: BLUFFER decoding batch tokens: ' from '
+srv  update_slots: BLUFFER decoding batch tokens: ' green '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' red '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' often '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' culinary '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' medicinal '
+srv  update_slots: BLUFFER decoding batch tokens: ' applications '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' The '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' tang '
+srv  update_slots: BLUFFER decoding batch tokens: 'y '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' slightly '
+srv  update_slots: BLUFFER decoding batch tokens: ' tart '
+srv  update_slots: BLUFFER decoding batch tokens: ' flavor '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' firm '
+srv  update_slots: BLUFFER decoding batch tokens: ' texture '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' making '
+srv  update_slots: BLUFFER decoding batch tokens: ' them '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' popular '
+srv  update_slots: BLUFFER decoding batch tokens: ' choice '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' jams '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' pies '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' other '
+srv  update_slots: BLUFFER decoding batch tokens: ' preserves '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' herbal '
+srv  update_slots: BLUFFER decoding batch tokens: ' medicine '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' potential '
+srv  update_slots: BLUFFER decoding batch tokens: ' health '
+srv  update_slots: BLUFFER decoding batch tokens: ' benefits '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' ant '
+srv  update_slots: BLUFFER decoding batch tokens: 'ise '
+srv  update_slots: BLUFFER decoding batch tokens: 'ptic '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' anti '
+srv  update_slots: BLUFFER decoding batch tokens: '-inflammatory '
+srv  update_slots: BLUFFER decoding batch tokens: ' properties '
+srv  update_slots: BLUFFER decoding batch tokens: '.
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'B '
-srv  update_slots: BLUFFER decoding batch tokens: 'read '
+srv  update_slots: BLUFFER decoding batch tokens: 'The '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' berry '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' crucial '
+srv  update_slots: BLUFFER decoding batch tokens: ' food '
+srv  update_slots: BLUFFER decoding batch tokens: ' source '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' birds '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' harvest '
+srv  update_slots: BLUFFER decoding batch tokens: ' especially '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' great '
+srv  update_slots: BLUFFER decoding batch tokens: ' tit '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' blue '
+srv  update_slots: BLUFFER decoding batch tokens: ' tit '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' grain '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' crop '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' sust '
-srv  update_slots: BLUFFER decoding batch tokens: 'enance '
+srv  update_slots: BLUFFER decoding batch tokens: ' which '
+srv  update_slots: BLUFFER decoding batch tokens: ' rely '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' them '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' nutrition '
+srv  update_slots: BLUFFER decoding batch tokens: ' during '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' winter '
+srv  update_slots: BLUFFER decoding batch tokens: ' months '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 26 | 
-prompt eval time =    1456.98 ms /    18 tokens (   80.94 ms per token,    12.35 tokens per second)
-       eval time =    1248.00 ms /    13 tokens (   96.00 ms per token,    10.42 tokens per second)
-      total time =    2704.98 ms /    31 tokens
-slot      release: id  3 | task 26 | stop processing: n_tokens = 86, truncated = 0
-srv  update_slots: all slots are idle
-srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 86, size of tokens b: 92
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  get_common_p: at index 56, token a: 151645, token b: 33053
-srv  get_common_p: at index 57, token a: 198, token b: 151645
-srv  get_common_p: at index 58, token a: 151644, token b: 198
-srv  get_common_p: at index 59, token a: 872, token b: 151644
-srv  get_common_p: at index 60, token a: 198, token b: 77091
-srv  get_common_p: at index 61, token a: 20, token b: 198
-srv  get_common_p: at index 62, token a: 4244, token b: 33
-srv  get_common_p: at index 63, token a: 389, token b: 878
-srv  get_common_p: at index 64, token a: 33053, token b: 11
-srv  get_common_p: at index 65, token a: 151645, token b: 23429
-srv  get_common_p: at index 66, token a: 198, token b: 11
-srv  get_common_p: at index 67, token a: 151644, token b: 23925
-srv  get_common_p: at index 68, token a: 77091, token b: 11
-srv  get_common_p: at index 69, token a: 198, token b: 19097
-srv  get_common_p: at index 70, token a: 151667, token b: 11
-srv  get_common_p: at index 71, token a: 271, token b: 10235
-srv  get_common_p: at index 72, token a: 151668, token b: 10220
-srv  get_common_p: at index 73, token a: 271, token b: 13
-srv  get_common_p: at index 74, token a: 33, token b: 151645
-srv  get_common_p: at index 75, token a: 878, token b: 198
-srv  get_common_p: at index 76, token a: 11, token b: 151644
-srv  get_common_p: at index 77, token a: 23429, token b: 872
-srv  get_common_p: at index 78, token a: 11, token b: 198
-srv  get_common_p: at index 79, token a: 23925, token b: 20
-srv  get_common_p: at index 80, token a: 11, token b: 4244
-srv  get_common_p: at index 81, token a: 19097, token b: 389
-srv  get_common_p: at index 82, token a: 11, token b: 69105
-srv  get_common_p: at index 83, token a: 10235, token b: 151645
-srv  get_common_p: at index 84, token a: 10220, token b: 198
-srv  get_common_p: at index 85, token a: 13, token b: 151644
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.935 (> 0.100 thold), f_keep = 1.000
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 40 | processing task, is_child = 0
-slot update_slots: id  3 | task 40 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 92
-srv  get_common_p: size of tokens a: 86, size of tokens b: 92
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  get_common_p: at index 56, token a: 151645, token b: 33053
-srv  get_common_p: at index 57, token a: 198, token b: 151645
-srv  get_common_p: at index 58, token a: 151644, token b: 198
-srv  get_common_p: at index 59, token a: 872, token b: 151644
-srv  get_common_p: at index 60, token a: 198, token b: 77091
-srv  get_common_p: at index 61, token a: 20, token b: 198
-srv  get_common_p: at index 62, token a: 4244, token b: 33
-srv  get_common_p: at index 63, token a: 389, token b: 878
-srv  get_common_p: at index 64, token a: 33053, token b: 11
-srv  get_common_p: at index 65, token a: 151645, token b: 23429
-srv  get_common_p: at index 66, token a: 198, token b: 11
-srv  get_common_p: at index 67, token a: 151644, token b: 23925
-srv  get_common_p: at index 68, token a: 77091, token b: 11
-srv  get_common_p: at index 69, token a: 198, token b: 19097
-srv  get_common_p: at index 70, token a: 151667, token b: 11
-srv  get_common_p: at index 71, token a: 271, token b: 10235
-srv  get_common_p: at index 72, token a: 151668, token b: 10220
-srv  get_common_p: at index 73, token a: 271, token b: 13
-srv  get_common_p: at index 74, token a: 33, token b: 151645
-srv  get_common_p: at index 75, token a: 878, token b: 198
-srv  get_common_p: at index 76, token a: 11, token b: 151644
-srv  get_common_p: at index 77, token a: 23429, token b: 872
-srv  get_common_p: at index 78, token a: 11, token b: 198
-srv  get_common_p: at index 79, token a: 23925, token b: 20
-srv  get_common_p: at index 80, token a: 11, token b: 4244
-srv  get_common_p: at index 81, token a: 19097, token b: 389
-srv  get_common_p: at index 82, token a: 11, token b: 69105
-srv  get_common_p: at index 83, token a: 10235, token b: 151645
-srv  get_common_p: at index 84, token a: 10220, token b: 198
-srv  get_common_p: at index 85, token a: 13, token b: 151644
-srv  get_common_p: size of tokens a: 86, size of tokens b: 92
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  get_common_p: at index 56, token a: 151645, token b: 33053
-srv  get_common_p: at index 57, token a: 198, token b: 151645
-srv  get_common_p: at index 58, token a: 151644, token b: 198
-srv  get_common_p: at index 59, token a: 872, token b: 151644
-srv  get_common_p: at index 60, token a: 198, token b: 77091
-srv  get_common_p: at index 61, token a: 20, token b: 198
-srv  get_common_p: at index 62, token a: 4244, token b: 33
-srv  get_common_p: at index 63, token a: 389, token b: 878
-srv  get_common_p: at index 64, token a: 33053, token b: 11
-srv  get_common_p: at index 65, token a: 151645, token b: 23429
-srv  get_common_p: at index 66, token a: 198, token b: 11
-srv  get_common_p: at index 67, token a: 151644, token b: 23925
-srv  get_common_p: at index 68, token a: 77091, token b: 11
-srv  get_common_p: at index 69, token a: 198, token b: 19097
-srv  get_common_p: at index 70, token a: 151667, token b: 11
-srv  get_common_p: at index 71, token a: 271, token b: 10235
-srv  get_common_p: at index 72, token a: 151668, token b: 10220
-srv  get_common_p: at index 73, token a: 271, token b: 13
-srv  get_common_p: at index 74, token a: 33, token b: 151645
-srv  get_common_p: at index 75, token a: 878, token b: 198
-srv  get_common_p: at index 76, token a: 11, token b: 151644
-srv  get_common_p: at index 77, token a: 23429, token b: 872
-srv  get_common_p: at index 78, token a: 11, token b: 198
-srv  get_common_p: at index 79, token a: 23925, token b: 20
-srv  get_common_p: at index 80, token a: 11, token b: 4244
-srv  get_common_p: at index 81, token a: 19097, token b: 389
-srv  get_common_p: at index 82, token a: 11, token b: 69105
-srv  get_common_p: at index 83, token a: 10235, token b: 151645
-srv  get_common_p: at index 84, token a: 10220, token b: 198
-srv  get_common_p: at index 85, token a: 13, token b: 151644
-slot update_slots: id  3 | task 40 | BLUFFER common prefix with cached prompt: n_past = 86, n_past_new = 74
-slot update_slots: id  3 | task 40 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 40 | BLUFFER pos_next = 74
-slot update_slots: id  3 | task 40 | keeping n_past = 86 tokens in the cache
-slot update_slots: id  3 | task 40 | BLUFF: detokenised prompt tokens:
- <|im_start|>user
-5 words on water<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-Life, purity, fluidity, reflection, sustenance.<|im_end|>
-<|im_start|>user
-5 words on war<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-Conflict, destruction, sacrifice, power, memory.<|im_end|>
-<|im_start|>user
-5 words on wheat<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-Bread, harvest, grain, crop, sustenance.
-slot update_slots: id  3 | task 40 | BLUFF: detokensed task tokens:
- <|im_start|>user
-5 words on water<|im_end|>
-<|im_start|>assistant
-Life, purity, fluidity, reflection, sustenance.<|im_end|>
-<|im_start|>user
-5 words on war<|im_end|>
-<|im_start|>assistant
-Conflict, destruction, sacrifice, power, memory.<|im_end|>
-<|im_start|>user
-5 words on wheat<|im_end|>
-<|im_start|>assistant
-Bread, harvest, grain, crop, sustenance.<|im_end|>
-<|im_start|>user
-5 words on whims<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-
-slot update_slots: id  3 | task 40 | n_tokens = 86, memory_seq_rm [86, end)
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 86, size of tokens b: 92
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  get_common_p: at index 56, token a: 151645, token b: 33053
-srv  get_common_p: at index 57, token a: 198, token b: 151645
-srv  get_common_p: at index 58, token a: 151644, token b: 198
-srv  get_common_p: at index 59, token a: 872, token b: 151644
-srv  get_common_p: at index 60, token a: 198, token b: 77091
-srv  get_common_p: at index 61, token a: 20, token b: 198
-srv  get_common_p: at index 62, token a: 4244, token b: 33
-srv  get_common_p: at index 63, token a: 389, token b: 878
-srv  get_common_p: at index 64, token a: 33053, token b: 11
-srv  get_common_p: at index 65, token a: 151645, token b: 23429
-srv  get_common_p: at index 66, token a: 198, token b: 11
-srv  get_common_p: at index 67, token a: 151644, token b: 23925
-srv  get_common_p: at index 68, token a: 77091, token b: 11
-srv  get_common_p: at index 69, token a: 198, token b: 19097
-srv  get_common_p: at index 70, token a: 151667, token b: 11
-srv  get_common_p: at index 71, token a: 271, token b: 10235
-srv  get_common_p: at index 72, token a: 151668, token b: 10220
-srv  get_common_p: at index 73, token a: 271, token b: 13
-srv  get_common_p: at index 74, token a: 33, token b: 151645
-srv  get_common_p: at index 75, token a: 878, token b: 198
-srv  get_common_p: at index 76, token a: 11, token b: 151644
-srv  get_common_p: at index 77, token a: 23429, token b: 872
-srv  get_common_p: at index 78, token a: 11, token b: 198
-srv  get_common_p: at index 79, token a: 23925, token b: 20
-srv  get_common_p: at index 80, token a: 11, token b: 4244
-srv  get_common_p: at index 81, token a: 19097, token b: 389
-srv  get_common_p: at index 82, token a: 11, token b: 69105
-srv  get_common_p: at index 83, token a: 10235, token b: 151645
-srv  get_common_p: at index 84, token a: 10220, token b: 198
-srv  get_common_p: at index 85, token a: 13, token b: 151644
-srv  get_common_p: size of tokens a: 86, size of tokens b: 92
-srv  get_common_p: at index 0, token a: 151644, token b: 151644
-srv  get_common_p: at index 1, token a: 872, token b: 872
-srv  get_common_p: at index 2, token a: 198, token b: 198
-srv  get_common_p: at index 3, token a: 20, token b: 20
-srv  get_common_p: at index 4, token a: 4244, token b: 4244
-srv  get_common_p: at index 5, token a: 389, token b: 389
-srv  get_common_p: at index 6, token a: 3015, token b: 3015
-srv  get_common_p: at index 7, token a: 151645, token b: 151645
-srv  get_common_p: at index 8, token a: 198, token b: 198
-srv  get_common_p: at index 9, token a: 151644, token b: 151644
-srv  get_common_p: at index 10, token a: 77091, token b: 77091
-srv  get_common_p: at index 11, token a: 198, token b: 198
-srv  get_common_p: at index 12, token a: 151667, token b: 25749
-srv  get_common_p: at index 13, token a: 271, token b: 11
-srv  get_common_p: at index 14, token a: 151668, token b: 52400
-srv  get_common_p: at index 15, token a: 271, token b: 11
-srv  get_common_p: at index 16, token a: 25749, token b: 15590
-srv  get_common_p: at index 17, token a: 11, token b: 487
-srv  get_common_p: at index 18, token a: 52400, token b: 11
-srv  get_common_p: at index 19, token a: 11, token b: 21844
-srv  get_common_p: at index 20, token a: 15590, token b: 11
-srv  get_common_p: at index 21, token a: 487, token b: 10235
-srv  get_common_p: at index 22, token a: 11, token b: 10220
-srv  get_common_p: at index 23, token a: 21844, token b: 13
-srv  get_common_p: at index 24, token a: 11, token b: 151645
-srv  get_common_p: at index 25, token a: 10235, token b: 198
-srv  get_common_p: at index 26, token a: 10220, token b: 151644
-srv  get_common_p: at index 27, token a: 13, token b: 872
-srv  get_common_p: at index 28, token a: 151645, token b: 198
-srv  get_common_p: at index 29, token a: 198, token b: 20
-srv  get_common_p: at index 30, token a: 151644, token b: 4244
-srv  get_common_p: at index 31, token a: 872, token b: 389
-srv  get_common_p: at index 32, token a: 198, token b: 4116
-srv  get_common_p: at index 33, token a: 20, token b: 151645
-srv  get_common_p: at index 34, token a: 4244, token b: 198
-srv  get_common_p: at index 35, token a: 389, token b: 151644
-srv  get_common_p: at index 36, token a: 4116, token b: 77091
-srv  get_common_p: at index 37, token a: 151645, token b: 198
-srv  get_common_p: at index 38, token a: 198, token b: 57974
-srv  get_common_p: at index 39, token a: 151644, token b: 11
-srv  get_common_p: at index 40, token a: 77091, token b: 19258
-srv  get_common_p: at index 41, token a: 198, token b: 11
-srv  get_common_p: at index 42, token a: 151667, token b: 27136
-srv  get_common_p: at index 43, token a: 271, token b: 11
-srv  get_common_p: at index 44, token a: 151668, token b: 2355
-srv  get_common_p: at index 45, token a: 271, token b: 11
-srv  get_common_p: at index 46, token a: 57974, token b: 4938
-srv  get_common_p: at index 47, token a: 11, token b: 13
-srv  get_common_p: at index 48, token a: 19258, token b: 151645
-srv  get_common_p: at index 49, token a: 11, token b: 198
-srv  get_common_p: at index 50, token a: 27136, token b: 151644
-srv  get_common_p: at index 51, token a: 11, token b: 872
-srv  get_common_p: at index 52, token a: 2355, token b: 198
-srv  get_common_p: at index 53, token a: 11, token b: 20
-srv  get_common_p: at index 54, token a: 4938, token b: 4244
-srv  get_common_p: at index 55, token a: 13, token b: 389
-srv  get_common_p: at index 56, token a: 151645, token b: 33053
-srv  get_common_p: at index 57, token a: 198, token b: 151645
-srv  get_common_p: at index 58, token a: 151644, token b: 198
-srv  get_common_p: at index 59, token a: 872, token b: 151644
-srv  get_common_p: at index 60, token a: 198, token b: 77091
-srv  get_common_p: at index 61, token a: 20, token b: 198
-srv  get_common_p: at index 62, token a: 4244, token b: 33
-srv  get_common_p: at index 63, token a: 389, token b: 878
-srv  get_common_p: at index 64, token a: 33053, token b: 11
-srv  get_common_p: at index 65, token a: 151645, token b: 23429
-srv  get_common_p: at index 66, token a: 198, token b: 11
-srv  get_common_p: at index 67, token a: 151644, token b: 23925
-srv  get_common_p: at index 68, token a: 77091, token b: 11
-srv  get_common_p: at index 69, token a: 198, token b: 19097
-srv  get_common_p: at index 70, token a: 151667, token b: 11
-srv  get_common_p: at index 71, token a: 271, token b: 10235
-srv  get_common_p: at index 72, token a: 151668, token b: 10220
-srv  get_common_p: at index 73, token a: 271, token b: 13
-srv  get_common_p: at index 74, token a: 33, token b: 151645
-srv  get_common_p: at index 75, token a: 878, token b: 198
-srv  get_common_p: at index 76, token a: 11, token b: 151644
-srv  get_common_p: at index 77, token a: 23429, token b: 872
-srv  get_common_p: at index 78, token a: 11, token b: 198
-srv  get_common_p: at index 79, token a: 23925, token b: 20
-srv  get_common_p: at index 80, token a: 11, token b: 4244
-srv  get_common_p: at index 81, token a: 19097, token b: 389
-srv  get_common_p: at index 82, token a: 11, token b: 69105
-srv  get_common_p: at index 83, token a: 10235, token b: 151645
-srv  get_common_p: at index 84, token a: 10220, token b: 198
-srv  get_common_p: at index 85, token a: 13, token b: 151644
-srv  update_slots: BLUFFER pos_first_new_token = 74
-srv  update_slots: BLUFFER pos_first_new_token_cache = 86
-srv  update_slots: BLUFFER diff = 12
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 86
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 86
-srv  update_slots: BLUFFER slot.task->n_tokens() = 92
-srv  update_slots: BLUFFER next token position will be 75
-srv  update_slots: BLUFFER next token position will be 76
-srv  update_slots: BLUFFER next token position will be 77
-srv  update_slots: BLUFFER next token position will be 78
-srv  update_slots: BLUFFER next token position will be 79
-srv  update_slots: BLUFFER next token position will be 80
-srv  update_slots: BLUFFER next token position will be 81
-srv  update_slots: BLUFFER next token position will be 82
-srv  update_slots: BLUFFER next token position will be 83
-srv  update_slots: BLUFFER next token position will be 84
-srv  update_slots: BLUFFER next token position will be 85
-srv  update_slots: BLUFFER next token position will be 86
-srv  update_slots: BLUFFER next token position will be 87
-srv  update_slots: BLUFFER next token position will be 88
-srv  update_slots: BLUFFER next token position will be 89
-srv  update_slots: BLUFFER next token position will be 90
-srv  update_slots: BLUFFER next token position will be 91
-srv  update_slots: BLUFFER next token position will be 92
-slot init_sampler: id  3 | task 40 | init sampler, took 0.02 ms, tokens: text = 104, total = 104
-slot update_slots: id  3 | task 40 | prompt processing done, n_tokens = 104, batch.n_tokens = 18
-srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
- <|im_start|> user 
- 5  words  on  whims <|im_end|> 
- <|im_start|> assistant 
- <think> 
-
- </think> 
+srv  update_slots: BLUFFER decoding batch tokens: ' The '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' by '
+srv  update_slots: BLUFFER decoding batch tokens: ' small '
+srv  update_slots: BLUFFER decoding batch tokens: ' mammals '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' insects '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' contributing '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' overall '
+srv  update_slots: BLUFFER decoding batch tokens: ' biodiversity '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' ecosystem '
+srv  update_slots: BLUFFER decoding batch tokens: '.
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'F '
-srv  update_slots: BLUFFER decoding batch tokens: 'ancy '
+srv  update_slots: BLUFFER decoding batch tokens: 'In '
+srv  update_slots: BLUFFER decoding batch tokens: ' addition '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' role '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' nature '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' playful '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' imaginative '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' delightful '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' unpredictable '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' been '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' by '
+srv  update_slots: BLUFFER decoding batch tokens: ' humans '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' centuries '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 40 | 
-prompt eval time =    1504.63 ms /    18 tokens (   83.59 ms per token,    11.96 tokens per second)
-       eval time =    1144.20 ms /    12 tokens (   95.35 ms per token,    10.49 tokens per second)
-      total time =    2648.83 ms /    30 tokens
-slot      release: id  3 | task 40 | stop processing: n_tokens = 115, truncated = 0
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' been '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' traditional '
+srv  update_slots: BLUFFER decoding batch tokens: ' medicine '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' treat '
+srv  update_slots: BLUFFER decoding batch tokens: ' various '
+srv  update_slots: BLUFFER decoding batch tokens: ' ailments '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' cold '
+srv  update_slots: BLUFFER decoding batch tokens: 's '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' fe '
+srv  update_slots: BLUFFER decoding batch tokens: 'vers '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' digestive '
+srv  update_slots: BLUFFER decoding batch tokens: ' issues '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Some '
+srv  update_slots: BLUFFER decoding batch tokens: ' studies '
+srv  update_slots: BLUFFER decoding batch tokens: ' suggest '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' may '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' antioxidant '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' anti '
+srv  update_slots: BLUFFER decoding batch tokens: '-inflammatory '
+srv  update_slots: BLUFFER decoding batch tokens: ' properties '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' though '
+srv  update_slots: BLUFFER decoding batch tokens: ' more '
+srv  update_slots: BLUFFER decoding batch tokens: ' research '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' needed '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' confirm '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' efficacy '
+srv  update_slots: BLUFFER decoding batch tokens: '.
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'The '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' production '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' wine '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' other '
+srv  update_slots: BLUFFER decoding batch tokens: ' alcoholic '
+srv  update_slots: BLUFFER decoding batch tokens: ' beverages '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' due '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' tart '
+srv  update_slots: BLUFFER decoding batch tokens: ' flavor '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' high '
+srv  update_slots: BLUFFER decoding batch tokens: ' acidity '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' often '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' small '
+srv  update_slots: BLUFFER decoding batch tokens: ' quantities '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' add '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' distinctive '
+srv  update_slots: BLUFFER decoding batch tokens: ' character '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' wines '
+srv  update_slots: BLUFFER decoding batch tokens: '.
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Despite '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' usefulness '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' toxic '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' some '
+srv  update_slots: BLUFFER decoding batch tokens: ' animals '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' horses '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' dogs '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' should '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' handled '
+srv  update_slots: BLUFFER decoding batch tokens: ' with '
+srv  update_slots: BLUFFER decoding batch tokens: ' care '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Overall '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' row '
+srv  update_slots: BLUFFER decoding batch tokens: 'an '
+srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' an '
+srv  update_slots: BLUFFER decoding batch tokens: ' important '
+srv  update_slots: BLUFFER decoding batch tokens: ' part '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' natural '
+srv  update_slots: BLUFFER decoding batch tokens: ' world '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' providing '
+srv  update_slots: BLUFFER decoding batch tokens: ' food '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' medicinal '
+srv  update_slots: BLUFFER decoding batch tokens: ' benefits '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' both '
+srv  update_slots: BLUFFER decoding batch tokens: ' humans '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' wildlife '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+slot print_timing: id  3 | task 339 | 
+prompt eval time =    1879.54 ms /    22 tokens (   85.43 ms per token,    11.70 tokens per second)
+       eval time =   48465.70 ms /   313 tokens (  154.84 ms per token,     6.46 tokens per second)
+      total time =   50345.25 ms /   335 tokens
+slot      release: id  3 | task 339 | stop processing: n_tokens = 691, truncated = 0
 srv  update_slots: all slots are idle
 srv    operator(): operator(): cleaning up before exit...
 llama_memory_breakdown_print: | memory breakdown [MiB] | total   free     self   model   context   compute    unaccounted |

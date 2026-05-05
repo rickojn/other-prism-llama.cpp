@@ -217,9 +217,6 @@ public:
 
     common_prefix_response get_common_prefix_ignoring_thinking(const server_tokens &b) const;
 
-    size_t get_common_prefix_pos_in_cache(const server_tokens & b) const;
-
-    size_t get_common_prefix_pos_in_new(const server_tokens & b) const;
 
     // make sure all text tokens are within the vocab range
     bool validate(const struct llama_context * ctx) const;
