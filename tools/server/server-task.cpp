@@ -258,6 +258,8 @@ task_params server_task::params_from_json_cmpl(
     params.verbose           = params_base.verbosity > 9;
     params.timings_per_token = json_value(data, "timings_per_token", false);
 
+    // BLUFFER
+    params.qlazy = params_base.qlazy;
     params.stream           = json_value(data,       "stream",             false);
     auto stream_opt         = json_value(data,       "stream_options",     json::object());
     params.include_usage    = json_value(stream_opt, "include_usage",      false);
@@ -1988,7 +1990,7 @@ size_t server_prompt_cache::n_tokens() const {
 server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t state_size) {
     // first check if the current state is contained fully in the cache
     for (auto it = states.begin(); it != states.end(); ++it) {
-        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(prompt.tokens);
+        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(prompt.tokens, qlazy);
         const int cur_lcp_len = res.cached_position;
 
         if (cur_lcp_len == (int) prompt.tokens.size()) {
@@ -1999,7 +2001,7 @@ server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t 
 
     // next, remove any cached prompts that are fully contained in the current prompt
     for (auto it = states.begin(); it != states.end();) {
-        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(prompt.tokens);
+        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(prompt.tokens, qlazy);
         const int len = res.cached_position;
 
         if (len == (int) it->tokens.size()) {
@@ -2039,7 +2041,7 @@ server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t 
 }
 
 bool server_prompt_cache::load(server_prompt & prompt, const server_tokens & tokens_new, llama_context * ctx, int32_t id_slot) {
-    common_prefix_response res = prompt.tokens.get_common_prefix_ignoring_thinking(tokens_new);
+    common_prefix_response res = prompt.tokens.get_common_prefix_ignoring_thinking(tokens_new, qlazy);
     const int lcp_best = res.cached_position;
 
     float f_keep_best = prompt.tokens.size() > 0 ? float(lcp_best) / prompt.tokens.size() : -1.0f; // empty slot: any cache entry wins
@@ -2051,7 +2053,7 @@ bool server_prompt_cache::load(server_prompt & prompt, const server_tokens & tok
 
     // find the most similar cached prompt, that would also preserve the most context
     for (auto it = states.begin(); it != states.end(); ++it) {
-        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(tokens_new);
+        common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(tokens_new, qlazy);
         const int lcp_cur = res.cached_position;
 
         const float f_keep_cur = float(lcp_cur) / it->tokens.size();

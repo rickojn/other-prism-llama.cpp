@@ -215,7 +215,7 @@ public:
 
     std::string detokenize(const llama_context * ctx, bool special) const;
 
-    common_prefix_response get_common_prefix_ignoring_thinking(const server_tokens &b) const;
+    common_prefix_response get_common_prefix_ignoring_thinking(const server_tokens &b, bool ignore_thinking = true) const;
 
 
     // make sure all text tokens are within the vocab range

@@ -450,7 +450,7 @@ std::string server_tokens::detokenize(const llama_context * ctx, bool special) c
 }
 
 
-common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const server_tokens & b) const {
+common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const server_tokens & b, bool ignore_thinking) const {
     const size_t max_idx = std::min(tokens.size(), b.tokens.size());
 
     SRV_INF("size of tokens a: %zu, size of tokens b: %zu\n", tokens.size(), b.tokens.size());
@@ -468,7 +468,7 @@ common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const 
             if (tokens[i + len_cached_thinking] == b.tokens[i]) {
                 continue;
             }
-            if  (tokens[i + len_cached_thinking] == start_thinking ) {
+            if  (ignore_thinking && tokens[i + len_cached_thinking] == start_thinking ) {
                 while (i + len_cached_thinking < max_idx && 
                     tokens[i + len_cached_thinking] != end_thinking) {
                     len_cached_thinking++;

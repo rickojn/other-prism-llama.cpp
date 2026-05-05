@@ -834,7 +834,7 @@ private:
             }
             SRV_WRN("%s", "use `--cache-ram 0` to disable the prompt cache\n");
 
-            prompt_cache = std::make_unique<server_prompt_cache>(params_base.cache_ram_mib, n_ctx);
+            prompt_cache = std::make_unique<server_prompt_cache>(params_base.cache_ram_mib, n_ctx, params_base.qlazy);
         } else {
             SRV_WRN("%s", "prompt cache is disabled - use `--cache-ram N` to enable it\n");
         }
@@ -984,7 +984,8 @@ private:
                 }
 
                 // fraction of the Longest Common Prefix length with respect to the input prompt length
-                common_prefix_response tokens_common_prefix = tokens.get_common_prefix_ignoring_thinking(task.tokens);
+                common_prefix_response tokens_common_prefix = 
+                tokens.get_common_prefix_ignoring_thinking(task.tokens, params_base.qlazy);
 
                 const float sim_cur = float(tokens_common_prefix.cached_position) / task.tokens.size();
 
@@ -2271,7 +2272,8 @@ private:
 
                             if (slot.task->params.cache_prompt) {
                                 // reuse any previously computed tokens that are common with the new prompt
-                                common_prefix_response tokens_common_prefix = slot.prompt.tokens.get_common_prefix_ignoring_thinking(input_tokens);
+                                common_prefix_response tokens_common_prefix = 
+                                    slot.prompt.tokens.get_common_prefix_ignoring_thinking(input_tokens, params_base.qlazy);
                                 n_past = tokens_common_prefix.cached_position;
                                 n_past_new = tokens_common_prefix.input_position;
 
@@ -2570,7 +2572,8 @@ private:
 
                     // add prompt tokens for processing in the current batch
                     size_t pos_first_new_token, pos_first_new_token_cache, diff = 0;
-                    common_prefix_response tokens_common_prefix = slot.prompt.tokens.get_common_prefix_ignoring_thinking(input_tokens);
+                    common_prefix_response tokens_common_prefix = 
+                        slot.prompt.tokens.get_common_prefix_ignoring_thinking(input_tokens, params_base.qlazy);
                     pos_first_new_token = tokens_common_prefix.input_position;
                     pos_first_new_token_cache = tokens_common_prefix.cached_position;
                     diff = pos_first_new_token_cache - pos_first_new_token;

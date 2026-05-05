@@ -52,6 +52,7 @@ struct task_params {
     bool cache_prompt    = true; // remember the prompt to avoid reprocessing all prompt
     bool return_tokens   = false;
     bool return_progress = false;
+    bool qlazy            = false; // only consider non-thinking tokens for common prefix calculations
 
     int32_t n_keep    =  0; // number of tokens to keep from initial prompt
     int32_t n_discard =  0; // number of tokens after n_keep that may be discarded when shifting context, 0 defaults to half
@@ -609,10 +610,13 @@ struct server_prompt {
 };
 
 struct server_prompt_cache {
-    server_prompt_cache(int32_t limit_size_mib, size_t limit_tokens) {
+    server_prompt_cache(int32_t limit_size_mib, size_t limit_tokens, bool qlazy) {
         this->limit_size   = 1024ull*1024ull*(limit_size_mib < 0 ? 0 : limit_size_mib);
         this->limit_tokens = limit_tokens;
+        this->qlazy = qlazy;
     }
+
+    bool qlazy = false; // only consider non-thinking tokens for common prefix calculations
 
     std::list<server_prompt> states;
 
