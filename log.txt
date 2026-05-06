@@ -1,54 +1,56 @@
 main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
-build_info: b8866-c9e55ab79
+build_info: b8870-65bc9e501
 system_info: n_threads = 4 (n_threads_batch = 4) / 8 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
 init: using 8 threads for HTTP server
 start: binding port with default address family
 main: loading model
-srv    load_model: loading model './models/Bonsai-8B-Q1_0.gguf'
+srv    load_model: loading model './models/Qwen3VL-2B-Thinking-Q8_0.gguf'
 common_init_result: fitting params to device memory, for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on
-llama_params_fit_impl: projected to use 10627 MiB of host memory vs. 15851 MiB of total host memory
-llama_params_fit_impl: will leave 5223 >= 1024 MiB of system memory, no changes needed
+llama_params_fit_impl: projected to use 31227 MiB of host memory vs. 15851 MiB of total host memory
+llama_params_fit_impl: cannot meet free memory target of 1024 MiB, need to reduce device memory by 16400 MiB
+llama_params_fit_impl: context size reduced from 262144 to 114688 -> need 16410 MiB less memory in total
+llama_params_fit_impl: entire model can be fit by reducing context
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.49 seconds
-llama_model_loader: loaded meta data with 32 key-value pairs and 399 tensors from ./models/Bonsai-8B-Q1_0.gguf (version GGUF V3 (latest))
+llama_params_fit: fitting params to free memory took 0.79 seconds
+llama_model_loader: loaded meta data with 32 key-value pairs and 310 tensors from ./models/Qwen3VL-2B-Thinking-Q8_0.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
-llama_model_loader: - kv   0:                       general.architecture str              = qwen3
+llama_model_loader: - kv   0:                       general.architecture str              = qwen3vl
 llama_model_loader: - kv   1:                               general.type str              = model
-llama_model_loader: - kv   2:                     general.sampling.top_k i32              = 20
-llama_model_loader: - kv   3:                     general.sampling.top_p f32              = 0.850000
-llama_model_loader: - kv   4:                     general.sampling.min_p f32              = 0.000000
-llama_model_loader: - kv   5:                      general.sampling.temp f32              = 0.500000
-llama_model_loader: - kv   6:                               general.name str              = Bonsai-8B
-llama_model_loader: - kv   7:                         general.size_label str              = 8.2B
-llama_model_loader: - kv   8:                          qwen3.block_count u32              = 36
-llama_model_loader: - kv   9:                       qwen3.context_length u32              = 65536
-llama_model_loader: - kv  10:                     qwen3.embedding_length u32              = 4096
-llama_model_loader: - kv  11:                  qwen3.feed_forward_length u32              = 12288
-llama_model_loader: - kv  12:                 qwen3.attention.head_count u32              = 32
-llama_model_loader: - kv  13:              qwen3.attention.head_count_kv u32              = 8
-llama_model_loader: - kv  14:                    qwen3.rope.scaling.type str              = yarn
-llama_model_loader: - kv  15:                  qwen3.rope.scaling.factor f32              = 4.000000
-llama_model_loader: - kv  16: qwen3.rope.scaling.original_context_length u32              = 16384
-llama_model_loader: - kv  17:                       qwen3.rope.freq_base f32              = 1000000.000000
-llama_model_loader: - kv  18:     qwen3.attention.layer_norm_rms_epsilon f32              = 0.000001
-llama_model_loader: - kv  19:                 qwen3.attention.key_length u32              = 128
-llama_model_loader: - kv  20:               qwen3.attention.value_length u32              = 128
-llama_model_loader: - kv  21:                       tokenizer.ggml.model str              = gpt2
-llama_model_loader: - kv  22:                         tokenizer.ggml.pre str              = qwen2
-llama_model_loader: - kv  23:                      tokenizer.ggml.tokens arr[str,151669]  = ["!", "\"", "#", "$", "%", "&", "'", ...
-llama_model_loader: - kv  24:                  tokenizer.ggml.token_type arr[i32,151669]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
-llama_model_loader: - kv  25:                      tokenizer.ggml.merges arr[str,151387]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
-llama_model_loader: - kv  26:                tokenizer.ggml.eos_token_id u32              = 151645
-llama_model_loader: - kv  27:            tokenizer.ggml.padding_token_id u32              = 151643
-llama_model_loader: - kv  28:               tokenizer.ggml.add_bos_token bool             = false
-llama_model_loader: - kv  29:                    tokenizer.chat_template str              = {%- if tools %}\n    {{- '<|im_start|>...
-llama_model_loader: - kv  30:               general.quantization_version u32              = 2
-llama_model_loader: - kv  31:                          general.file_type u32              = 40
-llama_model_loader: - type  f32:  145 tensors
-llama_model_loader: - type q1_0:  254 tensors
+llama_model_loader: - kv   2:                               general.name str              = Qwen3Vl 2b Thinking
+llama_model_loader: - kv   3:                           general.finetune str              = thinking
+llama_model_loader: - kv   4:                           general.basename str              = qwen3vl
+llama_model_loader: - kv   5:                         general.size_label str              = 2B
+llama_model_loader: - kv   6:                            general.license str              = apache-2.0
+llama_model_loader: - kv   7:                               general.tags arr[str,1]       = ["image-text-to-text"]
+llama_model_loader: - kv   8:                        qwen3vl.block_count u32              = 28
+llama_model_loader: - kv   9:                     qwen3vl.context_length u32              = 262144
+llama_model_loader: - kv  10:                   qwen3vl.embedding_length u32              = 2048
+llama_model_loader: - kv  11:                qwen3vl.feed_forward_length u32              = 6144
+llama_model_loader: - kv  12:               qwen3vl.attention.head_count u32              = 16
+llama_model_loader: - kv  13:            qwen3vl.attention.head_count_kv u32              = 8
+llama_model_loader: - kv  14:                     qwen3vl.rope.freq_base f32              = 5000000.000000
+llama_model_loader: - kv  15:   qwen3vl.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  16:               qwen3vl.attention.key_length u32              = 128
+llama_model_loader: - kv  17:             qwen3vl.attention.value_length u32              = 128
+llama_model_loader: - kv  18:                          general.file_type u32              = 7
+llama_model_loader: - kv  19:            qwen3vl.rope.dimension_sections arr[i32,4]       = [24, 20, 20, 0]
+llama_model_loader: - kv  20:                 qwen3vl.n_deepstack_layers u32              = 3
+llama_model_loader: - kv  21:               general.quantization_version u32              = 2
+llama_model_loader: - kv  22:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  23:                         tokenizer.ggml.pre str              = qwen2
+llama_model_loader: - kv  24:                      tokenizer.ggml.tokens arr[str,151936]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  25:                  tokenizer.ggml.token_type arr[i32,151936]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  26:                      tokenizer.ggml.merges arr[str,151387]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  27:                tokenizer.ggml.eos_token_id u32              = 151645
+llama_model_loader: - kv  28:            tokenizer.ggml.padding_token_id u32              = 151643
+llama_model_loader: - kv  29:                tokenizer.ggml.bos_token_id u32              = 151643
+llama_model_loader: - kv  30:               tokenizer.ggml.add_bos_token bool             = false
+llama_model_loader: - kv  31:                    tokenizer.chat_template str              = {%- set image_count = namespace(value...
+llama_model_loader: - type  f32:  113 tensors
+llama_model_loader: - type q8_0:  197 tensors
 print_info: file format = GGUF V3 (latest)
-print_info: file type   = Q1_0
-print_info: file size   = 1.07 GiB (1.13 BPW) 
+print_info: file type   = Q8_0
+print_info: file size   = 1.70 GiB (8.50 BPW) 
 load: 0 unused tokens
 load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
 load: printing all EOG tokens:
@@ -60,21 +62,21 @@ load:   - 151663 ('<|repo_name|>')
 load:   - 151664 ('<|file_sep|>')
 load: special tokens cache size = 27
 load: token to piece cache size = 0.9311 MB
-print_info: arch                  = qwen3
+print_info: arch                  = qwen3vl
 print_info: vocab_only            = 0
 print_info: no_alloc              = 0
-print_info: n_ctx_train           = 65536
-print_info: n_embd                = 4096
-print_info: n_embd_inp            = 4096
-print_info: n_layer               = 36
-print_info: n_head                = 32
+print_info: n_ctx_train           = 262144
+print_info: n_embd                = 2048
+print_info: n_embd_inp            = 8192
+print_info: n_layer               = 28
+print_info: n_head                = 16
 print_info: n_head_kv             = 8
 print_info: n_rot                 = 128
 print_info: n_swa                 = 0
 print_info: is_swa_any            = 0
 print_info: n_embd_head_k         = 128
 print_info: n_embd_head_v         = 128
-print_info: n_gqa                 = 4
+print_info: n_gqa                 = 2
 print_info: n_embd_k_gqa          = 1024
 print_info: n_embd_v_gqa          = 1024
 print_info: f_norm_eps            = 0.0e+00
@@ -83,27 +85,28 @@ print_info: f_clamp_kqv           = 0.0e+00
 print_info: f_max_alibi_bias      = 0.0e+00
 print_info: f_logit_scale         = 0.0e+00
 print_info: f_attn_scale          = 0.0e+00
-print_info: n_ff                  = 12288
+print_info: n_ff                  = 6144
 print_info: n_expert              = 0
 print_info: n_expert_used         = 0
 print_info: n_expert_groups       = 0
 print_info: n_group_used          = 0
 print_info: causal attn           = 1
 print_info: pooling type          = -1
-print_info: rope type             = 2
-print_info: rope scaling          = yarn
-print_info: freq_base_train       = 1000000.0
-print_info: freq_scale_train      = 0.25
-print_info: n_ctx_orig_yarn       = 16384
+print_info: rope type             = 40
+print_info: rope scaling          = linear
+print_info: freq_base_train       = 5000000.0
+print_info: freq_scale_train      = 1
+print_info: n_ctx_orig_yarn       = 262144
 print_info: rope_yarn_log_mul     = 0.0000
 print_info: rope_finetuned        = unknown
-print_info: model type            = 8B
-print_info: model params          = 8.19 B
-print_info: general.name          = Bonsai-8B
+print_info: mrope sections        = [24, 20, 20, 0]
+print_info: model type            = 1.7B
+print_info: model params          = 1.72 B
+print_info: general.name          = Qwen3Vl 2b Thinking
 print_info: vocab type            = BPE
-print_info: n_vocab               = 151669
+print_info: n_vocab               = 151936
 print_info: n_merges              = 151387
-print_info: BOS token             = 11 ','
+print_info: BOS token             = 151643 '<|endoftext|>'
 print_info: EOS token             = 151645 '<|im_end|>'
 print_info: EOT token             = 151645 '<|im_end|>'
 print_info: PAD token             = 151643 '<|endoftext|>'
@@ -122,8 +125,8 @@ print_info: EOG token             = 151663 '<|repo_name|>'
 print_info: EOG token             = 151664 '<|file_sep|>'
 print_info: max token length      = 256
 load_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)
-load_tensors:   CPU_Mapped model buffer size =  1099.30 MiB
-.......................................................................................
+load_tensors:   CPU_Mapped model buffer size =  1743.77 MiB
+...................................................................................
 common_init_result: added </s> logit bias = -inf
 common_init_result: added <|endoftext|> logit bias = -inf
 common_init_result: added <|im_end|> logit bias = -inf
@@ -132,18 +135,19 @@ common_init_result: added <|repo_name|> logit bias = -inf
 common_init_result: added <|file_sep|> logit bias = -inf
 llama_context: constructing llama_context
 llama_context: n_seq_max     = 4
-llama_context: n_ctx         = 65536
-llama_context: n_ctx_seq     = 65536
+llama_context: n_ctx         = 114688
+llama_context: n_ctx_seq     = 114688
 llama_context: n_batch       = 2048
 llama_context: n_ubatch      = 512
 llama_context: causal_attn   = 1
 llama_context: flash_attn    = auto
 llama_context: kv_unified    = true
-llama_context: freq_base     = 1000000.0
-llama_context: freq_scale    = 0.25
-llama_context:        CPU  output buffer size =     2.31 MiB
-llama_kv_cache:        CPU KV buffer size =  9216.00 MiB
-llama_kv_cache: size = 9216.00 MiB ( 65536 cells,  36 layers,  4/1 seqs), K (f16): 4608.00 MiB, V (f16): 4608.00 MiB
+llama_context: freq_base     = 5000000.0
+llama_context: freq_scale    = 1
+llama_context: n_ctx_seq (114688) < n_ctx_train (262144) -- the full capacity of the model will not be utilized
+llama_context:        CPU  output buffer size =     2.32 MiB
+llama_kv_cache:        CPU KV buffer size = 12544.00 MiB
+llama_kv_cache: size = 12544.00 MiB (114688 cells,  28 layers,  4/1 seqs), K (f16): 6272.00 MiB, V (f16): 6272.00 MiB
 llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 128
 llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 128
 sched_reserve: reserving ...
@@ -151,24 +155,24 @@ sched_reserve: Flash Attention was auto, set to enabled
 sched_reserve: resolving fused Gated Delta Net support:
 sched_reserve: fused Gated Delta Net (autoregressive) enabled
 sched_reserve: fused Gated Delta Net (chunked) enabled
-sched_reserve:        CPU compute buffer size =   312.23 MiB
-sched_reserve: graph nodes  = 1267
+sched_reserve:        CPU compute buffer size =   380.02 MiB
+sched_reserve: graph nodes  = 995
 sched_reserve: graph splits = 1
-sched_reserve: reserve took 4.99 ms, sched copies = 1
+sched_reserve: reserve took 5.23 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
 slot   load_model: id  0 | task -1 | speculative decoding context not initialized
-slot   load_model: id  0 | task -1 | new slot, n_ctx = 65536
+slot   load_model: id  0 | task -1 | new slot, n_ctx = 114688
 no implementations specified for speculative decoding
 slot   load_model: id  1 | task -1 | speculative decoding context not initialized
-slot   load_model: id  1 | task -1 | new slot, n_ctx = 65536
+slot   load_model: id  1 | task -1 | new slot, n_ctx = 114688
 no implementations specified for speculative decoding
 slot   load_model: id  2 | task -1 | speculative decoding context not initialized
-slot   load_model: id  2 | task -1 | new slot, n_ctx = 65536
+slot   load_model: id  2 | task -1 | new slot, n_ctx = 114688
 no implementations specified for speculative decoding
 slot   load_model: id  3 | task -1 | speculative decoding context not initialized
-slot   load_model: id  3 | task -1 | new slot, n_ctx = 65536
+slot   load_model: id  3 | task -1 | new slot, n_ctx = 114688
 srv    load_model: prompt cache is enabled, size limit: 8192 MiB
 srv    load_model: use `--cache-ram 0` to disable the prompt cache
 srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
@@ -183,9 +187,6 @@ Hi there<|im_end|>
 How are you?<|im_end|>
 <|im_start|>assistant
 <think>
-
-</think>
-
 '
 srv          init: init: chat template, thinking = 1
 main: model loaded
@@ -195,37 +196,34 @@ srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
 slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
 srv  get_availabl: updating prompt cache
-srv  get_common_p: size of tokens a: 0, size of tokens b: 20
+srv  get_common_p: size of tokens a: 0, size of tokens b: 14
 srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
-srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 65536 tokens, 8589934592 est)
+srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 114688 tokens, 8589934592 est)
 srv  get_availabl: prompt cache update took 0.01 ms
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
 slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
-slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 20
-srv  get_common_p: size of tokens a: 0, size of tokens b: 20
+slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 114688, n_keep = 0, task.n_tokens = 14
+srv  get_common_p: size of tokens a: 0, size of tokens b: 14
 slot update_slots: id  3 | task 0 | BLUFFER common prefix with cached prompt: n_past = 0, n_past_new = 0
-slot update_slots: id  3 | task 0 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 0 | BLUFFER can_cache_reuse = 0, n_cache_reuse = 0
 slot update_slots: id  3 | task 0 | keeping n_past = 0 tokens in the cache
 slot update_slots: id  3 | task 0 | BLUFF: detokenised prompt tokens:
  
 slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
  <|im_start|>user
-200 words on rowan trees<|im_end|>
+5 words on bees<|im_end|>
 <|im_start|>assistant
 <think>
 
-</think>
-
-
 slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 0, size of tokens b: 20
+srv  get_common_p: size of tokens a: 0, size of tokens b: 14
 srv  update_slots: BLUFFER pos_first_new_token = 0
 srv  update_slots: BLUFFER pos_first_new_token_cache = 0
 srv  update_slots: BLUFFER diff = 0
 srv  update_slots: BLUFFER slot.prompt.tokens.size() = 0
 srv  update_slots: BLUFFER slot.prompt.n_tokens() = 0
-srv  update_slots: BLUFFER slot.task->n_tokens() = 20
+srv  update_slots: BLUFFER slot.task->n_tokens() = 14
 srv  update_slots: BLUFFER next token position will be 1
 srv  update_slots: BLUFFER next token position will be 2
 srv  update_slots: BLUFFER next token position will be 3
@@ -240,789 +238,1616 @@ srv  update_slots: BLUFFER next token position will be 11
 srv  update_slots: BLUFFER next token position will be 12
 srv  update_slots: BLUFFER next token position will be 13
 srv  update_slots: BLUFFER next token position will be 14
-srv  update_slots: BLUFFER next token position will be 15
-srv  update_slots: BLUFFER next token position will be 16
-srv  update_slots: BLUFFER next token position will be 17
-srv  update_slots: BLUFFER next token position will be 18
-srv  update_slots: BLUFFER next token position will be 19
-srv  update_slots: BLUFFER next token position will be 20
-slot init_sampler: id  3 | task 0 | init sampler, took 0.01 ms, tokens: text = 20, total = 20
-slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 20, batch.n_tokens = 20
+reasoning-budget: activated, budget=0 tokens
+reasoning-budget: budget=0, forcing immediately
+slot init_sampler: id  3 | task 0 | init sampler, took 0.01 ms, tokens: text = 14, total = 14
+slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 14, batch.n_tokens = 14
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_start|> user 
- 2 0 0  words  on  row an  trees <|im_end|> 
+ 5  words  on  bees <|im_end|> 
  <|im_start|> assistant 
  <think> 
-
- </think> 
+ '
+reasoning-budget: forced sequence complete, done
+srv  update_slots: BLUFFER decoding batch tokens: '</think> '
+srv  update_slots: BLUFFER decoding batch tokens: '
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'Row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' known '
-srv  update_slots: BLUFFER decoding batch tokens: ' as '
-srv  update_slots: BLUFFER decoding batch tokens: ' Sor '
-srv  update_slots: BLUFFER decoding batch tokens: 'bus '
-srv  update_slots: BLUFFER decoding batch tokens: ' auc '
-srv  update_slots: BLUFFER decoding batch tokens: 'up '
-srv  update_slots: BLUFFER decoding batch tokens: 'aria '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: 'Here '
 srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' small '
+srv  update_slots: BLUFFER decoding batch tokens: '  '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' related '
 srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' medium '
-srv  update_slots: BLUFFER decoding batch tokens: '-sized '
-srv  update_slots: BLUFFER decoding batch tokens: ' decid '
-srv  update_slots: BLUFFER decoding batch tokens: 'uous '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
-srv  update_slots: BLUFFER decoding batch tokens: ' native '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' Europe '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' Asia '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' North '
-srv  update_slots: BLUFFER decoding batch tokens: ' Africa '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' They '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' commonly '
-srv  update_slots: BLUFFER decoding batch tokens: ' found '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' wood '
-srv  update_slots: BLUFFER decoding batch tokens: 'lands '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' hed '
-srv  update_slots: BLUFFER decoding batch tokens: 'ger '
-srv  update_slots: BLUFFER decoding batch tokens: 'ows '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' along '
-srv  update_slots: BLUFFER decoding batch tokens: ' river '
-srv  update_slots: BLUFFER decoding batch tokens: 'banks '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' These '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' known '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' clusters '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' white '
-srv  update_slots: BLUFFER decoding batch tokens: ' flowers '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' spring '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' which '
-srv  update_slots: BLUFFER decoding batch tokens: ' attract '
-srv  update_slots: BLUFFER decoding batch tokens: ' poll '
-srv  update_slots: BLUFFER decoding batch tokens: 'in '
-srv  update_slots: BLUFFER decoding batch tokens: 'ators '
-srv  update_slots: BLUFFER decoding batch tokens: ' like '
 srv  update_slots: BLUFFER decoding batch tokens: ' bees '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' butterflies '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' In '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' fall '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' they '
-srv  update_slots: BLUFFER decoding batch tokens: ' produce '
-srv  update_slots: BLUFFER decoding batch tokens: ' small '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' red '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' that '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' favorite '
-srv  update_slots: BLUFFER decoding batch tokens: ' food '
-srv  update_slots: BLUFFER decoding batch tokens: ' source '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' birds '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' particularly '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' great '
-srv  update_slots: BLUFFER decoding batch tokens: ' tit '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' blue '
-srv  update_slots: BLUFFER decoding batch tokens: ' tit '
-srv  update_slots: BLUFFER decoding batch tokens: '.
+srv  update_slots: BLUFFER decoding batch tokens: ':
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'Row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' hard '
-srv  update_slots: BLUFFER decoding batch tokens: 'y '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' can '
-srv  update_slots: BLUFFER decoding batch tokens: ' thrive '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' variety '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' conditions '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' including '
-srv  update_slots: BLUFFER decoding batch tokens: ' poor '
-srv  update_slots: BLUFFER decoding batch tokens: ' soil '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' urban '
-srv  update_slots: BLUFFER decoding batch tokens: ' environments '
+srv  update_slots: BLUFFER decoding batch tokens: '1 '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' They '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' often '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' as '
-srv  update_slots: BLUFFER decoding batch tokens: ' orn '
-srv  update_slots: BLUFFER decoding batch tokens: 'amental '
-srv  update_slots: BLUFFER decoding batch tokens: ' plants '
-srv  update_slots: BLUFFER decoding batch tokens: ' due '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' attractive '
-srv  update_slots: BLUFFER decoding batch tokens: ' foliage '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: ' Honey '
+srv  update_slots: BLUFFER decoding batch tokens: '
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '2 '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' The '
-srv  update_slots: BLUFFER decoding batch tokens: ' leaves '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' tree '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' typically '
-srv  update_slots: BLUFFER decoding batch tokens: ' oval '
-srv  update_slots: BLUFFER decoding batch tokens: ' or '
-srv  update_slots: BLUFFER decoding batch tokens: ' lance '
-srv  update_slots: BLUFFER decoding batch tokens: '-shaped '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' with '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' w '
-srv  update_slots: BLUFFER decoding batch tokens: 'axy '
-srv  update_slots: BLUFFER decoding batch tokens: ' texture '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' slight '
-srv  update_slots: BLUFFER decoding batch tokens: ' scent '
+srv  update_slots: BLUFFER decoding batch tokens: ' Poll '
+srv  update_slots: BLUFFER decoding batch tokens: 'en '
+srv  update_slots: BLUFFER decoding batch tokens: '
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '3 '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' The '
-srv  update_slots: BLUFFER decoding batch tokens: ' tree '
-srv  update_slots: BLUFFER decoding batch tokens: ''s '
-srv  update_slots: BLUFFER decoding batch tokens: ' fruit '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' edible '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' has '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' tang '
-srv  update_slots: BLUFFER decoding batch tokens: 'y '
-srv  update_slots: BLUFFER decoding batch tokens: ' flavor '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' making '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' useful '
-srv  update_slots: BLUFFER decoding batch tokens: ' plant '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' gardens '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' wildlife '
-srv  update_slots: BLUFFER decoding batch tokens: '.
+srv  update_slots: BLUFFER decoding batch tokens: ' Sting '
+srv  update_slots: BLUFFER decoding batch tokens: '
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '4 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Colony '
+srv  update_slots: BLUFFER decoding batch tokens: '
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Queen '
+srv  update_slots: BLUFFER decoding batch tokens: '
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'One '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' most '
-srv  update_slots: BLUFFER decoding batch tokens: ' notable '
-srv  update_slots: BLUFFER decoding batch tokens: ' features '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' tree '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' its '
-srv  update_slots: BLUFFER decoding batch tokens: ' historical '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' cultural '
-srv  update_slots: BLUFFER decoding batch tokens: ' significance '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' In '
-srv  update_slots: BLUFFER decoding batch tokens: ' European '
-srv  update_slots: BLUFFER decoding batch tokens: ' folklore '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ' has '
-srv  update_slots: BLUFFER decoding batch tokens: ' been '
-srv  update_slots: BLUFFER decoding batch tokens: ' associated '
-srv  update_slots: BLUFFER decoding batch tokens: ' with '
-srv  update_slots: BLUFFER decoding batch tokens: ' luck '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' protection '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' even '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' supernatural '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' It '
-srv  update_slots: BLUFFER decoding batch tokens: ' was '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' historically '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' its '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' which '
-srv  update_slots: BLUFFER decoding batch tokens: ' were '
-srv  update_slots: BLUFFER decoding batch tokens: ' considered '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' nutritious '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' medicinal '
-srv  update_slots: BLUFFER decoding batch tokens: ' food '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'In '
-srv  update_slots: BLUFFER decoding batch tokens: ' modern '
-srv  update_slots: BLUFFER decoding batch tokens: ' times '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: 'These '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
 srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' valued '
-srv  update_slots: BLUFFER decoding batch tokens: ' not '
-srv  update_slots: BLUFFER decoding batch tokens: ' only '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' beauty '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' utility '
-srv  update_slots: BLUFFER decoding batch tokens: ' but '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' role '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' biodiversity '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' ecological '
-srv  update_slots: BLUFFER decoding batch tokens: ' balance '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' They '
-srv  update_slots: BLUFFER decoding batch tokens: ' provide '
-srv  update_slots: BLUFFER decoding batch tokens: ' habitat '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' birds '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' small '
-srv  update_slots: BLUFFER decoding batch tokens: ' mammals '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' contribute '
+srv  update_slots: BLUFFER decoding batch tokens: ' all '
+srv  update_slots: BLUFFER decoding batch tokens: ' directly '
+srv  update_slots: BLUFFER decoding batch tokens: ' connected '
 srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' food '
-srv  update_slots: BLUFFER decoding batch tokens: ' chain '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Despite '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' usefulness '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' sometimes '
-srv  update_slots: BLUFFER decoding batch tokens: ' considered '
-srv  update_slots: BLUFFER decoding batch tokens: ' invasive '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' certain '
-srv  update_slots: BLUFFER decoding batch tokens: ' regions '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' so '
-srv  update_slots: BLUFFER decoding batch tokens: ' they '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' important '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' manage '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' right '
-srv  update_slots: BLUFFER decoding batch tokens: ' environments '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'Whether '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' beauty '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' fruit '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' or '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' cultural '
-srv  update_slots: BLUFFER decoding batch tokens: ' importance '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
-srv  update_slots: BLUFFER decoding batch tokens: ' remain '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' valuable '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' interesting '
-srv  update_slots: BLUFFER decoding batch tokens: ' addition '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' many '
-srv  update_slots: BLUFFER decoding batch tokens: ' landscapes '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
 slot print_timing: id  3 | task 0 | 
-prompt eval time =    1965.46 ms /    20 tokens (   98.27 ms per token,    10.18 tokens per second)
-       eval time =   45369.09 ms /   338 tokens (  134.23 ms per token,     7.45 tokens per second)
-      total time =   47334.55 ms /   358 tokens
-slot      release: id  3 | task 0 | stop processing: n_tokens = 357, truncated = 0
+prompt eval time =     330.14 ms /    14 tokens (   23.58 ms per token,    42.41 tokens per second)
+       eval time =    4192.07 ms /    42 tokens (   99.81 ms per token,    10.02 tokens per second)
+      total time =    4522.21 ms /    56 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 55, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 357, size of tokens b: 375
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.952 (> 0.100 thold), f_keep = 1.000
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 339 | processing task, is_child = 0
-slot update_slots: id  3 | task 339 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 375
-srv  get_common_p: size of tokens a: 357, size of tokens b: 375
-slot update_slots: id  3 | task 339 | BLUFFER common prefix with cached prompt: n_past = 357, n_past_new = 353
-slot update_slots: id  3 | task 339 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 339 | keeping n_past = 357 tokens in the cache
-slot update_slots: id  3 | task 339 | BLUFF: detokenised prompt tokens:
+srv  get_common_p: size of tokens a: 55, size of tokens b: 68
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.809 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  3 | task 43 | processing task, is_child = 0
+slot update_slots: id  3 | task 43 | new prompt, n_ctx_slot = 114688, n_keep = 0, task.n_tokens = 68
+srv  get_common_p: size of tokens a: 55, size of tokens b: 68
+slot update_slots: id  3 | task 43 | BLUFFER common prefix with cached prompt: n_past = 55, n_past_new = 51
+slot update_slots: id  3 | task 43 | BLUFFER can_cache_reuse = 0, n_cache_reuse = 0
+slot update_slots: id  3 | task 43 | keeping n_past = 55 tokens in the cache
+slot update_slots: id  3 | task 43 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
-200 words on rowan trees<|im_end|>
+5 words on bees<|im_end|>
 <|im_start|>assistant
 <think>
-
 </think>
 
-Rowan trees, also known as Sorbus aucuparia, are small to medium-sized deciduous trees native to Europe, Asia, and North Africa. They are commonly found in woodlands, hedgerows, and along riverbanks. These trees are known for their clusters of white flowers in the spring, which attract pollinators like bees and butterflies. In the fall, they produce small, red berries that are a favorite food source for birds, particularly the great tit and the blue tit.
+Here are 5 words related to bees:
 
-Rowan trees are hardy and can thrive in a variety of conditions, including poor soil and urban environments. They are often used as ornamental plants due to their attractive foliage and berries. The leaves of the rowan tree are typically oval or lance-shaped, with a waxy texture and a slight scent. The tree's fruit is edible and has a tangy flavor, making it a useful plant in gardens and for wildlife.
+1. Honey
+2. Pollen
+3. Sting
+4. Colony
+5. Queen
 
-One of the most notable features of the rowan tree is its historical and cultural significance. In European folklore, it has been associated with luck, protection, and even the supernatural. It was also historically used for its berries, which were considered a nutritious and medicinal food.
-
-In modern times, rowan trees are valued not only for their beauty and utility but also for their role in biodiversity and ecological balance. They provide habitat for birds and small mammals, and their berries contribute to the food chain. Despite their usefulness, rowan trees are sometimes considered invasive in certain regions, so they are important to manage in the right environments.
-
-Whether for their beauty, their fruit, or their cultural importance, rowan trees remain a valuable and interesting addition to many landscapes.
-slot update_slots: id  3 | task 339 | BLUFF: detokensed task tokens:
+These words are all directly connected to bees.
+slot update_slots: id  3 | task 43 | BLUFF: detokensed task tokens:
  <|im_start|>user
-200 words on rowan trees<|im_end|>
+5 words on bees<|im_end|>
 <|im_start|>assistant
-Rowan trees, also known as Sorbus aucuparia, are small to medium-sized deciduous trees native to Europe, Asia, and North Africa. They are commonly found in woodlands, hedgerows, and along riverbanks. These trees are known for their clusters of white flowers in the spring, which attract pollinators like bees and butterflies. In the fall, they produce small, red berries that are a favorite food source for birds, particularly the great tit and the blue tit.
+Here are 5 words related to bees:
 
-Rowan trees are hardy and can thrive in a variety of conditions, including poor soil and urban environments. They are often used as ornamental plants due to their attractive foliage and berries. The leaves of the rowan tree are typically oval or lance-shaped, with a waxy texture and a slight scent. The tree's fruit is edible and has a tangy flavor, making it a useful plant in gardens and for wildlife.
+1. Honey
+2. Pollen
+3. Sting
+4. Colony
+5. Queen
 
-One of the most notable features of the rowan tree is its historical and cultural significance. In European folklore, it has been associated with luck, protection, and even the supernatural. It was also historically used for its berries, which were considered a nutritious and medicinal food.
-
-In modern times, rowan trees are valued not only for their beauty and utility but also for their role in biodiversity and ecological balance. They provide habitat for birds and small mammals, and their berries contribute to the food chain. Despite their usefulness, rowan trees are sometimes considered invasive in certain regions, so they are important to manage in the right environments.
-
-Whether for their beauty, their fruit, or their cultural importance, rowan trees remain a valuable and interesting addition to many landscapes.<|im_end|>
+These words are all directly connected to bees.<|im_end|>
 <|im_start|>user
-200 words on rowan berries<|im_end|>
+5 words on wasps<|im_end|>
 <|im_start|>assistant
 <think>
 
-</think>
-
-
-slot update_slots: id  3 | task 339 | n_tokens = 357, memory_seq_rm [357, end)
-srv  get_common_p: size of tokens a: 357, size of tokens b: 375
-srv  update_slots: BLUFFER pos_first_new_token = 353
-srv  update_slots: BLUFFER pos_first_new_token_cache = 357
+slot update_slots: id  3 | task 43 | n_tokens = 55, memory_seq_rm [55, end)
+srv  get_common_p: size of tokens a: 55, size of tokens b: 68
+srv  update_slots: BLUFFER pos_first_new_token = 51
+srv  update_slots: BLUFFER pos_first_new_token_cache = 55
 srv  update_slots: BLUFFER diff = 4
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 357
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 357
-srv  update_slots: BLUFFER slot.task->n_tokens() = 375
-srv  update_slots: BLUFFER next token position will be 354
-srv  update_slots: BLUFFER next token position will be 355
-srv  update_slots: BLUFFER next token position will be 356
-srv  update_slots: BLUFFER next token position will be 357
-srv  update_slots: BLUFFER next token position will be 358
-srv  update_slots: BLUFFER next token position will be 359
-srv  update_slots: BLUFFER next token position will be 360
-srv  update_slots: BLUFFER next token position will be 361
-srv  update_slots: BLUFFER next token position will be 362
-srv  update_slots: BLUFFER next token position will be 363
-srv  update_slots: BLUFFER next token position will be 364
-srv  update_slots: BLUFFER next token position will be 365
-srv  update_slots: BLUFFER next token position will be 366
-srv  update_slots: BLUFFER next token position will be 367
-srv  update_slots: BLUFFER next token position will be 368
-srv  update_slots: BLUFFER next token position will be 369
-srv  update_slots: BLUFFER next token position will be 370
-srv  update_slots: BLUFFER next token position will be 371
-srv  update_slots: BLUFFER next token position will be 372
-srv  update_slots: BLUFFER next token position will be 373
-srv  update_slots: BLUFFER next token position will be 374
-srv  update_slots: BLUFFER next token position will be 375
-slot init_sampler: id  3 | task 339 | init sampler, took 0.08 ms, tokens: text = 379, total = 379
-slot update_slots: id  3 | task 339 | prompt processing done, n_tokens = 379, batch.n_tokens = 22
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 55
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 55
+srv  update_slots: BLUFFER slot.task->n_tokens() = 68
+srv  update_slots: BLUFFER next token position will be 52
+srv  update_slots: BLUFFER next token position will be 53
+srv  update_slots: BLUFFER next token position will be 54
+srv  update_slots: BLUFFER next token position will be 55
+srv  update_slots: BLUFFER next token position will be 56
+srv  update_slots: BLUFFER next token position will be 57
+srv  update_slots: BLUFFER next token position will be 58
+srv  update_slots: BLUFFER next token position will be 59
+srv  update_slots: BLUFFER next token position will be 60
+srv  update_slots: BLUFFER next token position will be 61
+srv  update_slots: BLUFFER next token position will be 62
+srv  update_slots: BLUFFER next token position will be 63
+srv  update_slots: BLUFFER next token position will be 64
+srv  update_slots: BLUFFER next token position will be 65
+srv  update_slots: BLUFFER next token position will be 66
+srv  update_slots: BLUFFER next token position will be 67
+srv  update_slots: BLUFFER next token position will be 68
+reasoning-budget: activated, budget=0 tokens
+reasoning-budget: budget=0, forcing immediately
+reasoning-budget: forced sequence complete, done
+slot init_sampler: id  3 | task 43 | init sampler, took 0.01 ms, tokens: text = 72, total = 72
+slot update_slots: id  3 | task 43 | prompt processing done, n_tokens = 72, batch.n_tokens = 17
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
  <|im_start|> user 
- 2 0 0  words  on  row an  berries <|im_end|> 
+ 5  words  on  was ps <|im_end|> 
  <|im_start|> assistant 
  <think> 
-
- </think> 
-
  '
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  update_slots: BLUFFER decoding batch tokens: 'Row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
+srv  update_slots: BLUFFER decoding batch tokens: 'Okay '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' or '
-srv  update_slots: BLUFFER decoding batch tokens: ' sor '
-srv  update_slots: BLUFFER decoding batch tokens: 'bus '
-srv  update_slots: BLUFFER decoding batch tokens: ' auc '
-srv  update_slots: BLUFFER decoding batch tokens: 'up '
-srv  update_slots: BLUFFER decoding batch tokens: 'aria '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' small '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' red '
-srv  update_slots: BLUFFER decoding batch tokens: ' fruits '
-srv  update_slots: BLUFFER decoding batch tokens: ' that '
-srv  update_slots: BLUFFER decoding batch tokens: ' grow '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' clusters '
-srv  update_slots: BLUFFER decoding batch tokens: ' on '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' trees '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' They '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' typically '
-srv  update_slots: BLUFFER decoding batch tokens: ' harvested '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
 srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' fall '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' when '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' turn '
-srv  update_slots: BLUFFER decoding batch tokens: ' from '
-srv  update_slots: BLUFFER decoding batch tokens: ' green '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' red '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' often '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' culinary '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' medicinal '
-srv  update_slots: BLUFFER decoding batch tokens: ' applications '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' The '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' have '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' tang '
-srv  update_slots: BLUFFER decoding batch tokens: 'y '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' slightly '
-srv  update_slots: BLUFFER decoding batch tokens: ' tart '
-srv  update_slots: BLUFFER decoding batch tokens: ' flavor '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' firm '
-srv  update_slots: BLUFFER decoding batch tokens: ' texture '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' making '
-srv  update_slots: BLUFFER decoding batch tokens: ' them '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' popular '
-srv  update_slots: BLUFFER decoding batch tokens: ' choice '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' asked '
 srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' jams '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' pies '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' other '
-srv  update_slots: BLUFFER decoding batch tokens: ' preserves '
+srv  update_slots: BLUFFER decoding batch tokens: '  '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' related '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' They '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' herbal '
-srv  update_slots: BLUFFER decoding batch tokens: ' medicine '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' potential '
-srv  update_slots: BLUFFER decoding batch tokens: ' health '
-srv  update_slots: BLUFFER decoding batch tokens: ' benefits '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' including '
-srv  update_slots: BLUFFER decoding batch tokens: ' ant '
-srv  update_slots: BLUFFER decoding batch tokens: 'ise '
-srv  update_slots: BLUFFER decoding batch tokens: 'ptic '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' anti '
-srv  update_slots: BLUFFER decoding batch tokens: '-inflammatory '
-srv  update_slots: BLUFFER decoding batch tokens: ' properties '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'The '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' berry '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' crucial '
-srv  update_slots: BLUFFER decoding batch tokens: ' food '
-srv  update_slots: BLUFFER decoding batch tokens: ' source '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' birds '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' especially '
+srv  update_slots: BLUFFER decoding batch tokens: ' Let '
+srv  update_slots: BLUFFER decoding batch tokens: ' me '
+srv  update_slots: BLUFFER decoding batch tokens: ' recall '
 srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' great '
-srv  update_slots: BLUFFER decoding batch tokens: ' tit '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' blue '
-srv  update_slots: BLUFFER decoding batch tokens: ' tit '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' which '
-srv  update_slots: BLUFFER decoding batch tokens: ' rely '
-srv  update_slots: BLUFFER decoding batch tokens: ' on '
-srv  update_slots: BLUFFER decoding batch tokens: ' them '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' nutrition '
-srv  update_slots: BLUFFER decoding batch tokens: ' during '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' winter '
-srv  update_slots: BLUFFER decoding batch tokens: ' months '
+srv  update_slots: BLUFFER decoding batch tokens: ' previous '
+srv  update_slots: BLUFFER decoding batch tokens: ' interaction '
+srv  update_slots: BLUFFER decoding batch tokens: ' where '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' provided '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' about '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' The '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' by '
-srv  update_slots: BLUFFER decoding batch tokens: ' small '
-srv  update_slots: BLUFFER decoding batch tokens: ' mammals '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' insects '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' contributing '
+srv  update_slots: BLUFFER decoding batch tokens: ' Now '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ''re '
+srv  update_slots: BLUFFER decoding batch tokens: ' switching '
 srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' overall '
-srv  update_slots: BLUFFER decoding batch tokens: ' biodiversity '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' ecosystem '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'In '
-srv  update_slots: BLUFFER decoding batch tokens: ' addition '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' role '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' nature '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' have '
-srv  update_slots: BLUFFER decoding batch tokens: ' been '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' by '
-srv  update_slots: BLUFFER decoding batch tokens: ' humans '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' centuries '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' They '
-srv  update_slots: BLUFFER decoding batch tokens: ' have '
-srv  update_slots: BLUFFER decoding batch tokens: ' been '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' traditional '
-srv  update_slots: BLUFFER decoding batch tokens: ' medicine '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' treat '
-srv  update_slots: BLUFFER decoding batch tokens: ' various '
-srv  update_slots: BLUFFER decoding batch tokens: ' ailments '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' including '
-srv  update_slots: BLUFFER decoding batch tokens: ' cold '
-srv  update_slots: BLUFFER decoding batch tokens: 's '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' fe '
-srv  update_slots: BLUFFER decoding batch tokens: 'vers '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' digestive '
-srv  update_slots: BLUFFER decoding batch tokens: ' issues '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Some '
-srv  update_slots: BLUFFER decoding batch tokens: ' studies '
-srv  update_slots: BLUFFER decoding batch tokens: ' suggest '
-srv  update_slots: BLUFFER decoding batch tokens: ' that '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' may '
-srv  update_slots: BLUFFER decoding batch tokens: ' have '
-srv  update_slots: BLUFFER decoding batch tokens: ' antioxidant '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' anti '
-srv  update_slots: BLUFFER decoding batch tokens: '-inflammatory '
-srv  update_slots: BLUFFER decoding batch tokens: ' properties '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' though '
-srv  update_slots: BLUFFER decoding batch tokens: ' more '
-srv  update_slots: BLUFFER decoding batch tokens: ' research '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' needed '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' confirm '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' efficacy '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'The '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' production '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' wine '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' other '
-srv  update_slots: BLUFFER decoding batch tokens: ' alcoholic '
-srv  update_slots: BLUFFER decoding batch tokens: ' beverages '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' due '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' tart '
-srv  update_slots: BLUFFER decoding batch tokens: ' flavor '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' high '
-srv  update_slots: BLUFFER decoding batch tokens: ' acidity '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' They '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' often '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' small '
-srv  update_slots: BLUFFER decoding batch tokens: ' quantities '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' add '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' distinctive '
-srv  update_slots: BLUFFER decoding batch tokens: ' character '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' wines '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'Despite '
-srv  update_slots: BLUFFER decoding batch tokens: ' their '
-srv  update_slots: BLUFFER decoding batch tokens: ' usefulness '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' can '
-srv  update_slots: BLUFFER decoding batch tokens: ' be '
-srv  update_slots: BLUFFER decoding batch tokens: ' toxic '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' some '
-srv  update_slots: BLUFFER decoding batch tokens: ' animals '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' including '
-srv  update_slots: BLUFFER decoding batch tokens: ' horses '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' dogs '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' so '
-srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
 srv  update_slots: BLUFFER decoding batch tokens: ' should '
 srv  update_slots: BLUFFER decoding batch tokens: ' be '
-srv  update_slots: BLUFFER decoding batch tokens: ' handled '
-srv  update_slots: BLUFFER decoding batch tokens: ' with '
-srv  update_slots: BLUFFER decoding batch tokens: ' care '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Overall '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' row '
-srv  update_slots: BLUFFER decoding batch tokens: 'an '
-srv  update_slots: BLUFFER decoding batch tokens: ' berries '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' an '
-srv  update_slots: BLUFFER decoding batch tokens: ' important '
-srv  update_slots: BLUFFER decoding batch tokens: ' part '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' natural '
-srv  update_slots: BLUFFER decoding batch tokens: ' world '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' providing '
-srv  update_slots: BLUFFER decoding batch tokens: ' food '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' medicinal '
-srv  update_slots: BLUFFER decoding batch tokens: ' benefits '
+srv  update_slots: BLUFFER decoding batch tokens: ' careful '
 srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' both '
-srv  update_slots: BLUFFER decoding batch tokens: ' humans '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' wildlife '
+srv  update_slots: BLUFFER decoding batch tokens: ' differentiate '
+srv  update_slots: BLUFFER decoding batch tokens: ' between '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' two '
+srv  update_slots: BLUFFER decoding batch tokens: ' insects '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 339 | 
-prompt eval time =    1879.54 ms /    22 tokens (   85.43 ms per token,    11.70 tokens per second)
-       eval time =   48465.70 ms /   313 tokens (  154.84 ms per token,     6.46 tokens per second)
-      total time =   50345.25 ms /   335 tokens
-slot      release: id  3 | task 339 | stop processing: n_tokens = 691, truncated = 0
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Hmm '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' looking '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' quick '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' straightforward '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: '— '
+srv  update_slots: BLUFFER decoding batch tokens: 'maybe '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' school '
+srv  update_slots: BLUFFER decoding batch tokens: ' project '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' trivia '
+srv  update_slots: BLUFFER decoding batch tokens: ' game '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' just '
+srv  update_slots: BLUFFER decoding batch tokens: ' general '
+srv  update_slots: BLUFFER decoding batch tokens: ' knowledge '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Since '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' didn '
+srv  update_slots: BLUFFER decoding batch tokens: ''t '
+srv  update_slots: BLUFFER decoding batch tokens: ' specify '
+srv  update_slots: BLUFFER decoding batch tokens: ' context '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ''ll '
+srv  update_slots: BLUFFER decoding batch tokens: ' stick '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' common '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' clear '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'First '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' need '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' pick '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' universally '
+srv  update_slots: BLUFFER decoding batch tokens: ' recognized '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'St '
+srv  update_slots: BLUFFER decoding batch tokens: 'ing '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' obvious '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '—it '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' most '
+srv  update_slots: BLUFFER decoding batch tokens: ' famous '
+srv  update_slots: BLUFFER decoding batch tokens: ' feature '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Then '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'buzz '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' because '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' known '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzzing '
+srv  update_slots: BLUFFER decoding batch tokens: ' sound '
+srv  update_slots: BLUFFER decoding batch tokens: ' when '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'Queen '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' essential '
+srv  update_slots: BLUFFER decoding batch tokens: ' too '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' since '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' queen '
+srv  update_slots: BLUFFER decoding batch tokens: ' role '
+srv  update_slots: BLUFFER decoding batch tokens: ' like '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' should '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' include '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'poll '
+srv  update_slots: BLUFFER decoding batch tokens: 'en '
+srv  update_slots: BLUFFER decoding batch tokens: '"? '
+srv  update_slots: BLUFFER decoding batch tokens: ' No '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' don '
+srv  update_slots: BLUFFER decoding batch tokens: ''t '
+srv  update_slots: BLUFFER decoding batch tokens: ' typically '
+srv  update_slots: BLUFFER decoding batch tokens: ' poll '
+srv  update_slots: BLUFFER decoding batch tokens: 'inate '
+srv  update_slots: BLUFFER decoding batch tokens: ' like '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: '—they '
+srv  update_slots: BLUFFER decoding batch tokens: ''re '
+srv  update_slots: BLUFFER decoding batch tokens: ' more '
+srv  update_slots: BLUFFER decoding batch tokens: ' predatory '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Better '
+srv  update_slots: BLUFFER decoding batch tokens: ' avoid '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'H '
+srv  update_slots: BLUFFER decoding batch tokens: 'ive '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' tricky '
+srv  update_slots: BLUFFER decoding batch tokens: '; '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' don '
+srv  update_slots: BLUFFER decoding batch tokens: ''t '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' h '
+srv  update_slots: BLUFFER decoding batch tokens: 'ives '
+srv  update_slots: BLUFFER decoding batch tokens: ' like '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Maybe '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '"? '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' more '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Ah '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' right '
+srv  update_slots: BLUFFER decoding batch tokens: '—" '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' itself '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' name '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' said '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'words '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' probably '
+srv  update_slots: BLUFFER decoding batch tokens: ' included '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' query '
+srv  update_slots: BLUFFER decoding batch tokens: ' says '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' excluding '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' insect '
+srv  update_slots: BLUFFER decoding batch tokens: ' name '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' better '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' no '
+srv  update_slots: BLUFFER decoding batch tokens: '— '
+srv  update_slots: BLUFFER decoding batch tokens: 'let '
+srv  update_slots: BLUFFER decoding batch tokens: ' me '
+srv  update_slots: BLUFFER decoding batch tokens: ' check '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' history '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Earlier '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' gave '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'h '
+srv  update_slots: BLUFFER decoding batch tokens: 'oney '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' etc '
+srv  update_slots: BLUFFER decoding batch tokens: '., '
+srv  update_slots: BLUFFER decoding batch tokens: ' which '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' actions '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' traits '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' For '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' noun '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ' should '
+srv  update_slots: BLUFFER decoding batch tokens: ' count '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'But '
+srv  update_slots: BLUFFER decoding batch tokens: ' maybe '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' wants '
+srv  update_slots: BLUFFER decoding batch tokens: ' non '
+srv  update_slots: BLUFFER decoding batch tokens: '- '
+srv  update_slots: BLUFFER decoding batch tokens: 'technical '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Let '
+srv  update_slots: BLUFFER decoding batch tokens: ' me '
+srv  update_slots: BLUFFER decoding batch tokens: ' brainstorm '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'st '
+srv  update_slots: BLUFFER decoding batch tokens: 'ing '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'buzz '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'queen '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: '... '
+srv  update_slots: BLUFFER decoding batch tokens: ' what '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' fifth '
+srv  update_slots: BLUFFER decoding batch tokens: '? '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'P '
+srv  update_slots: BLUFFER decoding batch tokens: 'ollen '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' wrong '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'H '
+srv  update_slots: BLUFFER decoding batch tokens: 'ive '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' no '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'F '
+srv  update_slots: BLUFFER decoding batch tokens: 'ierce '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' too '
+srv  update_slots: BLUFFER decoding batch tokens: ' vague '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Oh '
+srv  update_slots: BLUFFER decoding batch tokens: '—" '
+srv  update_slots: BLUFFER decoding batch tokens: 'comb '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: '! '
+srv  update_slots: BLUFFER decoding batch tokens: ' Was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' build '
+srv  update_slots: BLUFFER decoding batch tokens: ' com '
+srv  update_slots: BLUFFER decoding batch tokens: 'bs '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' like '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' more '
+srv  update_slots: BLUFFER decoding batch tokens: ' known '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' honey '
+srv  update_slots: BLUFFER decoding batch tokens: 'com '
+srv  update_slots: BLUFFER decoding batch tokens: 'bs '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' nests '
+srv  update_slots: BLUFFER decoding batch tokens: ' too '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Actually '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'nest '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' close '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'comb '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' more '
+srv  update_slots: BLUFFER decoding batch tokens: ' specific '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' think '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' solid '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Let '
+srv  update_slots: BLUFFER decoding batch tokens: ' me '
+srv  update_slots: BLUFFER decoding batch tokens: ' confirm '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' gather '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arms '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' which '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Yes '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' testing '
+srv  update_slots: BLUFFER decoding batch tokens: ' if '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' know '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' difference '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Be '
+srv  update_slots: BLUFFER decoding batch tokens: 'es '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' h '
+srv  update_slots: BLUFFER decoding batch tokens: 'ives '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' don '
+srv  update_slots: BLUFFER decoding batch tokens: ''t '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' So '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'hive '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' isn '
+srv  update_slots: BLUFFER decoding batch tokens: ''t '
+srv  update_slots: BLUFFER decoding batch tokens: ' right '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'N '
+srv  update_slots: BLUFFER decoding batch tokens: 'est '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' better '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' more '
+srv  update_slots: BLUFFER decoding batch tokens: ' accurate '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Let '
+srv  update_slots: BLUFFER decoding batch tokens: ' me '
+srv  update_slots: BLUFFER decoding batch tokens: ' check '
+srv  update_slots: BLUFFER decoding batch tokens: ' reliable '
+srv  update_slots: BLUFFER decoding batch tokens: ' sources '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' form '
+srv  update_slots: BLUFFER decoding batch tokens: ' sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arms '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' So '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' should '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' included '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Final '
+srv  update_slots: BLUFFER decoding batch tokens: ' list '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' queen '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: '... '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'poll '
+srv  update_slots: BLUFFER decoding batch tokens: 'en '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' incorrect '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' What '
+srv  update_slots: BLUFFER decoding batch tokens: ' about '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'f '
+srv  update_slots: BLUFFER decoding batch tokens: 'ierce '
+srv  update_slots: BLUFFER decoding batch tokens: '"? '
+srv  update_slots: BLUFFER decoding batch tokens: ' No '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' redundant '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' The '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' said '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'words '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' maybe '
+srv  update_slots: BLUFFER decoding batch tokens: ' include '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' as '
+srv  update_slots: BLUFFER decoding batch tokens: ' one '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' previous '
+srv  update_slots: BLUFFER decoding batch tokens: ' bee '
+srv  update_slots: BLUFFER decoding batch tokens: ' list '
+srv  update_slots: BLUFFER decoding batch tokens: ' had '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'h '
+srv  update_slots: BLUFFER decoding batch tokens: 'oney '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' etc '
+srv  update_slots: BLUFFER decoding batch tokens: '., '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' history '
+srv  update_slots: BLUFFER decoding batch tokens: ' shows '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' want '
+srv  update_slots: BLUFFER decoding batch tokens: '  '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Let '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' see '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '1 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Sting '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'most '
+srv  update_slots: BLUFFER decoding batch tokens: ' recognizable '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '2 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'sound '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '3 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Queen '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'social '
+srv  update_slots: BLUFFER decoding batch tokens: ' structure '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '4 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'group '
+srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Nest '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'h '
+srv  update_slots: BLUFFER decoding batch tokens: 'unting '
+srv  update_slots: BLUFFER decoding batch tokens: '/ '
+srv  update_slots: BLUFFER decoding batch tokens: 'defense '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'nest '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '? '
+srv  update_slots: BLUFFER decoding batch tokens: ' Yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' build '
+srv  update_slots: BLUFFER decoding batch tokens: ' nests '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'queen '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' more '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' no '
+srv  update_slots: BLUFFER decoding batch tokens: '— '
+srv  update_slots: BLUFFER decoding batch tokens: 'was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' queens '
+srv  update_slots: BLUFFER decoding batch tokens: ' too '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' think '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'comb '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' acceptable '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' let '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' stick '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' common '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Alternative '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'St '
+srv  update_slots: BLUFFER decoding batch tokens: 'ing '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'buzz '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'queen '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' itself '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' five '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' insect '
+srv  update_slots: BLUFFER decoding batch tokens: ' name '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Maybe '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' wants '
+srv  update_slots: BLUFFER decoding batch tokens: ' non '
+srv  update_slots: BLUFFER decoding batch tokens: '- '
+srv  update_slots: BLUFFER decoding batch tokens: 'technical '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' avoid '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '." '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' no '
+srv  update_slots: BLUFFER decoding batch tokens: '— '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' said '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'words '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' perhaps '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' want '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: ' like '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'st '
+srv  update_slots: BLUFFER decoding batch tokens: 'ing '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'buzz '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'queen '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'poll '
+srv  update_slots: BLUFFER decoding batch tokens: 'en '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' wrong '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' let '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' check '
+srv  update_slots: BLUFFER decoding batch tokens: ' online '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' common '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' queen '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' nest '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'nest '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' not '
+srv  update_slots: BLUFFER decoding batch tokens: ' as '
+srv  update_slots: BLUFFER decoding batch tokens: ' common '
+srv  update_slots: BLUFFER decoding batch tokens: ' as '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '." '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Actually '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' correct '
+srv  update_slots: BLUFFER decoding batch tokens: ' term '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' For '
+srv  update_slots: BLUFFER decoding batch tokens: ' example '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'a '
+srv  update_slots: BLUFFER decoding batch tokens: ' swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '." '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'So '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' five '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' should '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' queen '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' nest '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'queen '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' both '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Be '
+srv  update_slots: BLUFFER decoding batch tokens: 'es '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' queens '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' queens '
+srv  update_slots: BLUFFER decoding batch tokens: ' too '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' So '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' okay '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ' think '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' solid '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Let '
+srv  update_slots: BLUFFER decoding batch tokens: ' me '
+srv  update_slots: BLUFFER decoding batch tokens: ' confirm '
+srv  update_slots: BLUFFER decoding batch tokens: ' with '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' dictionary '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '- '
+srv  update_slots: BLUFFER decoding batch tokens: ' Sting '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '- '
+srv  update_slots: BLUFFER decoding batch tokens: ' Buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' sound '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '- '
+srv  update_slots: BLUFFER decoding batch tokens: ' Queen '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' female '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '- '
+srv  update_slots: BLUFFER decoding batch tokens: ' Swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' gather '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arms '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '- '
+srv  update_slots: BLUFFER decoding batch tokens: ' Nest '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' build '
+srv  update_slots: BLUFFER decoding batch tokens: ' nests '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'But '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'nest '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' less '
+srv  update_slots: BLUFFER decoding batch tokens: ' commonly '
+srv  update_slots: BLUFFER decoding batch tokens: ' associated '
+srv  update_slots: BLUFFER decoding batch tokens: ' than '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' valid '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Alternatively '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'hive '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' wrong '
+srv  update_slots: BLUFFER decoding batch tokens: ' because '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' don '
+srv  update_slots: BLUFFER decoding batch tokens: ''t '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' h '
+srv  update_slots: BLUFFER decoding batch tokens: 'ives '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' So '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'nest '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' better '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Final '
+srv  update_slots: BLUFFER decoding batch tokens: ' list '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' queen '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' nest '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' not '
+srv  update_slots: BLUFFER decoding batch tokens: ' want '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'nest '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' since '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' not '
+srv  update_slots: BLUFFER decoding batch tokens: ' as '
+srv  update_slots: BLUFFER decoding batch tokens: ' direct '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Let '
+srv  update_slots: BLUFFER decoding batch tokens: ' me '
+srv  update_slots: BLUFFER decoding batch tokens: ' see '
+srv  update_slots: BLUFFER decoding batch tokens: ' if '
+srv  update_slots: BLUFFER decoding batch tokens: ' there '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' better '
+srv  update_slots: BLUFFER decoding batch tokens: ' one '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'P '
+srv  update_slots: BLUFFER decoding batch tokens: 'ollen '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' wrong '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'H '
+srv  update_slots: BLUFFER decoding batch tokens: 'ive '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' wrong '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'F '
+srv  update_slots: BLUFFER decoding batch tokens: 'ierce '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' not '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Another '
+srv  update_slots: BLUFFER decoding batch tokens: ' idea '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'buzz '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' correct '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'st '
+srv  update_slots: BLUFFER decoding batch tokens: 'ing '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' correct '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'queen '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' correct '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' correct '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' insect '
+srv  update_slots: BLUFFER decoding batch tokens: ' itself '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' user '
+srv  update_slots: BLUFFER decoding batch tokens: ' said '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' so '
+srv  update_slots: BLUFFER decoding batch tokens: ' maybe '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' want '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: ' like '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'w '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'st '
+srv  update_slots: BLUFFER decoding batch tokens: 'ing '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'buzz '
+srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: ' etc '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'I '
+srv  update_slots: BLUFFER decoding batch tokens: ' think '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' safe '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' go '
+srv  update_slots: BLUFFER decoding batch tokens: ' with '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' queen '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' nest '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Wait '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'queen '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' confusing '
+srv  update_slots: BLUFFER decoding batch tokens: '— '
+srv  update_slots: BLUFFER decoding batch tokens: 'some '
+srv  update_slots: BLUFFER decoding batch tokens: ' might '
+srv  update_slots: BLUFFER decoding batch tokens: ' think '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' But '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' queens '
+srv  update_slots: BLUFFER decoding batch tokens: ' too '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Yes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' I '
+srv  update_slots: BLUFFER decoding batch tokens: ''ll '
+srv  update_slots: BLUFFER decoding batch tokens: ' go '
+srv  update_slots: BLUFFER decoding batch tokens: ' with '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'So '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' answer '
+srv  update_slots: BLUFFER decoding batch tokens: ' should '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' sting '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzz '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' queen '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' swarm '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' nest '
+srv  update_slots: BLUFFER decoding batch tokens: '.
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '</think> '
+srv  update_slots: BLUFFER decoding batch tokens: '
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Here '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: '  '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' words '
+srv  update_slots: BLUFFER decoding batch tokens: ' related '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: '  
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '1 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' ** '
+srv  update_slots: BLUFFER decoding batch tokens: 'St '
+srv  update_slots: BLUFFER decoding batch tokens: 'ing '
+srv  update_slots: BLUFFER decoding batch tokens: '** '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'their '
+srv  update_slots: BLUFFER decoding batch tokens: ' most '
+srv  update_slots: BLUFFER decoding batch tokens: ' recognizable '
+srv  update_slots: BLUFFER decoding batch tokens: ' defense '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: '  
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '2 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' ** '
+srv  update_slots: BLUFFER decoding batch tokens: 'Buzz '
+srv  update_slots: BLUFFER decoding batch tokens: '** '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'the '
+srv  update_slots: BLUFFER decoding batch tokens: ' distinctive '
+srv  update_slots: BLUFFER decoding batch tokens: ' buzzing '
+srv  update_slots: BLUFFER decoding batch tokens: ' sound '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' make '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: '  
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '3 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' ** '
+srv  update_slots: BLUFFER decoding batch tokens: 'Queen '
+srv  update_slots: BLUFFER decoding batch tokens: '** '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'the '
+srv  update_slots: BLUFFER decoding batch tokens: ' female '
+srv  update_slots: BLUFFER decoding batch tokens: ' leader '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'p '
+srv  update_slots: BLUFFER decoding batch tokens: ' colony '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: '  
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '4 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' ** '
+srv  update_slots: BLUFFER decoding batch tokens: 'Sw '
+srv  update_slots: BLUFFER decoding batch tokens: 'arm '
+srv  update_slots: BLUFFER decoding batch tokens: '** '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'a '
+srv  update_slots: BLUFFER decoding batch tokens: ' group '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' gathering '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' large '
+srv  update_slots: BLUFFER decoding batch tokens: ' numbers '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: '  
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' ** '
+srv  update_slots: BLUFFER decoding batch tokens: 'N '
+srv  update_slots: BLUFFER decoding batch tokens: 'est '
+srv  update_slots: BLUFFER decoding batch tokens: '** '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'where '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' build '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' homes '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' often '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' trees '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' structures '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: '  
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '* '
+srv  update_slots: BLUFFER decoding batch tokens: 'Note '
+srv  update_slots: BLUFFER decoding batch tokens: ': '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'W '
+srv  update_slots: BLUFFER decoding batch tokens: 'asp '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: ' itself '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' key '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' these '
+srv  update_slots: BLUFFER decoding batch tokens: '  '
+srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: ' focus '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' behaviors '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' traits '
+srv  update_slots: BLUFFER decoding batch tokens: ' specific '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
+srv  update_slots: BLUFFER decoding batch tokens: 'ps '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'not '
+srv  update_slots: BLUFFER decoding batch tokens: ' bees '
+srv  update_slots: BLUFFER decoding batch tokens: ').* '
+srv  update_slots: BLUFFER decoding batch tokens: ' � '
+srv  update_slots: BLUFFER decoding batch tokens: '� '
+slot print_timing: id  3 | task 43 | 
+prompt eval time =     657.49 ms /    17 tokens (   38.68 ms per token,    25.86 tokens per second)
+       eval time =  140777.83 ms /  1381 tokens (  101.94 ms per token,     9.81 tokens per second)
+      total time =  141435.32 ms /  1398 tokens
+slot      release: id  3 | task 43 | stop processing: n_tokens = 1452, truncated = 0
 srv  update_slots: all slots are idle
 srv    operator(): operator(): cleaning up before exit...
 llama_memory_breakdown_print: | memory breakdown [MiB] | total   free     self   model   context   compute    unaccounted |
-llama_memory_breakdown_print: |   - Host               |                 10627 =  1099 +    9216 +     312                |
+llama_memory_breakdown_print: |   - Host               |                 14667 =  1743 +   12544 +     380                |
