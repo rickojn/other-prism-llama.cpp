@@ -2352,8 +2352,8 @@ private:
                                 n_past = 0;
                             }
 
-                            // llama_pos pos_next = slot.prompt.tokens.pos_next(n_past);
-                            llama_pos pos_next = slot.prompt.tokens.pos_next(n_past_new);
+                            llama_pos pos_next = slot.prompt.tokens.pos_next(n_past);
+                            // llama_pos pos_next = slot.prompt.tokens.pos_next(n_past_new);
                             // SLT_INF(slot, "BLUFFER pos_next = %d\n", pos_next);
 
 
