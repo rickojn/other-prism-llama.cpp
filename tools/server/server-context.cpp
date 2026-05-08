@@ -987,7 +987,7 @@ private:
                 common_prefix_response tokens_common_prefix = 
                 tokens.get_common_prefix_ignoring_thinking(task.tokens, params_base.qlazy);
 
-                const float sim_cur = float(tokens_common_prefix.cached_position) / task.tokens.size();
+                const float sim_cur = float(tokens_common_prefix.input_position) / task.tokens.size();
 
                 // select the current slot if the criteria match
                 if (sim_cur > sim_best && sim_cur > slot_prompt_similarity) {
@@ -2353,8 +2353,6 @@ private:
                             }
 
                             llama_pos pos_next = slot.prompt.tokens.pos_next(n_past);
-                            // llama_pos pos_next = slot.prompt.tokens.pos_next(n_past_new);
-                            // SLT_INF(slot, "BLUFFER pos_next = %d\n", pos_next);
 
 
                             // note: when n_swa == 0, the model does not use SWA

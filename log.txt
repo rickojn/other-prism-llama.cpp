@@ -1,5 +1,5 @@
 main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
-build_info: b8871-419e62ad8
+build_info: b8872-41fbc6678
 system_info: n_threads = 4 (n_threads_batch = 4) / 8 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
 init: using 8 threads for HTTP server
 start: binding port with default address family
@@ -9,7 +9,7 @@ common_init_result: fitting params to device memory, for bugs during this step t
 llama_params_fit_impl: projected to use 10627 MiB of host memory vs. 15851 MiB of total host memory
 llama_params_fit_impl: will leave 5223 >= 1024 MiB of system memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.49 seconds
+llama_params_fit: fitting params to free memory took 0.52 seconds
 llama_model_loader: loaded meta data with 32 key-value pairs and 399 tensors from ./models/Bonsai-8B-Q1_0.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
 llama_model_loader: - kv   0:                       general.architecture str              = qwen3
@@ -154,7 +154,7 @@ sched_reserve: fused Gated Delta Net (chunked) enabled
 sched_reserve:        CPU compute buffer size =   312.23 MiB
 sched_reserve: graph nodes  = 1267
 sched_reserve: graph splits = 1
-sched_reserve: reserve took 4.99 ms, sched copies = 1
+sched_reserve: reserve took 5.14 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -192,17 +192,21 @@ main: model loaded
 main: server is listening on http://127.0.0.1:8080
 main: starting the main loop...
 srv  update_slots: all slots are idle
+srv  log_server_r: done request: GET / 127.0.0.1 200
+srv  log_server_r: done request: GET /bundle.css 127.0.0.1 200
+srv  log_server_r: done request: GET /bundle.js 127.0.0.1 200
+srv  log_server_r: done request: HEAD /cors-proxy 127.0.0.1 404
 srv  params_from_: Chat format: peg-native
 slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
 srv  get_availabl: updating prompt cache
-srv  get_common_p: size of tokens a: 0, size of tokens b: 17
+srv  get_common_p: size of tokens a: 0, size of tokens b: 19
 srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
 srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 65536 tokens, 8589934592 est)
-srv  get_availabl: prompt cache update took 0.02 ms
+srv  get_availabl: prompt cache update took 0.01 ms
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
 slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
-slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 17
-srv  get_common_p: size of tokens a: 0, size of tokens b: 17
+slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 19
+srv  get_common_p: size of tokens a: 0, size of tokens b: 19
 slot update_slots: id  3 | task 0 | BLUFFER common prefix with cached prompt: n_past = 0, n_past_new = 0
 slot update_slots: id  3 | task 0 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
 slot update_slots: id  3 | task 0 | keeping n_past = 0 tokens in the cache
@@ -210,7 +214,7 @@ slot update_slots: id  3 | task 0 | BLUFF: detokenised prompt tokens:
  
 slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
  <|im_start|>user
-10 words on fish<|im_end|>
+100 words on volcanos<|im_end|>
 <|im_start|>assistant
 <think>
 
@@ -218,14 +222,13 @@ slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
 
 
 slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 0, size of tokens b: 17
+srv  get_common_p: size of tokens a: 0, size of tokens b: 19
 srv  update_slots: BLUFFER pos_first_new_token = 0
 srv  update_slots: BLUFFER pos_first_new_token_cache = 0
 srv  update_slots: BLUFFER diff = 0
 srv  update_slots: BLUFFER slot.prompt.tokens.size() = 0
 srv  update_slots: BLUFFER slot.prompt.n_tokens() = 0
-srv  update_slots: BLUFFER slot.task->n_tokens() = 17
+srv  update_slots: BLUFFER slot.task->n_tokens() = 19
 srv  update_slots: BLUFFER next token position will be 1
 srv  update_slots: BLUFFER next token position will be 2
 srv  update_slots: BLUFFER next token position will be 3
@@ -243,293 +246,619 @@ srv  update_slots: BLUFFER next token position will be 14
 srv  update_slots: BLUFFER next token position will be 15
 srv  update_slots: BLUFFER next token position will be 16
 srv  update_slots: BLUFFER next token position will be 17
-slot init_sampler: id  3 | task 0 | init sampler, took 0.01 ms, tokens: text = 17, total = 17
-slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 17, batch.n_tokens = 17
+srv  update_slots: BLUFFER next token position will be 18
+srv  update_slots: BLUFFER next token position will be 19
+slot init_sampler: id  3 | task 0 | init sampler, took 0.20 ms, tokens: text = 19, total = 19
+slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 19, batch.n_tokens = 19
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_start|> user 
- 1 0  words  on  fish <|im_end|> 
+ 1 0 0  words  on  volcan os <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
  </think> 
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: '1 '
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  update_slots: BLUFFER decoding batch tokens: 'Vol '
+srv  update_slots: BLUFFER decoding batch tokens: 'can '
+srv  update_slots: BLUFFER decoding batch tokens: 'oes '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' natural '
+srv  update_slots: BLUFFER decoding batch tokens: ' openings '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' Earth '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' crust '
+srv  update_slots: BLUFFER decoding batch tokens: ' where '
+srv  update_slots: BLUFFER decoding batch tokens: ' magma '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' gas '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' rock '
+srv  update_slots: BLUFFER decoding batch tokens: ' erupt '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Silver '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '2 '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' form '
+srv  update_slots: BLUFFER decoding batch tokens: ' at '
+srv  update_slots: BLUFFER decoding batch tokens: ' t '
+srv  update_slots: BLUFFER decoding batch tokens: 'ect '
+srv  update_slots: BLUFFER decoding batch tokens: 'onic '
+srv  update_slots: BLUFFER decoding batch tokens: ' plate '
+srv  update_slots: BLUFFER decoding batch tokens: ' boundaries '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' particularly '
+srv  update_slots: BLUFFER decoding batch tokens: ' along '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' Ring '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' Fire '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Scale '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '3 '
+srv  update_slots: BLUFFER decoding batch tokens: ' M '
+srv  update_slots: BLUFFER decoding batch tokens: 'agma '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' heated '
+srv  update_slots: BLUFFER decoding batch tokens: ' by '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' planet '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' interior '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' rises '
+srv  update_slots: BLUFFER decoding batch tokens: ' through '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' crust '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' create '
+srv  update_slots: BLUFFER decoding batch tokens: ' lava '
+srv  update_slots: BLUFFER decoding batch tokens: ' flows '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' py '
+srv  update_slots: BLUFFER decoding batch tokens: 'ro '
+srv  update_slots: BLUFFER decoding batch tokens: 'cl '
+srv  update_slots: BLUFFER decoding batch tokens: 'astic '
+srv  update_slots: BLUFFER decoding batch tokens: ' explosions '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' volcanic '
+srv  update_slots: BLUFFER decoding batch tokens: ' ash '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' G '
-srv  update_slots: BLUFFER decoding batch tokens: 'ills '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '4 '
+srv  update_slots: BLUFFER decoding batch tokens: ' These '
+srv  update_slots: BLUFFER decoding batch tokens: ' eru '
+srv  update_slots: BLUFFER decoding batch tokens: 'ptions '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' explosive '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' leading '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' creation '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' new '
+srv  update_slots: BLUFFER decoding batch tokens: ' land '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' destruction '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' existing '
+srv  update_slots: BLUFFER decoding batch tokens: ' areas '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Fin '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '5 '
+srv  update_slots: BLUFFER decoding batch tokens: ' Vol '
+srv  update_slots: BLUFFER decoding batch tokens: 'can '
+srv  update_slots: BLUFFER decoding batch tokens: 'oes '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' key '
+srv  update_slots: BLUFFER decoding batch tokens: ' source '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' Earth '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' elements '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' minerals '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' metals '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Tail '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '6 '
+srv  update_slots: BLUFFER decoding batch tokens: ' Some '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' dormant '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' while '
+srv  update_slots: BLUFFER decoding batch tokens: ' others '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' active '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' posing '
+srv  update_slots: BLUFFER decoding batch tokens: ' both '
+srv  update_slots: BLUFFER decoding batch tokens: ' hazards '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' opportunities '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Fish '
-srv  update_slots: BLUFFER decoding batch tokens: 'bone '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '7 '
+srv  update_slots: BLUFFER decoding batch tokens: ' Vol '
+srv  update_slots: BLUFFER decoding batch tokens: 'can '
+srv  update_slots: BLUFFER decoding batch tokens: 'ic '
+srv  update_slots: BLUFFER decoding batch tokens: ' activity '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' influenced '
+srv  update_slots: BLUFFER decoding batch tokens: ' by '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' movement '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' t '
+srv  update_slots: BLUFFER decoding batch tokens: 'ect '
+srv  update_slots: BLUFFER decoding batch tokens: 'onic '
+srv  update_slots: BLUFFER decoding batch tokens: ' plates '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' composition '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' magma '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Catch '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '8 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Ocean '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '9 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Fry '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '1 '
-srv  update_slots: BLUFFER decoding batch tokens: '0 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' L '
-srv  update_slots: BLUFFER decoding batch tokens: 'ure '
 slot print_timing: id  3 | task 0 | 
-prompt eval time =    1384.44 ms /    17 tokens (   81.44 ms per token,    12.28 tokens per second)
-       eval time =    4485.33 ms /    44 tokens (  101.94 ms per token,     9.81 tokens per second)
-      total time =    5869.77 ms /    61 tokens
-slot      release: id  3 | task 0 | stop processing: n_tokens = 60, truncated = 0
+prompt eval time =    1707.73 ms /    19 tokens (   89.88 ms per token,    11.13 tokens per second)
+       eval time =   15434.48 ms /   140 tokens (  110.25 ms per token,     9.07 tokens per second)
+      total time =   17142.21 ms /   159 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 158, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 60, size of tokens b: 75
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.800 (> 0.100 thold), f_keep = 1.000
+srv  get_common_p: size of tokens a: 158, size of tokens b: 178
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.865 (> 0.100 thold), f_keep = 0.975
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 45 | processing task, is_child = 0
-slot update_slots: id  3 | task 45 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 75
-srv  get_common_p: size of tokens a: 60, size of tokens b: 75
-slot update_slots: id  3 | task 45 | BLUFFER common prefix with cached prompt: n_past = 60, n_past_new = 56
-slot update_slots: id  3 | task 45 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 45 | keeping n_past = 60 tokens in the cache
-slot update_slots: id  3 | task 45 | BLUFF: detokenised prompt tokens:
+slot launch_slot_: id  3 | task 141 | processing task, is_child = 0
+slot update_slots: id  3 | task 141 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 178
+srv  get_common_p: size of tokens a: 158, size of tokens b: 178
+slot update_slots: id  3 | task 141 | BLUFFER common prefix with cached prompt: n_past = 158, n_past_new = 154
+slot update_slots: id  3 | task 141 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 141 | keeping n_past = 158 tokens in the cache
+slot update_slots: id  3 | task 141 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
-10 words on fish<|im_end|>
+100 words on volcanos<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
-1. Silver  
-2. Scale  
-3. Gills  
-4. Fin  
-5. Tail  
-6. Fishbone  
-7. Catch  
-8. Ocean  
-9. Fry  
-10. Lure
-slot update_slots: id  3 | task 45 | BLUFF: detokensed task tokens:
+Volcanoes are natural openings in the Earth's crust where magma, gas, and rock erupt. They form at tectonic plate boundaries, particularly along the Ring of Fire. Magma, heated by the planet's interior, rises through the crust and can create lava flows, pyroclastic explosions, and volcanic ash. These eruptions can be explosive, leading to the creation of new land or destruction of existing areas. Volcanoes are a key source of Earth's elements, including minerals and metals. Some are dormant, while others are active, posing both hazards and opportunities. Volcanic activity is influenced by the movement of tectonic plates and the composition of the magma.
+slot update_slots: id  3 | task 141 | BLUFF: detokensed task tokens:
  <|im_start|>user
-10 words on fish<|im_end|>
+100 words on volcanos<|im_end|>
 <|im_start|>assistant
-1. Silver  
-2. Scale  
-3. Gills  
-4. Fin  
-5. Tail  
-6. Fishbone  
-7. Catch  
-8. Ocean  
-9. Fry  
-10. Lure<|im_end|>
+Volcanoes are natural openings in the Earth's crust where magma, gas, and rock erupt. They form at tectonic plate boundaries, particularly along the Ring of Fire. Magma, heated by the planet's interior, rises through the crust and can create lava flows, pyroclastic explosions, and volcanic ash. These eruptions can be explosive, leading to the creation of new land or destruction of existing areas. Volcanoes are a key source of Earth's elements, including minerals and metals. Some are dormant, while others are active, posing both hazards and opportunities. Volcanic activity is influenced by the movement of tectonic plates and the composition of the magma.<|im_end|>
 <|im_start|>user
-10 words on wood<|im_end|>
+what is the last word of your previous response?<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
 
-slot update_slots: id  3 | task 45 | n_tokens = 60, memory_seq_rm [60, end)
-srv  get_common_p: size of tokens a: 60, size of tokens b: 75
-srv  update_slots: BLUFFER pos_first_new_token = 56
-srv  update_slots: BLUFFER pos_first_new_token_cache = 60
-srv  update_slots: BLUFFER diff = 4
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 60
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 60
-srv  update_slots: BLUFFER slot.task->n_tokens() = 75
-srv  update_slots: BLUFFER next token position will be 57
-srv  update_slots: BLUFFER next token position will be 58
-srv  update_slots: BLUFFER next token position will be 59
-srv  update_slots: BLUFFER next token position will be 60
-srv  update_slots: BLUFFER next token position will be 61
-srv  update_slots: BLUFFER next token position will be 62
-srv  update_slots: BLUFFER next token position will be 63
-srv  update_slots: BLUFFER next token position will be 64
+slot update_slots: id  3 | task 141 | n_tokens = 158, memory_seq_rm [158, end)
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  update_slots: BLUFFER next token position will be 65
-srv  update_slots: BLUFFER next token position will be 66
-srv  update_slots: BLUFFER next token position will be 67
-srv  update_slots: BLUFFER next token position will be 68
-srv  update_slots: BLUFFER next token position will be 69
-srv  update_slots: BLUFFER next token position will be 70
-srv  update_slots: BLUFFER next token position will be 71
-srv  update_slots: BLUFFER next token position will be 72
-srv  update_slots: BLUFFER next token position will be 73
-srv  update_slots: BLUFFER next token position will be 74
-srv  update_slots: BLUFFER next token position will be 75
-slot init_sampler: id  3 | task 45 | init sampler, took 0.03 ms, tokens: text = 79, total = 79
-slot update_slots: id  3 | task 45 | prompt processing done, n_tokens = 79, batch.n_tokens = 19
+srv  get_common_p: size of tokens a: 158, size of tokens b: 178
+srv  update_slots: BLUFFER pos_first_new_token = 154
+srv  update_slots: BLUFFER pos_first_new_token_cache = 158
+srv  update_slots: BLUFFER diff = 4
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 158
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 158
+srv  update_slots: BLUFFER slot.task->n_tokens() = 178
+srv  update_slots: BLUFFER next token position will be 155
+srv  update_slots: BLUFFER next token position will be 156
+srv  update_slots: BLUFFER next token position will be 157
+srv  update_slots: BLUFFER next token position will be 158
+srv  update_slots: BLUFFER next token position will be 159
+srv  update_slots: BLUFFER next token position will be 160
+srv  update_slots: BLUFFER next token position will be 161
+srv  update_slots: BLUFFER next token position will be 162
+srv  update_slots: BLUFFER next token position will be 163
+srv  update_slots: BLUFFER next token position will be 164
+srv  update_slots: BLUFFER next token position will be 165
+srv  update_slots: BLUFFER next token position will be 166
+srv  update_slots: BLUFFER next token position will be 167
+srv  update_slots: BLUFFER next token position will be 168
+srv  update_slots: BLUFFER next token position will be 169
+srv  update_slots: BLUFFER next token position will be 170
+srv  update_slots: BLUFFER next token position will be 171
+srv  update_slots: BLUFFER next token position will be 172
+srv  update_slots: BLUFFER next token position will be 173
+srv  update_slots: BLUFFER next token position will be 174
+srv  update_slots: BLUFFER next token position will be 175
+srv  update_slots: BLUFFER next token position will be 176
+srv  update_slots: BLUFFER next token position will be 177
+srv  update_slots: BLUFFER next token position will be 178
+slot init_sampler: id  3 | task 141 | init sampler, took 0.04 ms, tokens: text = 182, total = 182
+slot update_slots: id  3 | task 141 | prompt processing done, n_tokens = 182, batch.n_tokens = 24
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
  <|im_start|> user 
- 1 0  words  on  wood <|im_end|> 
+ what  is  the  last  word  of  your  previous  response ? <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
  </think> 
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: '1 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Grain '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '2 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Knot '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '3 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Grain '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '4 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Wood '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '5 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Saw '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '6 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Sap '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '7 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Grain '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '8 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Log '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '9 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Grain '
-srv  update_slots: BLUFFER decoding batch tokens: '  
- '
-srv  update_slots: BLUFFER decoding batch tokens: '1 '
-srv  update_slots: BLUFFER decoding batch tokens: '0 '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Board '
-slot print_timing: id  3 | task 45 | 
-prompt eval time =    1518.83 ms /    19 tokens (   79.94 ms per token,    12.51 tokens per second)
-       eval time =    4159.52 ms /    41 tokens (  101.45 ms per token,     9.86 tokens per second)
-      total time =    5678.36 ms /    60 tokens
-slot      release: id  3 | task 45 | stop processing: n_tokens = 119, truncated = 0
+srv  update_slots: BLUFFER decoding batch tokens: 'The '
+srv  update_slots: BLUFFER decoding batch tokens: ' last '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' my '
+srv  update_slots: BLUFFER decoding batch tokens: ' previous '
+srv  update_slots: BLUFFER decoding batch tokens: ' response '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'vol '
+srv  update_slots: BLUFFER decoding batch tokens: 'can '
+srv  update_slots: BLUFFER decoding batch tokens: 'ic '
+srv  update_slots: BLUFFER decoding batch tokens: '." '
+slot print_timing: id  3 | task 141 | 
+prompt eval time =    2013.31 ms /    24 tokens (   83.89 ms per token,    11.92 tokens per second)
+       eval time =    1442.79 ms /    14 tokens (  103.06 ms per token,     9.70 tokens per second)
+      total time =    3456.10 ms /    38 tokens
+slot      release: id  3 | task 141 | stop processing: n_tokens = 195, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 119, size of tokens b: 20
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.150 (> 0.100 thold), f_keep = 0.025
+srv  get_common_p: size of tokens a: 195, size of tokens b: 19
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.097
 srv  get_availabl: updating prompt cache
-srv   prompt_save:  - saving prompt with length 119, total state size = 16.737 MiB
-srv  get_common_p: size of tokens a: 119, size of tokens b: 20
-srv          load:  - looking for better prompt, base f_keep = 0.025, sim = 0.150
-srv  get_common_p: size of tokens a: 119, size of tokens b: 20
-srv        update:  - cache state: 1 prompts, 16.737 MiB (limits: 8192.000 MiB, 65536 tokens, 65536 est)
-srv        update:    - prompt 0x5c58ccec2160:     119 tokens, checkpoints:  0,    16.737 MiB
-srv  get_availabl: prompt cache update took 14.84 ms
+srv   prompt_save:  - saving prompt with length 195, total state size = 27.425 MiB
+srv  get_common_p: size of tokens a: 195, size of tokens b: 19
+srv          load:  - looking for better prompt, base f_keep = 0.097, sim = 1.000
+srv  get_common_p: size of tokens a: 195, size of tokens b: 19
+srv        update:  - cache state: 1 prompts, 27.425 MiB (limits: 8192.000 MiB, 65536 tokens, 65536 est)
+srv        update:    - prompt 0x59fc12126e00:     195 tokens, checkpoints:  0,    27.425 MiB
+srv  get_availabl: prompt cache update took 27.58 ms
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 87 | processing task, is_child = 0
-slot update_slots: id  3 | task 87 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 20
-srv  get_common_p: size of tokens a: 119, size of tokens b: 20
-slot update_slots: id  3 | task 87 | BLUFFER common prefix with cached prompt: n_past = 3, n_past_new = 3
-slot update_slots: id  3 | task 87 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 87 | keeping n_past = 3 tokens in the cache
-slot update_slots: id  3 | task 87 | BLUFF: detokenised prompt tokens:
+slot launch_slot_: id  3 | task 156 | processing task, is_child = 0
+slot update_slots: id  3 | task 156 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 19
+srv  get_common_p: size of tokens a: 195, size of tokens b: 19
+slot update_slots: id  3 | task 156 | BLUFFER common prefix with cached prompt: n_past = 19, n_past_new = 19
+slot update_slots: id  3 | task 156 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 156 | need to evaluate at least 1 token for each active slot (n_past = 19, task.n_tokens() = 19)
+slot update_slots: id  3 | task 156 | n_past was set to 18
+slot update_slots: id  3 | task 156 | keeping n_past = 18 tokens in the cache
+slot update_slots: id  3 | task 156 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
-10 words on fish<|im_end|>
+100 words on volcanos<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
-1. Silver  
-2. Scale  
-3. Gills  
-4. Fin  
-5. Tail  
-6. Fishbone  
-7. Catch  
-8. Ocean  
-9. Fry  
-10. Lure<|im_end|>
+Volcanoes are natural openings in the Earth's crust where magma, gas, and rock erupt. They form at tectonic plate boundaries, particularly along the Ring of Fire. Magma, heated by the planet's interior, rises through the crust and can create lava flows, pyroclastic explosions, and volcanic ash. These eruptions can be explosive, leading to the creation of new land or destruction of existing areas. Volcanoes are a key source of Earth's elements, including minerals and metals. Some are dormant, while others are active, posing both hazards and opportunities. Volcanic activity is influenced by the movement of tectonic plates and the composition of the magma.<|im_end|>
 <|im_start|>user
-10 words on wood<|im_end|>
+what is the last word of your previous response?<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
-1. Grain  
-2. Knot  
-3. Grain  
-4. Wood  
-5. Saw  
-6. Sap  
-7. Grain  
-8. Log  
-9. Grain  
-10. Board
-slot update_slots: id  3 | task 87 | BLUFF: detokensed task tokens:
+The last word of my previous response is "volcanic."
+slot update_slots: id  3 | task 156 | BLUFF: detokensed task tokens:
  <|im_start|>user
-200 words on new york city<|im_end|>
+100 words on volcanos<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
 
-slot update_slots: id  3 | task 87 | n_tokens = 3, memory_seq_rm [3, end)
-srv  get_common_p: size of tokens a: 3, size of tokens b: 20
-srv  update_slots: BLUFFER pos_first_new_token = 3
-srv  update_slots: BLUFFER pos_first_new_token_cache = 3
+slot update_slots: id  3 | task 156 | n_tokens = 18, memory_seq_rm [18, end)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  get_common_p: size of tokens a: 18, size of tokens b: 19
+srv  update_slots: BLUFFER pos_first_new_token = 18
+srv  update_slots: BLUFFER pos_first_new_token_cache = 18
 srv  update_slots: BLUFFER diff = 0
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 3
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 3
-srv  update_slots: BLUFFER slot.task->n_tokens() = 20
-srv  update_slots: BLUFFER next token position will be 4
-srv  update_slots: BLUFFER next token position will be 5
-srv  update_slots: BLUFFER next token position will be 6
-srv  update_slots: BLUFFER next token position will be 7
-srv  update_slots: BLUFFER next token position will be 8
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 18
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 18
+srv  update_slots: BLUFFER slot.task->n_tokens() = 19
+srv  update_slots: BLUFFER next token position will be 19
+slot init_sampler: id  3 | task 156 | init sampler, took 0.01 ms, tokens: text = 19, total = 19
+slot update_slots: id  3 | task 156 | prompt processing done, n_tokens = 19, batch.n_tokens = 1
+srv  update_slots: BLUFFER decoding batch tokens: '
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'Vol '
+srv  update_slots: BLUFFER decoding batch tokens: 'can '
+srv  update_slots: BLUFFER decoding batch tokens: 'oes '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' openings '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' Earth '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' crust '
+srv  update_slots: BLUFFER decoding batch tokens: ' where '
+srv  update_slots: BLUFFER decoding batch tokens: ' mol '
+srv  update_slots: BLUFFER decoding batch tokens: 'ten '
+srv  update_slots: BLUFFER decoding batch tokens: ' rock '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' known '
+srv  update_slots: BLUFFER decoding batch tokens: ' as '
+srv  update_slots: BLUFFER decoding batch tokens: ' lava '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' erupt '
+srv  update_slots: BLUFFER decoding batch tokens: 's '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' form '
+srv  update_slots: BLUFFER decoding batch tokens: ' at '
+srv  update_slots: BLUFFER decoding batch tokens: ' t '
+srv  update_slots: BLUFFER decoding batch tokens: 'ect '
+srv  update_slots: BLUFFER decoding batch tokens: 'onic '
+srv  update_slots: BLUFFER decoding batch tokens: ' plate '
+srv  update_slots: BLUFFER decoding batch tokens: ' boundaries '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' where '
+srv  update_slots: BLUFFER decoding batch tokens: ' magma '
+srv  update_slots: BLUFFER decoding batch tokens: ' rises '
+srv  update_slots: BLUFFER decoding batch tokens: ' from '
+srv  update_slots: BLUFFER decoding batch tokens: ' deep '
+srv  update_slots: BLUFFER decoding batch tokens: ' within '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' Earth '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Vol '
+srv  update_slots: BLUFFER decoding batch tokens: 'can '
+srv  update_slots: BLUFFER decoding batch tokens: 'ic '
+srv  update_slots: BLUFFER decoding batch tokens: ' activity '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' explosive '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' leading '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' py '
+srv  update_slots: BLUFFER decoding batch tokens: 'ro '
+srv  update_slots: BLUFFER decoding batch tokens: 'cl '
+srv  update_slots: BLUFFER decoding batch tokens: 'astic '
+srv  update_slots: BLUFFER decoding batch tokens: ' flows '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' ash '
+srv  update_slots: BLUFFER decoding batch tokens: ' clouds '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' be '
+srv  update_slots: BLUFFER decoding batch tokens: ' quiet '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' with '
+srv  update_slots: BLUFFER decoding batch tokens: ' lava '
+srv  update_slots: BLUFFER decoding batch tokens: ' flows '
+srv  update_slots: BLUFFER decoding batch tokens: ' shaping '
+srv  update_slots: BLUFFER decoding batch tokens: ' landscapes '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Some '
+srv  update_slots: BLUFFER decoding batch tokens: ' volcan '
+srv  update_slots: BLUFFER decoding batch tokens: 'oes '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' dormant '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' posing '
+srv  update_slots: BLUFFER decoding batch tokens: ' no '
+srv  update_slots: BLUFFER decoding batch tokens: ' immediate '
+srv  update_slots: BLUFFER decoding batch tokens: ' threat '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' while '
+srv  update_slots: BLUFFER decoding batch tokens: ' others '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' active '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' dangerous '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Vol '
+srv  update_slots: BLUFFER decoding batch tokens: 'can '
+srv  update_slots: BLUFFER decoding batch tokens: 'oes '
+srv  update_slots: BLUFFER decoding batch tokens: ' play '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' vital '
+srv  update_slots: BLUFFER decoding batch tokens: ' role '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' Earth '
+srv  update_slots: BLUFFER decoding batch tokens: ''s '
+srv  update_slots: BLUFFER decoding batch tokens: ' ge '
+srv  update_slots: BLUFFER decoding batch tokens: 'ology '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' recycling '
+srv  update_slots: BLUFFER decoding batch tokens: ' minerals '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' creating '
+srv  update_slots: BLUFFER decoding batch tokens: ' new '
+srv  update_slots: BLUFFER decoding batch tokens: ' land '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' However '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' can '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' cause '
+srv  update_slots: BLUFFER decoding batch tokens: ' devastating '
+srv  update_slots: BLUFFER decoding batch tokens: ' eru '
+srv  update_slots: BLUFFER decoding batch tokens: 'ptions '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' lava '
+srv  update_slots: BLUFFER decoding batch tokens: ' flows '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' ts '
+srv  update_slots: BLUFFER decoding batch tokens: 'un '
+srv  update_slots: BLUFFER decoding batch tokens: 'am '
+srv  update_slots: BLUFFER decoding batch tokens: 'is '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Monitoring '
+srv  update_slots: BLUFFER decoding batch tokens: ' volcanic '
+srv  update_slots: BLUFFER decoding batch tokens: ' activity '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' crucial '
+srv  update_slots: BLUFFER decoding batch tokens: ' for '
+srv  update_slots: BLUFFER decoding batch tokens: ' predicting '
+srv  update_slots: BLUFFER decoding batch tokens: ' eru '
+srv  update_slots: BLUFFER decoding batch tokens: 'ptions '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' protecting '
+srv  update_slots: BLUFFER decoding batch tokens: ' nearby '
+srv  update_slots: BLUFFER decoding batch tokens: ' populations '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+slot print_timing: id  3 | task 156 | 
+prompt eval time =     136.68 ms /     1 tokens (  136.68 ms per token,     7.32 tokens per second)
+       eval time =   14958.97 ms /   144 tokens (  103.88 ms per token,     9.63 tokens per second)
+      total time =   15095.65 ms /   145 tokens
+slot      release: id  3 | task 156 | stop processing: n_tokens = 162, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+srv  get_common_p: size of tokens a: 162, size of tokens b: 182
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.868 (> 0.100 thold), f_keep = 0.975
+slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  3 | task 301 | processing task, is_child = 0
+slot update_slots: id  3 | task 301 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 182
+srv  get_common_p: size of tokens a: 162, size of tokens b: 182
+slot update_slots: id  3 | task 301 | BLUFFER common prefix with cached prompt: n_past = 162, n_past_new = 158
+slot update_slots: id  3 | task 301 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 301 | keeping n_past = 162 tokens in the cache
+slot update_slots: id  3 | task 301 | BLUFF: detokenised prompt tokens:
+ <|im_start|>user
+100 words on volcanos<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+Volcanoes are openings in the Earth's crust where molten rock, known as lava, erupts. They form at tectonic plate boundaries, where magma rises from deep within the Earth. Volcanic activity can be explosive, leading to pyroclastic flows and ash clouds, or it can be quiet, with lava flows shaping landscapes. Some volcanoes are dormant, posing no immediate threat, while others are active and dangerous. Volcanoes play a vital role in the Earth's geology, recycling minerals and creating new land. However, they can also cause devastating eruptions, lava flows, and tsunamis. Monitoring volcanic activity is crucial for predicting eruptions and protecting nearby populations.
+slot update_slots: id  3 | task 301 | BLUFF: detokensed task tokens:
+ <|im_start|>user
+100 words on volcanos<|im_end|>
+<|im_start|>assistant
+Volcanoes are openings in the Earth's crust where molten rock, known as lava, erupts. They form at tectonic plate boundaries, where magma rises from deep within the Earth. Volcanic activity can be explosive, leading to pyroclastic flows and ash clouds, or it can be quiet, with lava flows shaping landscapes. Some volcanoes are dormant, posing no immediate threat, while others are active and dangerous. Volcanoes play a vital role in the Earth's geology, recycling minerals and creating new land. However, they can also cause devastating eruptions, lava flows, and tsunamis. Monitoring volcanic activity is crucial for predicting eruptions and protecting nearby populations.<|im_end|>
+<|im_start|>user
+What is the last word of your previous response?<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+slot update_slots: id  3 | task 301 | n_tokens = 162, memory_seq_rm [162, end)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  get_common_p: size of tokens a: 162, size of tokens b: 182
+srv  update_slots: BLUFFER pos_first_new_token = 158
+srv  update_slots: BLUFFER pos_first_new_token_cache = 162
+srv  update_slots: BLUFFER diff = 4
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 162
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 162
+srv  update_slots: BLUFFER slot.task->n_tokens() = 182
+srv  update_slots: BLUFFER next token position will be 159
+srv  update_slots: BLUFFER next token position will be 160
+srv  update_slots: BLUFFER next token position will be 161
+srv  update_slots: BLUFFER next token position will be 162
+srv  update_slots: BLUFFER next token position will be 163
+srv  update_slots: BLUFFER next token position will be 164
+srv  update_slots: BLUFFER next token position will be 165
+srv  update_slots: BLUFFER next token position will be 166
+srv  update_slots: BLUFFER next token position will be 167
+srv  update_slots: BLUFFER next token position will be 168
+srv  update_slots: BLUFFER next token position will be 169
+srv  update_slots: BLUFFER next token position will be 170
+srv  update_slots: BLUFFER next token position will be 171
+srv  update_slots: BLUFFER next token position will be 172
+srv  update_slots: BLUFFER next token position will be 173
+srv  update_slots: BLUFFER next token position will be 174
+srv  update_slots: BLUFFER next token position will be 175
+srv  update_slots: BLUFFER next token position will be 176
+srv  update_slots: BLUFFER next token position will be 177
+srv  update_slots: BLUFFER next token position will be 178
+srv  update_slots: BLUFFER next token position will be 179
+srv  update_slots: BLUFFER next token position will be 180
+srv  update_slots: BLUFFER next token position will be 181
+srv  update_slots: BLUFFER next token position will be 182
+slot init_sampler: id  3 | task 301 | init sampler, took 0.03 ms, tokens: text = 186, total = 186
+slot update_slots: id  3 | task 301 | prompt processing done, n_tokens = 186, batch.n_tokens = 24
+srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
+ <|im_start|> user 
+ What  is  the  last  word  of  your  previous  response ? <|im_end|> 
+ <|im_start|> assistant 
+ <think> 
+
+ </think> 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'The '
+srv  update_slots: BLUFFER decoding batch tokens: ' last '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' my '
+srv  update_slots: BLUFFER decoding batch tokens: ' previous '
+srv  update_slots: BLUFFER decoding batch tokens: ' response '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'population '
+srv  update_slots: BLUFFER decoding batch tokens: '." '
+slot print_timing: id  3 | task 301 | 
+prompt eval time =    1987.57 ms /    24 tokens (   82.82 ms per token,    12.08 tokens per second)
+       eval time =    1174.10 ms /    12 tokens (   97.84 ms per token,    10.22 tokens per second)
+      total time =    3161.67 ms /    36 tokens
+slot      release: id  3 | task 301 | stop processing: n_tokens = 197, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+srv  get_common_p: size of tokens a: 197, size of tokens b: 18
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.444 (> 0.100 thold), f_keep = 0.041
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 197, total state size = 27.706 MiB
+srv  get_common_p: size of tokens a: 195, size of tokens b: 197
+srv  get_common_p: size of tokens a: 195, size of tokens b: 197
+srv  get_common_p: size of tokens a: 197, size of tokens b: 18
+srv          load:  - looking for better prompt, base f_keep = 0.041, sim = 0.444
+srv  get_common_p: size of tokens a: 195, size of tokens b: 18
+srv  get_common_p: size of tokens a: 197, size of tokens b: 18
+srv        update:  - cache state: 2 prompts, 55.131 MiB (limits: 8192.000 MiB, 65536 tokens, 65536 est)
+srv        update:    - prompt 0x59fc12126e00:     195 tokens, checkpoints:  0,    27.425 MiB
+srv        update:    - prompt 0x59fc1210d9f0:     197 tokens, checkpoints:  0,    27.706 MiB
+srv  get_availabl: prompt cache update took 22.56 ms
+slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  3 | task 314 | processing task, is_child = 0
+slot update_slots: id  3 | task 314 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 18
+srv  get_common_p: size of tokens a: 197, size of tokens b: 18
+slot update_slots: id  3 | task 314 | BLUFFER common prefix with cached prompt: n_past = 8, n_past_new = 8
+slot update_slots: id  3 | task 314 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 314 | keeping n_past = 8 tokens in the cache
+slot update_slots: id  3 | task 314 | BLUFF: detokenised prompt tokens:
+ <|im_start|>user
+100 words on volcanos<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+Volcanoes are openings in the Earth's crust where molten rock, known as lava, erupts. They form at tectonic plate boundaries, where magma rises from deep within the Earth. Volcanic activity can be explosive, leading to pyroclastic flows and ash clouds, or it can be quiet, with lava flows shaping landscapes. Some volcanoes are dormant, posing no immediate threat, while others are active and dangerous. Volcanoes play a vital role in the Earth's geology, recycling minerals and creating new land. However, they can also cause devastating eruptions, lava flows, and tsunamis. Monitoring volcanic activity is crucial for predicting eruptions and protecting nearby populations.<|im_end|>
+<|im_start|>user
+What is the last word of your previous response?<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+The last word of my previous response is "population."
+slot update_slots: id  3 | task 314 | BLUFF: detokensed task tokens:
+ <|im_start|>user
+100 words on plastic<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+slot update_slots: id  3 | task 314 | n_tokens = 8, memory_seq_rm [8, end)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  get_common_p: size of tokens a: 8, size of tokens b: 18
+srv  update_slots: BLUFFER pos_first_new_token = 8
+srv  update_slots: BLUFFER pos_first_new_token_cache = 8
+srv  update_slots: BLUFFER diff = 0
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 8
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 8
+srv  update_slots: BLUFFER slot.task->n_tokens() = 18
 srv  update_slots: BLUFFER next token position will be 9
 srv  update_slots: BLUFFER next token position will be 10
 srv  update_slots: BLUFFER next token position will be 11
@@ -540,384 +869,204 @@ srv  update_slots: BLUFFER next token position will be 15
 srv  update_slots: BLUFFER next token position will be 16
 srv  update_slots: BLUFFER next token position will be 17
 srv  update_slots: BLUFFER next token position will be 18
-srv  update_slots: BLUFFER next token position will be 19
-srv  update_slots: BLUFFER next token position will be 20
-slot init_sampler: id  3 | task 87 | init sampler, took 0.01 ms, tokens: text = 20, total = 20
-slot update_slots: id  3 | task 87 | prompt processing done, n_tokens = 20, batch.n_tokens = 17
-srv  update_slots: BLUFFER decoding batch tokens: '2 0 0  words  on  new  york  city <|im_end|> 
+slot init_sampler: id  3 | task 314 | init sampler, took 0.00 ms, tokens: text = 18, total = 18
+slot update_slots: id  3 | task 314 | prompt processing done, n_tokens = 18, batch.n_tokens = 10
+srv  update_slots: BLUFFER decoding batch tokens: ' plastic <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
  </think> 
 
  '
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  update_slots: BLUFFER decoding batch tokens: 'New '
-srv  update_slots: BLUFFER decoding batch tokens: ' York '
-srv  update_slots: BLUFFER decoding batch tokens: ' City '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' often '
-srv  update_slots: BLUFFER decoding batch tokens: ' referred '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' as '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' " '
-srv  update_slots: BLUFFER decoding batch tokens: 'Big '
-srv  update_slots: BLUFFER decoding batch tokens: ' Apple '
-srv  update_slots: BLUFFER decoding batch tokens: '," '
+srv  update_slots: BLUFFER decoding batch tokens: 'Pl '
+srv  update_slots: BLUFFER decoding batch tokens: 'astic '
 srv  update_slots: BLUFFER decoding batch tokens: ' is '
 srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' vibrant '
-srv  update_slots: BLUFFER decoding batch tokens: ' met '
-srv  update_slots: BLUFFER decoding batch tokens: 'ropolis '
-srv  update_slots: BLUFFER decoding batch tokens: ' located '
-srv  update_slots: BLUFFER decoding batch tokens: ' at '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' southern '
-srv  update_slots: BLUFFER decoding batch tokens: ' tip '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' Manhattan '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' United '
-srv  update_slots: BLUFFER decoding batch tokens: ' States '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' With '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' population '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' over '
-srv  update_slots: BLUFFER decoding batch tokens: '  '
-srv  update_slots: BLUFFER decoding batch tokens: '8 '
-srv  update_slots: BLUFFER decoding batch tokens: ' million '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' one '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' most '
-srv  update_slots: BLUFFER decoding batch tokens: ' diverse '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' dynamic '
-srv  update_slots: BLUFFER decoding batch tokens: ' cities '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' world '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Known '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' its '
-srv  update_slots: BLUFFER decoding batch tokens: ' iconic '
-srv  update_slots: BLUFFER decoding batch tokens: ' skyline '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' including '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' Statue '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' Liberty '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' Empire '
-srv  update_slots: BLUFFER decoding batch tokens: ' State '
-srv  update_slots: BLUFFER decoding batch tokens: ' Building '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' New '
-srv  update_slots: BLUFFER decoding batch tokens: ' York '
-srv  update_slots: BLUFFER decoding batch tokens: ' City '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' global '
-srv  update_slots: BLUFFER decoding batch tokens: ' hub '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' finance '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' culture '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' entertainment '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'The '
-srv  update_slots: BLUFFER decoding batch tokens: ' city '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' melting '
-srv  update_slots: BLUFFER decoding batch tokens: ' pot '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' cultures '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' languages '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' traditions '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' reflecting '
-srv  update_slots: BLUFFER decoding batch tokens: ' its '
-srv  update_slots: BLUFFER decoding batch tokens: ' long '
-srv  update_slots: BLUFFER decoding batch tokens: ' history '
-srv  update_slots: BLUFFER decoding batch tokens: ' as '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' center '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' immigration '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' cultural '
-srv  update_slots: BLUFFER decoding batch tokens: ' exchange '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' From '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' bustling '
-srv  update_slots: BLUFFER decoding batch tokens: ' streets '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' Times '
-srv  update_slots: BLUFFER decoding batch tokens: ' Square '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' quiet '
-srv  update_slots: BLUFFER decoding batch tokens: ' beauty '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' Central '
-srv  update_slots: BLUFFER decoding batch tokens: ' Park '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' New '
-srv  update_slots: BLUFFER decoding batch tokens: ' York '
-srv  update_slots: BLUFFER decoding batch tokens: ' City '
-srv  update_slots: BLUFFER decoding batch tokens: ' offers '
-srv  update_slots: BLUFFER decoding batch tokens: ' something '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' everyone '
+srv  update_slots: BLUFFER decoding batch tokens: ' synthetic '
+srv  update_slots: BLUFFER decoding batch tokens: ' material '
+srv  update_slots: BLUFFER decoding batch tokens: ' made '
+srv  update_slots: BLUFFER decoding batch tokens: ' from '
+srv  update_slots: BLUFFER decoding batch tokens: ' petroleum '
+srv  update_slots: BLUFFER decoding batch tokens: '-based '
+srv  update_slots: BLUFFER decoding batch tokens: ' chemicals '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
 srv  update_slots: BLUFFER decoding batch tokens: ' It '
 srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' home '
+srv  update_slots: BLUFFER decoding batch tokens: ' widely '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' everyday '
+srv  update_slots: BLUFFER decoding batch tokens: ' life '
+srv  update_slots: BLUFFER decoding batch tokens: ' due '
 srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' world '
-srv  update_slots: BLUFFER decoding batch tokens: '-ren '
-srv  update_slots: BLUFFER decoding batch tokens: 'owned '
-srv  update_slots: BLUFFER decoding batch tokens: ' institutions '
-srv  update_slots: BLUFFER decoding batch tokens: ' like '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' Metropolitan '
-srv  update_slots: BLUFFER decoding batch tokens: ' Museum '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' Art '
+srv  update_slots: BLUFFER decoding batch tokens: ' its '
+srv  update_slots: BLUFFER decoding batch tokens: ' durability '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' American '
-srv  update_slots: BLUFFER decoding batch tokens: ' Museum '
-srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' Natural '
-srv  update_slots: BLUFFER decoding batch tokens: ' History '
+srv  update_slots: BLUFFER decoding batch tokens: ' affordability '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' Metropolitan '
-srv  update_slots: BLUFFER decoding batch tokens: ' Opera '
+srv  update_slots: BLUFFER decoding batch tokens: ' versatility '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' However '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' making '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' cultural '
-srv  update_slots: BLUFFER decoding batch tokens: ' capital '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'New '
-srv  update_slots: BLUFFER decoding batch tokens: ' York '
-srv  update_slots: BLUFFER decoding batch tokens: ' City '
+srv  update_slots: BLUFFER decoding batch tokens: ' plastic '
+srv  update_slots: BLUFFER decoding batch tokens: ' pollution '
 srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
 srv  update_slots: BLUFFER decoding batch tokens: ' a '
 srv  update_slots: BLUFFER decoding batch tokens: ' major '
-srv  update_slots: BLUFFER decoding batch tokens: ' center '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' arts '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' with '
-srv  update_slots: BLUFFER decoding batch tokens: ' theaters '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' galleries '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' music '
-srv  update_slots: BLUFFER decoding batch tokens: ' venues '
-srv  update_slots: BLUFFER decoding batch tokens: ' that '
-srv  update_slots: BLUFFER decoding batch tokens: ' attract '
-srv  update_slots: BLUFFER decoding batch tokens: ' visitors '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' residents '
-srv  update_slots: BLUFFER decoding batch tokens: ' alike '
+srv  update_slots: BLUFFER decoding batch tokens: ' global '
+srv  update_slots: BLUFFER decoding batch tokens: ' environmental '
+srv  update_slots: BLUFFER decoding batch tokens: ' issue '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Its '
-srv  update_slots: BLUFFER decoding batch tokens: ' cuisine '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' just '
-srv  update_slots: BLUFFER decoding batch tokens: ' as '
-srv  update_slots: BLUFFER decoding batch tokens: ' diverse '
-srv  update_slots: BLUFFER decoding batch tokens: ' as '
-srv  update_slots: BLUFFER decoding batch tokens: ' its '
-srv  update_slots: BLUFFER decoding batch tokens: ' people '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' with '
-srv  update_slots: BLUFFER decoding batch tokens: ' everything '
-srv  update_slots: BLUFFER decoding batch tokens: ' from '
-srv  update_slots: BLUFFER decoding batch tokens: ' classic '
-srv  update_slots: BLUFFER decoding batch tokens: ' New '
-srv  update_slots: BLUFFER decoding batch tokens: ' York '
-srv  update_slots: BLUFFER decoding batch tokens: '-style '
-srv  update_slots: BLUFFER decoding batch tokens: ' pizza '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' international '
-srv  update_slots: BLUFFER decoding batch tokens: ' street '
-srv  update_slots: BLUFFER decoding batch tokens: ' food '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'Despite '
-srv  update_slots: BLUFFER decoding batch tokens: ' its '
-srv  update_slots: BLUFFER decoding batch tokens: ' size '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' density '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' city '
-srv  update_slots: BLUFFER decoding batch tokens: ' has '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' unique '
-srv  update_slots: BLUFFER decoding batch tokens: ' charm '
-srv  update_slots: BLUFFER decoding batch tokens: ' that '
-srv  update_slots: BLUFFER decoding batch tokens: ' draws '
-srv  update_slots: BLUFFER decoding batch tokens: ' people '
-srv  update_slots: BLUFFER decoding batch tokens: ' from '
-srv  update_slots: BLUFFER decoding batch tokens: ' all '
-srv  update_slots: BLUFFER decoding batch tokens: ' over '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' world '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Whether '
-srv  update_slots: BLUFFER decoding batch tokens: ' you '
-srv  update_slots: BLUFFER decoding batch tokens: ''re '
-srv  update_slots: BLUFFER decoding batch tokens: ' exploring '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' historic '
-srv  update_slots: BLUFFER decoding batch tokens: ' neighborhoods '
+srv  update_slots: BLUFFER decoding batch tokens: ' Millions '
 srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' Brooklyn '
-srv  update_slots: BLUFFER decoding batch tokens: ' or '
-srv  update_slots: BLUFFER decoding batch tokens: ' enjoying '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' nightlife '
+srv  update_slots: BLUFFER decoding batch tokens: ' tons '
 srv  update_slots: BLUFFER decoding batch tokens: ' of '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' Financial '
-srv  update_slots: BLUFFER decoding batch tokens: ' District '
+srv  update_slots: BLUFFER decoding batch tokens: ' plastic '
+srv  update_slots: BLUFFER decoding batch tokens: ' waste '
+srv  update_slots: BLUFFER decoding batch tokens: ' enter '
+srv  update_slots: BLUFFER decoding batch tokens: ' oceans '
 srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' New '
-srv  update_slots: BLUFFER decoding batch tokens: ' York '
-srv  update_slots: BLUFFER decoding batch tokens: ' City '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' city '
-srv  update_slots: BLUFFER decoding batch tokens: ' that '
-srv  update_slots: BLUFFER decoding batch tokens: ' never '
-srv  update_slots: BLUFFER decoding batch tokens: ' sleeps '
+srv  update_slots: BLUFFER decoding batch tokens: ' harming '
+srv  update_slots: BLUFFER decoding batch tokens: ' marine '
+srv  update_slots: BLUFFER decoding batch tokens: ' life '
 srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' continues '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' inspire '
+srv  update_slots: BLUFFER decoding batch tokens: ' ecosystems '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 87 | 
-prompt eval time =    1424.82 ms /    17 tokens (   83.81 ms per token,    11.93 tokens per second)
-       eval time =   36022.67 ms /   272 tokens (  132.44 ms per token,     7.55 tokens per second)
-      total time =   37447.50 ms /   289 tokens
-slot      release: id  3 | task 87 | stop processing: n_tokens = 291, truncated = 0
+srv  update_slots: BLUFFER decoding batch tokens: ' It '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' poses '
+srv  update_slots: BLUFFER decoding batch tokens: ' risks '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' human '
+srv  update_slots: BLUFFER decoding batch tokens: ' health '
+srv  update_slots: BLUFFER decoding batch tokens: ' through '
+srv  update_slots: BLUFFER decoding batch tokens: ' contamination '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' micro '
+srv  update_slots: BLUFFER decoding batch tokens: 'pl '
+srv  update_slots: BLUFFER decoding batch tokens: 'astics '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' While '
+srv  update_slots: BLUFFER decoding batch tokens: ' plastics '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' useful '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' long '
+srv  update_slots: BLUFFER decoding batch tokens: ' lifespan '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' non '
+srv  update_slots: BLUFFER decoding batch tokens: '-b '
+srv  update_slots: BLUFFER decoding batch tokens: 'iode '
+srv  update_slots: BLUFFER decoding batch tokens: 'gradable '
+srv  update_slots: BLUFFER decoding batch tokens: ' nature '
+srv  update_slots: BLUFFER decoding batch tokens: ' make '
+srv  update_slots: BLUFFER decoding batch tokens: ' them '
+srv  update_slots: BLUFFER decoding batch tokens: ' problematic '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Sustainable '
+srv  update_slots: BLUFFER decoding batch tokens: ' alternatives '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' recycling '
+srv  update_slots: BLUFFER decoding batch tokens: ' efforts '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' critical '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' reducing '
+srv  update_slots: BLUFFER decoding batch tokens: ' plastic '
+srv  update_slots: BLUFFER decoding batch tokens: ' waste '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Awareness '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' action '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' essential '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' mitigate '
+srv  update_slots: BLUFFER decoding batch tokens: ' its '
+srv  update_slots: BLUFFER decoding batch tokens: ' harmful '
+srv  update_slots: BLUFFER decoding batch tokens: ' effects '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' planet '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+slot print_timing: id  3 | task 314 | 
+prompt eval time =     836.33 ms /    10 tokens (   83.63 ms per token,    11.96 tokens per second)
+       eval time =   12145.45 ms /   114 tokens (  106.54 ms per token,     9.39 tokens per second)
+      total time =   12981.78 ms /   124 tokens
+slot      release: id  3 | task 314 | stop processing: n_tokens = 131, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 291, size of tokens b: 312
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.933 (> 0.100 thold), f_keep = 1.000
+srv  get_common_p: size of tokens a: 131, size of tokens b: 151
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.841 (> 0.100 thold), f_keep = 0.969
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 360 | processing task, is_child = 0
-slot update_slots: id  3 | task 360 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 312
-srv  get_common_p: size of tokens a: 291, size of tokens b: 312
-slot update_slots: id  3 | task 360 | BLUFFER common prefix with cached prompt: n_past = 291, n_past_new = 287
-slot update_slots: id  3 | task 360 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 360 | keeping n_past = 291 tokens in the cache
-slot update_slots: id  3 | task 360 | BLUFF: detokenised prompt tokens:
+slot launch_slot_: id  3 | task 429 | processing task, is_child = 0
+slot update_slots: id  3 | task 429 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 151
+srv  get_common_p: size of tokens a: 131, size of tokens b: 151
+slot update_slots: id  3 | task 429 | BLUFFER common prefix with cached prompt: n_past = 131, n_past_new = 127
+slot update_slots: id  3 | task 429 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 429 | keeping n_past = 131 tokens in the cache
+slot update_slots: id  3 | task 429 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
-200 words on new york city<|im_end|>
+100 words on plastic<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
-New York City, often referred to as the "Big Apple," is a vibrant metropolis located at the southern tip of Manhattan in the United States. With a population of over 8 million, it is one of the most diverse and dynamic cities in the world. Known for its iconic skyline, including the Statue of Liberty and the Empire State Building, New York City is a global hub for finance, culture, and entertainment.
-
-The city is a melting pot of cultures, languages, and traditions, reflecting its long history as a center of immigration and cultural exchange. From the bustling streets of Times Square to the quiet beauty of Central Park, New York City offers something for everyone. It is home to world-renowned institutions like the Metropolitan Museum of Art, the American Museum of Natural History, and the Metropolitan Opera, making it a cultural capital.
-
-New York City is also a major center for the arts, with theaters, galleries, and music venues that attract visitors and residents alike. Its cuisine is just as diverse as its people, with everything from classic New York-style pizza to international street food.
-
-Despite its size and density, the city has a unique charm that draws people from all over the world. Whether you're exploring the historic neighborhoods of Brooklyn or enjoying the nightlife of the Financial District, New York City is a city that never sleeps and continues to inspire.
-slot update_slots: id  3 | task 360 | BLUFF: detokensed task tokens:
+Plastic is a synthetic material made from petroleum-based chemicals. It is widely used in everyday life due to its durability, affordability, and versatility. However, plastic pollution is a major global environmental issue. Millions of tons of plastic waste enter oceans, harming marine life and ecosystems. It also poses risks to human health through contamination and microplastics. While plastics are useful, their long lifespan and non-biodegradable nature make them problematic. Sustainable alternatives and recycling efforts are critical in reducing plastic waste. Awareness and action are essential to mitigate its harmful effects on the planet.
+slot update_slots: id  3 | task 429 | BLUFF: detokensed task tokens:
  <|im_start|>user
-200 words on new york city<|im_end|>
+100 words on plastic<|im_end|>
 <|im_start|>assistant
-New York City, often referred to as the "Big Apple," is a vibrant metropolis located at the southern tip of Manhattan in the United States. With a population of over 8 million, it is one of the most diverse and dynamic cities in the world. Known for its iconic skyline, including the Statue of Liberty and the Empire State Building, New York City is a global hub for finance, culture, and entertainment.
-
-The city is a melting pot of cultures, languages, and traditions, reflecting its long history as a center of immigration and cultural exchange. From the bustling streets of Times Square to the quiet beauty of Central Park, New York City offers something for everyone. It is home to world-renowned institutions like the Metropolitan Museum of Art, the American Museum of Natural History, and the Metropolitan Opera, making it a cultural capital.
-
-New York City is also a major center for the arts, with theaters, galleries, and music venues that attract visitors and residents alike. Its cuisine is just as diverse as its people, with everything from classic New York-style pizza to international street food.
-
-Despite its size and density, the city has a unique charm that draws people from all over the world. Whether you're exploring the historic neighborhoods of Brooklyn or enjoying the nightlife of the Financial District, New York City is a city that never sleeps and continues to inspire.<|im_end|>
+Plastic is a synthetic material made from petroleum-based chemicals. It is widely used in everyday life due to its durability, affordability, and versatility. However, plastic pollution is a major global environmental issue. Millions of tons of plastic waste enter oceans, harming marine life and ecosystems. It also poses risks to human health through contamination and microplastics. While plastics are useful, their long lifespan and non-biodegradable nature make them problematic. Sustainable alternatives and recycling efforts are critical in reducing plastic waste. Awareness and action are essential to mitigate its harmful effects on the planet.<|im_end|>
 <|im_start|>user
-what is the last word of your previous reponse?<|im_end|>
+what is the last word of your previous response?<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
 
-slot update_slots: id  3 | task 360 | n_tokens = 291, memory_seq_rm [291, end)
+slot update_slots: id  3 | task 429 | n_tokens = 131, memory_seq_rm [131, end)
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 291, size of tokens b: 312
-srv  update_slots: BLUFFER pos_first_new_token = 287
-srv  update_slots: BLUFFER pos_first_new_token_cache = 291
+srv  get_common_p: size of tokens a: 131, size of tokens b: 151
+srv  update_slots: BLUFFER pos_first_new_token = 127
+srv  update_slots: BLUFFER pos_first_new_token_cache = 131
 srv  update_slots: BLUFFER diff = 4
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 291
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 291
-srv  update_slots: BLUFFER slot.task->n_tokens() = 312
-srv  update_slots: BLUFFER next token position will be 288
-srv  update_slots: BLUFFER next token position will be 289
-srv  update_slots: BLUFFER next token position will be 290
-srv  update_slots: BLUFFER next token position will be 291
-srv  update_slots: BLUFFER next token position will be 292
-srv  update_slots: BLUFFER next token position will be 293
-srv  update_slots: BLUFFER next token position will be 294
-srv  update_slots: BLUFFER next token position will be 295
-srv  update_slots: BLUFFER next token position will be 296
-srv  update_slots: BLUFFER next token position will be 297
-srv  update_slots: BLUFFER next token position will be 298
-srv  update_slots: BLUFFER next token position will be 299
-srv  update_slots: BLUFFER next token position will be 300
-srv  update_slots: BLUFFER next token position will be 301
-srv  update_slots: BLUFFER next token position will be 302
-srv  update_slots: BLUFFER next token position will be 303
-srv  update_slots: BLUFFER next token position will be 304
-srv  update_slots: BLUFFER next token position will be 305
-srv  update_slots: BLUFFER next token position will be 306
-srv  update_slots: BLUFFER next token position will be 307
-srv  update_slots: BLUFFER next token position will be 308
-srv  update_slots: BLUFFER next token position will be 309
-srv  update_slots: BLUFFER next token position will be 310
-srv  update_slots: BLUFFER next token position will be 311
-srv  update_slots: BLUFFER next token position will be 312
-slot init_sampler: id  3 | task 360 | init sampler, took 0.07 ms, tokens: text = 316, total = 316
-slot update_slots: id  3 | task 360 | prompt processing done, n_tokens = 316, batch.n_tokens = 25
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 131
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 131
+srv  update_slots: BLUFFER slot.task->n_tokens() = 151
+srv  update_slots: BLUFFER next token position will be 128
+srv  update_slots: BLUFFER next token position will be 129
+srv  update_slots: BLUFFER next token position will be 130
+srv  update_slots: BLUFFER next token position will be 131
+srv  update_slots: BLUFFER next token position will be 132
+srv  update_slots: BLUFFER next token position will be 133
+srv  update_slots: BLUFFER next token position will be 134
+srv  update_slots: BLUFFER next token position will be 135
+srv  update_slots: BLUFFER next token position will be 136
+srv  update_slots: BLUFFER next token position will be 137
+srv  update_slots: BLUFFER next token position will be 138
+srv  update_slots: BLUFFER next token position will be 139
+srv  update_slots: BLUFFER next token position will be 140
+srv  update_slots: BLUFFER next token position will be 141
+srv  update_slots: BLUFFER next token position will be 142
+srv  update_slots: BLUFFER next token position will be 143
+srv  update_slots: BLUFFER next token position will be 144
+srv  update_slots: BLUFFER next token position will be 145
+srv  update_slots: BLUFFER next token position will be 146
+srv  update_slots: BLUFFER next token position will be 147
+srv  update_slots: BLUFFER next token position will be 148
+srv  update_slots: BLUFFER next token position will be 149
+srv  update_slots: BLUFFER next token position will be 150
+srv  update_slots: BLUFFER next token position will be 151
+slot init_sampler: id  3 | task 429 | init sampler, took 0.03 ms, tokens: text = 155, total = 155
+slot update_slots: id  3 | task 429 | prompt processing done, n_tokens = 155, batch.n_tokens = 24
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
  <|im_start|> user 
- what  is  the  last  word  of  your  previous  re ponse ? <|im_end|> 
+ what  is  the  last  word  of  your  previous  response ? <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
@@ -934,15 +1083,242 @@ srv  update_slots: BLUFFER decoding batch tokens: ' response '
 srv  update_slots: BLUFFER decoding batch tokens: ' is '
 srv  update_slots: BLUFFER decoding batch tokens: ' ** '
 srv  update_slots: BLUFFER decoding batch tokens: '" '
-srv  update_slots: BLUFFER decoding batch tokens: 'ins '
-srv  update_slots: BLUFFER decoding batch tokens: 'pire '
+srv  update_slots: BLUFFER decoding batch tokens: 'planet '
 srv  update_slots: BLUFFER decoding batch tokens: '." '
 srv  update_slots: BLUFFER decoding batch tokens: '** '
-slot print_timing: id  3 | task 360 | 
-prompt eval time =    2123.90 ms /    25 tokens (   84.96 ms per token,    11.77 tokens per second)
-       eval time =    1628.37 ms /    15 tokens (  108.56 ms per token,     9.21 tokens per second)
-      total time =    3752.27 ms /    40 tokens
-slot      release: id  3 | task 360 | stop processing: n_tokens = 330, truncated = 0
+slot print_timing: id  3 | task 429 | 
+prompt eval time =    1953.53 ms /    24 tokens (   81.40 ms per token,    12.29 tokens per second)
+       eval time =    1410.03 ms /    14 tokens (  100.72 ms per token,     9.93 tokens per second)
+      total time =    3363.56 ms /    38 tokens
+slot      release: id  3 | task 429 | stop processing: n_tokens = 168, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+srv  get_common_p: size of tokens a: 168, size of tokens b: 193
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.829 (> 0.100 thold), f_keep = 0.952
+slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  3 | task 444 | processing task, is_child = 0
+slot update_slots: id  3 | task 444 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 193
+srv  get_common_p: size of tokens a: 168, size of tokens b: 193
+slot update_slots: id  3 | task 444 | BLUFFER common prefix with cached prompt: n_past = 168, n_past_new = 160
+slot update_slots: id  3 | task 444 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 444 | keeping n_past = 168 tokens in the cache
+slot update_slots: id  3 | task 444 | BLUFF: detokenised prompt tokens:
+ <|im_start|>user
+100 words on plastic<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+Plastic is a synthetic material made from petroleum-based chemicals. It is widely used in everyday life due to its durability, affordability, and versatility. However, plastic pollution is a major global environmental issue. Millions of tons of plastic waste enter oceans, harming marine life and ecosystems. It also poses risks to human health through contamination and microplastics. While plastics are useful, their long lifespan and non-biodegradable nature make them problematic. Sustainable alternatives and recycling efforts are critical in reducing plastic waste. Awareness and action are essential to mitigate its harmful effects on the planet.<|im_end|>
+<|im_start|>user
+what is the last word of your previous response?<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+The last word of my previous response is **"planet."**
+slot update_slots: id  3 | task 444 | BLUFF: detokensed task tokens:
+ <|im_start|>user
+100 words on plastic<|im_end|>
+<|im_start|>assistant
+Plastic is a synthetic material made from petroleum-based chemicals. It is widely used in everyday life due to its durability, affordability, and versatility. However, plastic pollution is a major global environmental issue. Millions of tons of plastic waste enter oceans, harming marine life and ecosystems. It also poses risks to human health through contamination and microplastics. While plastics are useful, their long lifespan and non-biodegradable nature make them problematic. Sustainable alternatives and recycling efforts are critical in reducing plastic waste. Awareness and action are essential to mitigate its harmful effects on the planet.<|im_end|>
+<|im_start|>user
+what is the last word of your previous response?<|im_end|>
+<|im_start|>assistant
+The last word of my previous response is **"planet."**<|im_end|>
+<|im_start|>user
+How many sentences in your first response did not contain any references to a negative aspect of plastic?<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+slot update_slots: id  3 | task 444 | n_tokens = 168, memory_seq_rm [168, end)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  get_common_p: size of tokens a: 168, size of tokens b: 193
+srv  update_slots: BLUFFER pos_first_new_token = 160
+srv  update_slots: BLUFFER pos_first_new_token_cache = 168
+srv  update_slots: BLUFFER diff = 8
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 168
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 168
+srv  update_slots: BLUFFER slot.task->n_tokens() = 193
+srv  update_slots: BLUFFER next token position will be 161
+srv  update_slots: BLUFFER next token position will be 162
+srv  update_slots: BLUFFER next token position will be 163
+srv  update_slots: BLUFFER next token position will be 164
+srv  update_slots: BLUFFER next token position will be 165
+srv  update_slots: BLUFFER next token position will be 166
+srv  update_slots: BLUFFER next token position will be 167
+srv  update_slots: BLUFFER next token position will be 168
+srv  update_slots: BLUFFER next token position will be 169
+srv  update_slots: BLUFFER next token position will be 170
+srv  update_slots: BLUFFER next token position will be 171
+srv  update_slots: BLUFFER next token position will be 172
+srv  update_slots: BLUFFER next token position will be 173
+srv  update_slots: BLUFFER next token position will be 174
+srv  update_slots: BLUFFER next token position will be 175
+srv  update_slots: BLUFFER next token position will be 176
+srv  update_slots: BLUFFER next token position will be 177
+srv  update_slots: BLUFFER next token position will be 178
+srv  update_slots: BLUFFER next token position will be 179
+srv  update_slots: BLUFFER next token position will be 180
+srv  update_slots: BLUFFER next token position will be 181
+srv  update_slots: BLUFFER next token position will be 182
+srv  update_slots: BLUFFER next token position will be 183
+srv  update_slots: BLUFFER next token position will be 184
+srv  update_slots: BLUFFER next token position will be 185
+srv  update_slots: BLUFFER next token position will be 186
+srv  update_slots: BLUFFER next token position will be 187
+srv  update_slots: BLUFFER next token position will be 188
+srv  update_slots: BLUFFER next token position will be 189
+srv  update_slots: BLUFFER next token position will be 190
+srv  update_slots: BLUFFER next token position will be 191
+srv  update_slots: BLUFFER next token position will be 192
+srv  update_slots: BLUFFER next token position will be 193
+slot init_sampler: id  3 | task 444 | init sampler, took 0.06 ms, tokens: text = 201, total = 201
+slot update_slots: id  3 | task 444 | prompt processing done, n_tokens = 201, batch.n_tokens = 33
+srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
+ <|im_start|> user 
+ How  many  sentences  in  your  first  response  did  not  contain  any  references  to  a  negative  aspect  of  plastic ? <|im_end|> 
+ <|im_start|> assistant 
+ <think> 
+
+ </think> 
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'In '
+srv  update_slots: BLUFFER decoding batch tokens: ' my '
+srv  update_slots: BLUFFER decoding batch tokens: ' first '
+srv  update_slots: BLUFFER decoding batch tokens: ' response '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' there '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' ** '
+srv  update_slots: BLUFFER decoding batch tokens: 'three '
+srv  update_slots: BLUFFER decoding batch tokens: ' sentences '
+srv  update_slots: BLUFFER decoding batch tokens: '** '
+srv  update_slots: BLUFFER decoding batch tokens: ' that '
+srv  update_slots: BLUFFER decoding batch tokens: ' do '
+srv  update_slots: BLUFFER decoding batch tokens: ' not '
+srv  update_slots: BLUFFER decoding batch tokens: ' contain '
+srv  update_slots: BLUFFER decoding batch tokens: ' any '
+srv  update_slots: BLUFFER decoding batch tokens: ' references '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' negative '
+srv  update_slots: BLUFFER decoding batch tokens: ' aspect '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' plastic '
+srv  update_slots: BLUFFER decoding batch tokens: ':
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '1 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'Pl '
+srv  update_slots: BLUFFER decoding batch tokens: 'astic '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' synthetic '
+srv  update_slots: BLUFFER decoding batch tokens: ' material '
+srv  update_slots: BLUFFER decoding batch tokens: ' made '
+srv  update_slots: BLUFFER decoding batch tokens: ' from '
+srv  update_slots: BLUFFER decoding batch tokens: ' petroleum '
+srv  update_slots: BLUFFER decoding batch tokens: '-based '
+srv  update_slots: BLUFFER decoding batch tokens: ' chemicals '
+srv  update_slots: BLUFFER decoding batch tokens: '."
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '2 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'It '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' widely '
+srv  update_slots: BLUFFER decoding batch tokens: ' used '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' everyday '
+srv  update_slots: BLUFFER decoding batch tokens: ' life '
+srv  update_slots: BLUFFER decoding batch tokens: ' due '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' its '
+srv  update_slots: BLUFFER decoding batch tokens: ' durability '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' affordability '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' versatility '
+srv  update_slots: BLUFFER decoding batch tokens: '."
+ '
+srv  update_slots: BLUFFER decoding batch tokens: '3 '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' " '
+srv  update_slots: BLUFFER decoding batch tokens: 'While '
+srv  update_slots: BLUFFER decoding batch tokens: ' plastics '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' useful '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' long '
+srv  update_slots: BLUFFER decoding batch tokens: ' lifespan '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' non '
+srv  update_slots: BLUFFER decoding batch tokens: '-b '
+srv  update_slots: BLUFFER decoding batch tokens: 'iode '
+srv  update_slots: BLUFFER decoding batch tokens: 'gradable '
+srv  update_slots: BLUFFER decoding batch tokens: ' nature '
+srv  update_slots: BLUFFER decoding batch tokens: ' make '
+srv  update_slots: BLUFFER decoding batch tokens: ' them '
+srv  update_slots: BLUFFER decoding batch tokens: ' problematic '
+srv  update_slots: BLUFFER decoding batch tokens: '."
+
+ '
+srv  update_slots: BLUFFER decoding batch tokens: 'The '
+srv  update_slots: BLUFFER decoding batch tokens: ' first '
+srv  update_slots: BLUFFER decoding batch tokens: ' two '
+srv  update_slots: BLUFFER decoding batch tokens: ' sentences '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' neutral '
+srv  update_slots: BLUFFER decoding batch tokens: ' or '
+srv  update_slots: BLUFFER decoding batch tokens: ' positive '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' third '
+srv  update_slots: BLUFFER decoding batch tokens: ' introduces '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' slightly '
+srv  update_slots: BLUFFER decoding batch tokens: ' negative '
+srv  update_slots: BLUFFER decoding batch tokens: ' aspect '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'being '
+srv  update_slots: BLUFFER decoding batch tokens: ' problematic '
+srv  update_slots: BLUFFER decoding batch tokens: '), '
+srv  update_slots: BLUFFER decoding batch tokens: ' but '
+srv  update_slots: BLUFFER decoding batch tokens: ' it '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' not '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' strong '
+srv  update_slots: BLUFFER decoding batch tokens: ' negative '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' So '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' answer '
+srv  update_slots: BLUFFER decoding batch tokens: ' is '
+srv  update_slots: BLUFFER decoding batch tokens: ' ** '
+srv  update_slots: BLUFFER decoding batch tokens: 'three '
+srv  update_slots: BLUFFER decoding batch tokens: ' sentences '
+srv  update_slots: BLUFFER decoding batch tokens: '** '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+slot print_timing: id  3 | task 444 | 
+prompt eval time =    2703.97 ms /    33 tokens (   81.94 ms per token,    12.20 tokens per second)
+       eval time =   13690.64 ms /   120 tokens (  114.09 ms per token,     8.77 tokens per second)
+      total time =   16394.60 ms /   153 tokens
+slot      release: id  3 | task 444 | stop processing: n_tokens = 320, truncated = 0
 srv  update_slots: all slots are idle
 srv    operator(): operator(): cleaning up before exit...
 llama_memory_breakdown_print: | memory breakdown [MiB] | total   free     self   model   context   compute    unaccounted |
