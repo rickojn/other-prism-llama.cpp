@@ -1991,7 +1991,7 @@ server_prompt * server_prompt_cache::alloc(const server_prompt & prompt, size_t 
     // first check if the current state is contained fully in the cache
     for (auto it = states.begin(); it != states.end(); ++it) {
         common_prefix_response res = it->tokens.get_common_prefix_ignoring_thinking(prompt.tokens, qlazy);
-        const int cur_lcp_len = res.cached_position;
+        const int cur_lcp_len = res.input_position;
 
         if (cur_lcp_len == (int) prompt.tokens.size()) {
             SRV_WRN("%s", " - prompt is already in the cache, skipping\n");
