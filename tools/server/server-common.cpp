@@ -449,46 +449,33 @@ std::string server_tokens::detokenize(const llama_context * ctx, bool special) c
     return common_detokenize(ctx, text_tokens, special);
 }
 
-
-common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const server_tokens & b, bool ignore_thinking) const {
-    const size_t max_idx = std::min(tokens.size(), b.tokens.size());
-
+common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const server_tokens & b,
+                                                                          bool                  ignore_thinking) const {
     SRV_INF("size of tokens a: %zu, size of tokens b: %zu\n", tokens.size(), b.tokens.size());
 
-    for (size_t i = 0; i < max_idx; ++i) {
-        // SRV_INF("at index %zu, token a: %d, token b: %d\n", i, tokens[i], b.tokens[i]);
-     
-    }
-
     if (!has_mtmd) {
-        int32_t start_thinking = 151667; // the token id for <thinking>
-        int32_t end_thinking = 151668; // the token id for </thinking>
-        size_t len_cached_thinking = 0;
-        for (size_t i = 0; i + len_cached_thinking < max_idx; ++i) {
-            if (tokens[i + len_cached_thinking] == b.tokens[i]) {
-                continue;
-            }
-            if  (ignore_thinking && tokens[i + len_cached_thinking] == start_thinking ) {
-                while (i + len_cached_thinking < max_idx && 
-                    tokens[i + len_cached_thinking] != end_thinking) {
-                    len_cached_thinking++;
-                }
-                len_cached_thinking+=2; // skip end_thinking and new line after thinking
-                i--; // recompare the new token
-                continue;
-            }
+        int32_t start_thinking = 151667;  // the token id for <thinking>
+        int32_t end_thinking   = 151668;  // the token id for </thinking>
+        size_t  ic = 0, ii = 0;
 
-            return {i + len_cached_thinking, i};
+        while (ic < tokens.size() && ii < b.tokens.size()) {
+            if (tokens[ic] == b.tokens[ii]) {
+                ic++;
+                ii++;
+            } else if (ignore_thinking && tokens[ic] == start_thinking) {
+                ic++;
+                while (ic < tokens.size() && tokens[ic] != end_thinking) {
+                    ic++;
+                }
+                ic += 2;  // skip </thinking> and new line after thinking
+            }
         }
-        return {max_idx, max_idx - len_cached_thinking}; 
+        SRV_INF("common prefix (ignoring thinking): %zu, %zu\n", ii, ic);
+        return { ic, ii };
     }
 
-
-    return {0, 0}; // na for mtmd
+    return { 0, 0 };  // na for mtmd
 }
-
-
-
 
 bool server_tokens::validate(const struct llama_context * ctx) const {
     const llama_model * model = llama_get_model(ctx);
