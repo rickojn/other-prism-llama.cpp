@@ -2574,6 +2574,7 @@ private:
                         slot.prompt.tokens.get_common_prefix_ignoring_thinking(input_tokens, params_base.qlazy);
                     pos_first_new_token = tokens_common_prefix.input_position;
                     pos_first_new_token_cache = tokens_common_prefix.cached_position;
+                    GGML_ASSERT(pos_first_new_token_cache >= pos_first_new_token);
                     diff = pos_first_new_token_cache - pos_first_new_token;
                     SRV_INF("BLUFFER pos_first_new_token = %zu\n", pos_first_new_token);
                     SRV_INF("BLUFFER pos_first_new_token_cache = %zu\n", pos_first_new_token_cache);

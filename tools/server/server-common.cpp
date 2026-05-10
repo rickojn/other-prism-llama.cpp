@@ -473,8 +473,62 @@ common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const 
         SRV_INF("common prefix (ignoring thinking): %zu, %zu\n", ii, ic);
         return { ic, ii };
     }
+    else {
+        size_t lcp = get_common_prefix(b);
+        return { lcp, lcp }; // no ignore thinking for mtmd
+    }
 
     return { 0, 0 };  // na for mtmd
+}
+
+size_t server_tokens::get_common_prefix(const server_tokens & b) const {
+    const size_t max_idx = std::min(tokens.size(), b.tokens.size());
+
+    if (!has_mtmd) {
+        for (size_t i = 0; i < max_idx; ++i) {
+            if (tokens[i] == b.tokens[i]) {
+                continue;
+            }
+
+            return i;
+        }
+
+        return max_idx;
+    }
+
+    for (size_t i = 0; i < max_idx; ++i) {
+        const llama_token ai =   tokens[i];
+        const llama_token bi = b.tokens[i];
+
+        if (ai == LLAMA_TOKEN_NULL && bi == LLAMA_TOKEN_NULL) {
+            const auto & a_chunk =   find_chunk(i);
+            const auto & b_chunk = b.find_chunk(i);
+
+            GGML_ASSERT(a_chunk && b_chunk);
+
+            const std::string id_ai = mtmd_input_chunk_get_id(a_chunk.get());
+            const std::string id_bi = mtmd_input_chunk_get_id(b_chunk.get());
+
+            const size_t n_tok_a = mtmd_input_chunk_get_n_tokens(a_chunk.get());
+            const size_t n_tok_b = mtmd_input_chunk_get_n_tokens(b_chunk.get());
+
+            if (id_ai == id_bi && n_tok_a == n_tok_b) {
+                GGML_ASSERT(n_tok_a > 0 && "Invalid media chunk"); // should never happen
+                i += n_tok_a - 1; // will be +1 by the for loop
+                continue;
+            }
+
+            return i;
+        }
+
+        if (ai == bi) {
+            continue;
+        }
+
+        return i;
+    }
+
+    return max_idx; // all tokens are equal
 }
 
 bool server_tokens::validate(const struct llama_context * ctx) const {
