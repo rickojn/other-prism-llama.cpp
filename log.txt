@@ -1,5 +1,5 @@
 main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
-build_info: b8874-a875693c8
+build_info: b8876-59767b92f
 system_info: n_threads = 4 (n_threads_batch = 4) / 8 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
 init: using 8 threads for HTTP server
 start: binding port with default address family
@@ -9,7 +9,7 @@ common_init_result: fitting params to device memory, for bugs during this step t
 llama_params_fit_impl: projected to use 10627 MiB of host memory vs. 15851 MiB of total host memory
 llama_params_fit_impl: will leave 5223 >= 1024 MiB of system memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.48 seconds
+llama_params_fit: fitting params to free memory took 0.39 seconds
 llama_model_loader: loaded meta data with 32 key-value pairs and 399 tensors from ./models/Bonsai-8B-Q1_0.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
 llama_model_loader: - kv   0:                       general.architecture str              = qwen3
@@ -154,7 +154,7 @@ sched_reserve: fused Gated Delta Net (chunked) enabled
 sched_reserve:        CPU compute buffer size =   312.23 MiB
 sched_reserve: graph nodes  = 1267
 sched_reserve: graph splits = 1
-sched_reserve: reserve took 6.37 ms, sched copies = 1
+sched_reserve: reserve took 4.63 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -195,15 +195,15 @@ srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
 slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
 srv  get_availabl: updating prompt cache
-srv  get_common_p: size of tokens a: 0, size of tokens b: 24
+srv  get_common_p: size of tokens a: 0, size of tokens b: 20
 srv  get_common_p: common prefix (ignoring thinking): 0, 0
 srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
 srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 65536 tokens, 8589934592 est)
-srv  get_availabl: prompt cache update took 0.02 ms
+srv  get_availabl: prompt cache update took 0.01 ms
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
 slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
-slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 24
-srv  get_common_p: size of tokens a: 0, size of tokens b: 24
+slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 20
+srv  get_common_p: size of tokens a: 0, size of tokens b: 20
 srv  get_common_p: common prefix (ignoring thinking): 0, 0
 slot update_slots: id  3 | task 0 | BLUFFER common prefix with cached prompt: n_past = 0, n_past_new = 0
 slot update_slots: id  3 | task 0 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
@@ -212,7 +212,7 @@ slot update_slots: id  3 | task 0 | BLUFF: detokenised prompt tokens:
  
 slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
  <|im_start|>user
-100 words on initializing variables in C and C++<|im_end|>
+100 words on LLMs<|im_end|>
 <|im_start|>assistant
 <think>
 
@@ -220,14 +220,14 @@ slot update_slots: id  3 | task 0 | BLUFF: detokensed task tokens:
 
 
 slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
-srv  get_common_p: size of tokens a: 0, size of tokens b: 24
+srv  get_common_p: size of tokens a: 0, size of tokens b: 20
 srv  get_common_p: common prefix (ignoring thinking): 0, 0
 srv  update_slots: BLUFFER pos_first_new_token = 0
 srv  update_slots: BLUFFER pos_first_new_token_cache = 0
 srv  update_slots: BLUFFER diff = 0
 srv  update_slots: BLUFFER slot.prompt.tokens.size() = 0
 srv  update_slots: BLUFFER slot.prompt.n_tokens() = 0
-srv  update_slots: BLUFFER slot.task->n_tokens() = 24
+srv  update_slots: BLUFFER slot.task->n_tokens() = 20
 srv  update_slots: BLUFFER next token position will be 1
 srv  update_slots: BLUFFER next token position will be 2
 srv  update_slots: BLUFFER next token position will be 3
@@ -248,14 +248,10 @@ srv  update_slots: BLUFFER next token position will be 17
 srv  update_slots: BLUFFER next token position will be 18
 srv  update_slots: BLUFFER next token position will be 19
 srv  update_slots: BLUFFER next token position will be 20
-srv  update_slots: BLUFFER next token position will be 21
-srv  update_slots: BLUFFER next token position will be 22
-srv  update_slots: BLUFFER next token position will be 23
-srv  update_slots: BLUFFER next token position will be 24
-slot init_sampler: id  3 | task 0 | init sampler, took 0.17 ms, tokens: text = 24, total = 24
-slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 24, batch.n_tokens = 24
+slot init_sampler: id  3 | task 0 | init sampler, took 0.02 ms, tokens: text = 20, total = 20
+slot update_slots: id  3 | task 0 | prompt processing done, n_tokens = 20, batch.n_tokens = 20
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_start|> user 
- 1 0 0  words  on  initializing  variables  in  C  and  C ++ <|im_end|> 
+ 1 0 0  words  on  L LM s <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
@@ -263,237 +259,205 @@ srv  update_slots: BLUFFER decoding batch tokens: '<|im_start|> user
 
  '
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  update_slots: BLUFFER decoding batch tokens: 'In '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
+srv  update_slots: BLUFFER decoding batch tokens: 'Large '
+srv  update_slots: BLUFFER decoding batch tokens: ' Language '
+srv  update_slots: BLUFFER decoding batch tokens: ' Models '
+srv  update_slots: BLUFFER decoding batch tokens: ' ( '
+srv  update_slots: BLUFFER decoding batch tokens: 'LL '
+srv  update_slots: BLUFFER decoding batch tokens: 'Ms '
+srv  update_slots: BLUFFER decoding batch tokens: ') '
+srv  update_slots: BLUFFER decoding batch tokens: ' are '
+srv  update_slots: BLUFFER decoding batch tokens: ' artificial '
+srv  update_slots: BLUFFER decoding batch tokens: ' intelligence '
+srv  update_slots: BLUFFER decoding batch tokens: ' systems '
+srv  update_slots: BLUFFER decoding batch tokens: ' trained '
+srv  update_slots: BLUFFER decoding batch tokens: ' on '
+srv  update_slots: BLUFFER decoding batch tokens: ' vast '
+srv  update_slots: BLUFFER decoding batch tokens: ' amounts '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' text '
+srv  update_slots: BLUFFER decoding batch tokens: ' data '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' understand '
 srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: '++, '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' when '
-srv  update_slots: BLUFFER decoding batch tokens: ' they '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' declared '
+srv  update_slots: BLUFFER decoding batch tokens: ' generate '
+srv  update_slots: BLUFFER decoding batch tokens: ' human '
+srv  update_slots: BLUFFER decoding batch tokens: '-like '
+srv  update_slots: BLUFFER decoding batch tokens: ' language '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' In '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' you '
-srv  update_slots: BLUFFER decoding batch tokens: ' must '
-srv  update_slots: BLUFFER decoding batch tokens: ' explicitly '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialize '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' while '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: '++, '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' optional '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' If '
-srv  update_slots: BLUFFER decoding batch tokens: ' not '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialized '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: ' have '
-srv  update_slots: BLUFFER decoding batch tokens: ' undefined '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' while '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: '++ '
-srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
 srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' considered '
-srv  update_slots: BLUFFER decoding batch tokens: ' uninitialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' but '
-srv  update_slots: BLUFFER decoding batch tokens: ' still '
-srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' capable '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' performing '
 srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' value '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' For '
-srv  update_slots: BLUFFER decoding batch tokens: ' example '
-srv  update_slots: BLUFFER decoding batch tokens: ':
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: '``` '
-srv  update_slots: BLUFFER decoding batch tokens: 'c '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'int '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: '; '
-srv  update_slots: BLUFFER decoding batch tokens: ' // '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' uninitialized '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'x '
-srv  update_slots: BLUFFER decoding batch tokens: ' = '
-srv  update_slots: BLUFFER decoding batch tokens: '  '
-srv  update_slots: BLUFFER decoding batch tokens: '1 '
-srv  update_slots: BLUFFER decoding batch tokens: '0 '
-srv  update_slots: BLUFFER decoding batch tokens: '; '
-srv  update_slots: BLUFFER decoding batch tokens: ' // '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialize '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: '`` '
-srv  update_slots: BLUFFER decoding batch tokens: '`
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: '``` '
-srv  update_slots: BLUFFER decoding batch tokens: 'cpp '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'int '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: '; '
-srv  update_slots: BLUFFER decoding batch tokens: ' // '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' uninitialized '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: '// '
-srv  update_slots: BLUFFER decoding batch tokens: ' no '
-srv  update_slots: BLUFFER decoding batch tokens: ' assignment '
-srv  update_slots: BLUFFER decoding batch tokens: ' needed '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: '`` '
-srv  update_slots: BLUFFER decoding batch tokens: '`
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'Best '
-srv  update_slots: BLUFFER decoding batch tokens: ' practice '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialize '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' prevent '
-srv  update_slots: BLUFFER decoding batch tokens: ' undefined '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Use '
-srv  update_slots: BLUFFER decoding batch tokens: ' ` '
-srv  update_slots: BLUFFER decoding batch tokens: 'int '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: ' = '
-srv  update_slots: BLUFFER decoding batch tokens: '  '
-srv  update_slots: BLUFFER decoding batch tokens: '0 '
-srv  update_slots: BLUFFER decoding batch tokens: '; '
-srv  update_slots: BLUFFER decoding batch tokens: '` '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
+srv  update_slots: BLUFFER decoding batch tokens: ' wide '
+srv  update_slots: BLUFFER decoding batch tokens: ' range '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' tasks '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' answering '
+srv  update_slots: BLUFFER decoding batch tokens: ' questions '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' writing '
+srv  update_slots: BLUFFER decoding batch tokens: ' stories '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
 srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' ` '
-srv  update_slots: BLUFFER decoding batch tokens: 'int '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: '; '
-srv  update_slots: BLUFFER decoding batch tokens: '` '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: '++ '
-srv  update_slots: BLUFFER decoding batch tokens: ' with '
-srv  update_slots: BLUFFER decoding batch tokens: ' an '
-srv  update_slots: BLUFFER decoding batch tokens: ' initializer '
-srv  update_slots: BLUFFER decoding batch tokens: ' list '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' constructors '
+srv  update_slots: BLUFFER decoding batch tokens: ' coding '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' This '
-srv  update_slots: BLUFFER decoding batch tokens: ' ensures '
-srv  update_slots: BLUFFER decoding batch tokens: ' clarity '
+srv  update_slots: BLUFFER decoding batch tokens: ' L '
+srv  update_slots: BLUFFER decoding batch tokens: 'LM '
+srv  update_slots: BLUFFER decoding batch tokens: 's '
+srv  update_slots: BLUFFER decoding batch tokens: ' use '
+srv  update_slots: BLUFFER decoding batch tokens: ' deep '
+srv  update_slots: BLUFFER decoding batch tokens: ' learning '
+srv  update_slots: BLUFFER decoding batch tokens: ' techniques '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' particularly '
+srv  update_slots: BLUFFER decoding batch tokens: ' transformer '
+srv  update_slots: BLUFFER decoding batch tokens: ' architecture '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' process '
 srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' correctness '
+srv  update_slots: BLUFFER decoding batch tokens: ' generate '
+srv  update_slots: BLUFFER decoding batch tokens: ' text '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' They '
+srv  update_slots: BLUFFER decoding batch tokens: ' have '
+srv  update_slots: BLUFFER decoding batch tokens: ' become '
+srv  update_slots: BLUFFER decoding batch tokens: ' powerful '
+srv  update_slots: BLUFFER decoding batch tokens: ' tools '
 srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' variable '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialization '
+srv  update_slots: BLUFFER decoding batch tokens: ' various '
+srv  update_slots: BLUFFER decoding batch tokens: ' fields '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' including '
+srv  update_slots: BLUFFER decoding batch tokens: ' research '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' education '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' industry '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' However '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' their '
+srv  update_slots: BLUFFER decoding batch tokens: ' use '
+srv  update_slots: BLUFFER decoding batch tokens: ' raises '
+srv  update_slots: BLUFFER decoding batch tokens: ' ethical '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' privacy '
+srv  update_slots: BLUFFER decoding batch tokens: ' concerns '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' As '
+srv  update_slots: BLUFFER decoding batch tokens: ' these '
+srv  update_slots: BLUFFER decoding batch tokens: ' models '
+srv  update_slots: BLUFFER decoding batch tokens: ' grow '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' capability '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' size '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' they '
+srv  update_slots: BLUFFER decoding batch tokens: ' also '
+srv  update_slots: BLUFFER decoding batch tokens: ' pose '
+srv  update_slots: BLUFFER decoding batch tokens: ' challenges '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' terms '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' security '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' control '
+srv  update_slots: BLUFFER decoding batch tokens: '. '
+srv  update_slots: BLUFFER decoding batch tokens: ' Despite '
+srv  update_slots: BLUFFER decoding batch tokens: ' these '
+srv  update_slots: BLUFFER decoding batch tokens: ' issues '
+srv  update_slots: BLUFFER decoding batch tokens: ', '
+srv  update_slots: BLUFFER decoding batch tokens: ' L '
+srv  update_slots: BLUFFER decoding batch tokens: 'LM '
+srv  update_slots: BLUFFER decoding batch tokens: 's '
+srv  update_slots: BLUFFER decoding batch tokens: ' continue '
+srv  update_slots: BLUFFER decoding batch tokens: ' to '
+srv  update_slots: BLUFFER decoding batch tokens: ' advance '
+srv  update_slots: BLUFFER decoding batch tokens: ' and '
+srv  update_slots: BLUFFER decoding batch tokens: ' play '
+srv  update_slots: BLUFFER decoding batch tokens: ' a '
+srv  update_slots: BLUFFER decoding batch tokens: ' significant '
+srv  update_slots: BLUFFER decoding batch tokens: ' role '
+srv  update_slots: BLUFFER decoding batch tokens: ' in '
+srv  update_slots: BLUFFER decoding batch tokens: ' shaping '
+srv  update_slots: BLUFFER decoding batch tokens: ' the '
+srv  update_slots: BLUFFER decoding batch tokens: ' future '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' artificial '
+srv  update_slots: BLUFFER decoding batch tokens: ' intelligence '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
 slot print_timing: id  3 | task 0 | 
-prompt eval time =    2071.70 ms /    24 tokens (   86.32 ms per token,    11.58 tokens per second)
-       eval time =   15802.11 ms /   146 tokens (  108.23 ms per token,     9.24 tokens per second)
-      total time =   17873.81 ms /   170 tokens
-slot      release: id  3 | task 0 | stop processing: n_tokens = 169, truncated = 0
+prompt eval time =    1686.58 ms /    20 tokens (   84.33 ms per token,    11.86 tokens per second)
+       eval time =   13875.20 ms /   136 tokens (  102.02 ms per token,     9.80 tokens per second)
+      total time =   15561.78 ms /   156 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 155, truncated = 0
 srv  update_slots: all slots are idle
 srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 169, size of tokens b: 187
-srv  get_common_p: common prefix (ignoring thinking): 165, 169
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.882 (> 0.100 thold), f_keep = 0.976
+srv  get_common_p: size of tokens a: 155, size of tokens b: 175
+srv  get_common_p: common prefix (ignoring thinking): 151, 155
+slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.863 (> 0.100 thold), f_keep = 0.974
 slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 147 | processing task, is_child = 0
-slot update_slots: id  3 | task 147 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 187
-srv  get_common_p: size of tokens a: 169, size of tokens b: 187
-srv  get_common_p: common prefix (ignoring thinking): 165, 169
-slot update_slots: id  3 | task 147 | BLUFFER common prefix with cached prompt: n_past = 169, n_past_new = 165
-slot update_slots: id  3 | task 147 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 147 | keeping n_past = 169 tokens in the cache
-slot update_slots: id  3 | task 147 | BLUFF: detokenised prompt tokens:
+slot launch_slot_: id  3 | task 137 | processing task, is_child = 0
+slot update_slots: id  3 | task 137 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 175
+srv  get_common_p: size of tokens a: 155, size of tokens b: 175
+srv  get_common_p: common prefix (ignoring thinking): 151, 155
+slot update_slots: id  3 | task 137 | BLUFFER common prefix with cached prompt: n_past = 155, n_past_new = 151
+slot update_slots: id  3 | task 137 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
+slot update_slots: id  3 | task 137 | keeping n_past = 155 tokens in the cache
+slot update_slots: id  3 | task 137 | BLUFF: detokenised prompt tokens:
  <|im_start|>user
-100 words on initializing variables in C and C++<|im_end|>
+100 words on LLMs<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
-In C and C++, variables are initialized when they are declared. In C, you must explicitly initialize variables, while in C++, it is optional. If not initialized, variables in C have undefined behavior, while in C++ they are considered uninitialized but still have a value. For example:
-
-```c
-int x; // x is uninitialized
-x = 10; // initialize
-```
-
-```cpp
-int x; // x is uninitialized
-// no assignment needed
-```
-
-Best practice is to initialize variables to prevent undefined behavior. Use `int x = 0;` in C and `int x;` in C++ with an initializer list in constructors. This ensures clarity and correctness in variable initialization.
-slot update_slots: id  3 | task 147 | BLUFF: detokensed task tokens:
+Large Language Models (LLMs) are artificial intelligence systems trained on vast amounts of text data to understand and generate human-like language. They are capable of performing a wide range of tasks, including answering questions, writing stories, and coding. LLMs use deep learning techniques, particularly transformer architecture, to process and generate text. They have become powerful tools in various fields, including research, education, and industry. However, their use raises ethical and privacy concerns. As these models grow in capability and size, they also pose challenges in terms of security and control. Despite these issues, LLMs continue to advance and play a significant role in shaping the future of artificial intelligence.
+slot update_slots: id  3 | task 137 | BLUFF: detokensed task tokens:
  <|im_start|>user
-100 words on initializing variables in C and C++<|im_end|>
+100 words on LLMs<|im_end|>
 <|im_start|>assistant
-In C and C++, variables are initialized when they are declared. In C, you must explicitly initialize variables, while in C++, it is optional. If not initialized, variables in C have undefined behavior, while in C++ they are considered uninitialized but still have a value. For example:
-
-```c
-int x; // x is uninitialized
-x = 10; // initialize
-```
-
-```cpp
-int x; // x is uninitialized
-// no assignment needed
-```
-
-Best practice is to initialize variables to prevent undefined behavior. Use `int x = 0;` in C and `int x;` in C++ with an initializer list in constructors. This ensures clarity and correctness in variable initialization.<|im_end|>
+Large Language Models (LLMs) are artificial intelligence systems trained on vast amounts of text data to understand and generate human-like language. They are capable of performing a wide range of tasks, including answering questions, writing stories, and coding. LLMs use deep learning techniques, particularly transformer architecture, to process and generate text. They have become powerful tools in various fields, including research, education, and industry. However, their use raises ethical and privacy concerns. As these models grow in capability and size, they also pose challenges in terms of security and control. Despite these issues, LLMs continue to advance and play a significant role in shaping the future of artificial intelligence.<|im_end|>
 <|im_start|>user
-Can you use uninitialized variables in C?<|im_end|>
+what is the last word of your previous response?<|im_end|>
 <|im_start|>assistant
 <think>
 
 </think>
 
 
-slot update_slots: id  3 | task 147 | n_tokens = 169, memory_seq_rm [169, end)
+slot update_slots: id  3 | task 137 | n_tokens = 155, memory_seq_rm [155, end)
 srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 169, size of tokens b: 187
-srv  get_common_p: common prefix (ignoring thinking): 165, 169
-srv  update_slots: BLUFFER pos_first_new_token = 165
-srv  update_slots: BLUFFER pos_first_new_token_cache = 169
+srv  get_common_p: size of tokens a: 155, size of tokens b: 175
+srv  get_common_p: common prefix (ignoring thinking): 151, 155
+srv  update_slots: BLUFFER pos_first_new_token = 151
+srv  update_slots: BLUFFER pos_first_new_token_cache = 155
 srv  update_slots: BLUFFER diff = 4
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 169
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 169
-srv  update_slots: BLUFFER slot.task->n_tokens() = 187
+srv  update_slots: BLUFFER slot.prompt.tokens.size() = 155
+srv  update_slots: BLUFFER slot.prompt.n_tokens() = 155
+srv  update_slots: BLUFFER slot.task->n_tokens() = 175
+srv  update_slots: BLUFFER next token position will be 152
+srv  update_slots: BLUFFER next token position will be 153
+srv  update_slots: BLUFFER next token position will be 154
+srv  update_slots: BLUFFER next token position will be 155
+srv  update_slots: BLUFFER next token position will be 156
+srv  update_slots: BLUFFER next token position will be 157
+srv  update_slots: BLUFFER next token position will be 158
+srv  update_slots: BLUFFER next token position will be 159
+srv  update_slots: BLUFFER next token position will be 160
+srv  update_slots: BLUFFER next token position will be 161
+srv  update_slots: BLUFFER next token position will be 162
+srv  update_slots: BLUFFER next token position will be 163
+srv  update_slots: BLUFFER next token position will be 164
+srv  update_slots: BLUFFER next token position will be 165
 srv  update_slots: BLUFFER next token position will be 166
 srv  update_slots: BLUFFER next token position will be 167
 srv  update_slots: BLUFFER next token position will be 168
@@ -504,476 +468,34 @@ srv  update_slots: BLUFFER next token position will be 172
 srv  update_slots: BLUFFER next token position will be 173
 srv  update_slots: BLUFFER next token position will be 174
 srv  update_slots: BLUFFER next token position will be 175
-srv  update_slots: BLUFFER next token position will be 176
-srv  update_slots: BLUFFER next token position will be 177
-srv  update_slots: BLUFFER next token position will be 178
-srv  update_slots: BLUFFER next token position will be 179
-srv  update_slots: BLUFFER next token position will be 180
-srv  update_slots: BLUFFER next token position will be 181
-srv  update_slots: BLUFFER next token position will be 182
-srv  update_slots: BLUFFER next token position will be 183
-srv  update_slots: BLUFFER next token position will be 184
-srv  update_slots: BLUFFER next token position will be 185
-srv  update_slots: BLUFFER next token position will be 186
-srv  update_slots: BLUFFER next token position will be 187
-slot init_sampler: id  3 | task 147 | init sampler, took 0.05 ms, tokens: text = 191, total = 191
-slot update_slots: id  3 | task 147 | prompt processing done, n_tokens = 191, batch.n_tokens = 22
+slot init_sampler: id  3 | task 137 | init sampler, took 0.06 ms, tokens: text = 179, total = 179
+slot update_slots: id  3 | task 137 | prompt processing done, n_tokens = 179, batch.n_tokens = 24
 srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
  <|im_start|> user 
- Can  you  use  uninitialized  variables  in  C ? <|im_end|> 
+ what  is  the  last  word  of  your  previous  response ? <|im_end|> 
  <|im_start|> assistant 
  <think> 
 
  </think> 
 
  '
-srv  update_slots: BLUFFER decoding batch tokens: 'Yes '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' you '
-srv  update_slots: BLUFFER decoding batch tokens: ' can '
-srv  update_slots: BLUFFER decoding batch tokens: ' use '
-srv  update_slots: BLUFFER decoding batch tokens: ' uninitialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' but '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ''s '
-srv  update_slots: BLUFFER decoding batch tokens: ' generally '
-srv  update_slots: BLUFFER decoding batch tokens: ' not '
-srv  update_slots: BLUFFER decoding batch tokens: ' recommended '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' In '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' if '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' variable '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' not '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ' before '
-srv  update_slots: BLUFFER decoding batch tokens: ' being '
-srv  update_slots: BLUFFER decoding batch tokens: ' assigned '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' value '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ' contains '
+srv  update_slots: BLUFFER decoding batch tokens: 'The '
+srv  update_slots: BLUFFER decoding batch tokens: ' last '
+srv  update_slots: BLUFFER decoding batch tokens: ' word '
+srv  update_slots: BLUFFER decoding batch tokens: ' of '
+srv  update_slots: BLUFFER decoding batch tokens: ' my '
+srv  update_slots: BLUFFER decoding batch tokens: ' previous '
+srv  update_slots: BLUFFER decoding batch tokens: ' response '
+srv  update_slots: BLUFFER decoding batch tokens: ' was '
 srv  update_slots: BLUFFER decoding batch tokens: ' ** '
-srv  update_slots: BLUFFER decoding batch tokens: 'undefined '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
+srv  update_slots: BLUFFER decoding batch tokens: 'control '
+srv  update_slots: BLUFFER decoding batch tokens: '" '
 srv  update_slots: BLUFFER decoding batch tokens: '** '
 srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' This '
-srv  update_slots: BLUFFER decoding batch tokens: ' means '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' program '
-srv  update_slots: BLUFFER decoding batch tokens: ''s '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' not '
-srv  update_slots: BLUFFER decoding batch tokens: ' predictable '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' may '
-srv  update_slots: BLUFFER decoding batch tokens: ' result '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' incorrect '
-srv  update_slots: BLUFFER decoding batch tokens: ' results '
-srv  update_slots: BLUFFER decoding batch tokens: ' or '
-srv  update_slots: BLUFFER decoding batch tokens: ' even '
-srv  update_slots: BLUFFER decoding batch tokens: ' crashes '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'For '
-srv  update_slots: BLUFFER decoding batch tokens: ' example '
-srv  update_slots: BLUFFER decoding batch tokens: ':
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: '``` '
-srv  update_slots: BLUFFER decoding batch tokens: 'c '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'int '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: ';
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'x '
-srv  update_slots: BLUFFER decoding batch tokens: ' = '
-srv  update_slots: BLUFFER decoding batch tokens: '  '
-srv  update_slots: BLUFFER decoding batch tokens: '1 '
-srv  update_slots: BLUFFER decoding batch tokens: '0 '
-srv  update_slots: BLUFFER decoding batch tokens: '; '
-srv  update_slots: BLUFFER decoding batch tokens: ' // '
-srv  update_slots: BLUFFER decoding batch tokens: ' valid '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'printf '
-srv  update_slots: BLUFFER decoding batch tokens: '("% '
-srv  update_slots: BLUFFER decoding batch tokens: 'd '
-srv  update_slots: BLUFFER decoding batch tokens: '", '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: '); '
-srv  update_slots: BLUFFER decoding batch tokens: ' // '
-srv  update_slots: BLUFFER decoding batch tokens: ' safe '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: '`` '
-srv  update_slots: BLUFFER decoding batch tokens: '`
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'However '
-srv  update_slots: BLUFFER decoding batch tokens: ':
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: '``` '
-srv  update_slots: BLUFFER decoding batch tokens: 'c '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'int '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: ';
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'printf '
-srv  update_slots: BLUFFER decoding batch tokens: '("% '
-srv  update_slots: BLUFFER decoding batch tokens: 'd '
-srv  update_slots: BLUFFER decoding batch tokens: '", '
-srv  update_slots: BLUFFER decoding batch tokens: ' x '
-srv  update_slots: BLUFFER decoding batch tokens: '); '
-srv  update_slots: BLUFFER decoding batch tokens: ' // '
-srv  update_slots: BLUFFER decoding batch tokens: ' undefined '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: '
- '
-srv  update_slots: BLUFFER decoding batch tokens: '`` '
-srv  update_slots: BLUFFER decoding batch tokens: '`
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'In '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: '++, '
-srv  update_slots: BLUFFER decoding batch tokens: ' uninitialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ' are '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' not '
-srv  update_slots: BLUFFER decoding batch tokens: ' safe '
-srv  update_slots: BLUFFER decoding batch tokens: ' unless '
-srv  update_slots: BLUFFER decoding batch tokens: ' you '
-srv  update_slots: BLUFFER decoding batch tokens: ' use '
-srv  update_slots: BLUFFER decoding batch tokens: ' an '
-srv  update_slots: BLUFFER decoding batch tokens: ' initializer '
-srv  update_slots: BLUFFER decoding batch tokens: ' list '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' a '
-srv  update_slots: BLUFFER decoding batch tokens: ' constructor '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' So '
-srv  update_slots: BLUFFER decoding batch tokens: ' while '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: ' allows '
-srv  update_slots: BLUFFER decoding batch tokens: ' using '
-srv  update_slots: BLUFFER decoding batch tokens: ' uninitialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ''s '
-srv  update_slots: BLUFFER decoding batch tokens: ' safer '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialize '
-srv  update_slots: BLUFFER decoding batch tokens: ' them '
-srv  update_slots: BLUFFER decoding batch tokens: ' explicitly '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 147 | 
-prompt eval time =    1824.79 ms /    22 tokens (   82.94 ms per token,    12.06 tokens per second)
-       eval time =   16420.78 ms /   145 tokens (  113.25 ms per token,     8.83 tokens per second)
-      total time =   18245.57 ms /   167 tokens
-slot      release: id  3 | task 147 | stop processing: n_tokens = 335, truncated = 0
-srv  update_slots: all slots are idle
-srv  params_from_: Chat format: peg-native
-srv  get_common_p: size of tokens a: 335, size of tokens b: 351
-srv  get_common_p: common prefix (ignoring thinking): 327, 335
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.932 (> 0.100 thold), f_keep = 0.976
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> ?min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 293 | processing task, is_child = 0
-slot update_slots: id  3 | task 293 | new prompt, n_ctx_slot = 65536, n_keep = 0, task.n_tokens = 351
-srv  get_common_p: size of tokens a: 335, size of tokens b: 351
-srv  get_common_p: common prefix (ignoring thinking): 327, 335
-slot update_slots: id  3 | task 293 | BLUFFER common prefix with cached prompt: n_past = 335, n_past_new = 327
-slot update_slots: id  3 | task 293 | BLUFFER can_cache_reuse = 1, n_cache_reuse = 0
-slot update_slots: id  3 | task 293 | keeping n_past = 335 tokens in the cache
-slot update_slots: id  3 | task 293 | BLUFF: detokenised prompt tokens:
- <|im_start|>user
-100 words on initializing variables in C and C++<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-In C and C++, variables are initialized when they are declared. In C, you must explicitly initialize variables, while in C++, it is optional. If not initialized, variables in C have undefined behavior, while in C++ they are considered uninitialized but still have a value. For example:
-
-```c
-int x; // x is uninitialized
-x = 10; // initialize
-```
-
-```cpp
-int x; // x is uninitialized
-// no assignment needed
-```
-
-Best practice is to initialize variables to prevent undefined behavior. Use `int x = 0;` in C and `int x;` in C++ with an initializer list in constructors. This ensures clarity and correctness in variable initialization.<|im_end|>
-<|im_start|>user
-Can you use uninitialized variables in C?<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-Yes, you can use uninitialized variables in C, but it's generally not recommended. In C, if a variable is not initialized and used before being assigned a value, it contains **undefined behavior**. This means the program's behavior is not predictable and may result in incorrect results or even crashes.
-
-For example:
-
-```c
-int x;
-x = 10; // valid
-printf("%d", x); // safe
-```
-
-However:
-
-```c
-int x;
-printf("%d", x); // undefined behavior
-```
-
-In C++, uninitialized variables are also not safe unless you use an initializer list in a constructor. So while C allows using uninitialized variables, it's safer to initialize them explicitly.
-slot update_slots: id  3 | task 293 | BLUFF: detokensed task tokens:
- <|im_start|>user
-100 words on initializing variables in C and C++<|im_end|>
-<|im_start|>assistant
-In C and C++, variables are initialized when they are declared. In C, you must explicitly initialize variables, while in C++, it is optional. If not initialized, variables in C have undefined behavior, while in C++ they are considered uninitialized but still have a value. For example:
-
-```c
-int x; // x is uninitialized
-x = 10; // initialize
-```
-
-```cpp
-int x; // x is uninitialized
-// no assignment needed
-```
-
-Best practice is to initialize variables to prevent undefined behavior. Use `int x = 0;` in C and `int x;` in C++ with an initializer list in constructors. This ensures clarity and correctness in variable initialization.<|im_end|>
-<|im_start|>user
-Can you use uninitialized variables in C?<|im_end|>
-<|im_start|>assistant
-Yes, you can use uninitialized variables in C, but it's generally not recommended. In C, if a variable is not initialized and used before being assigned a value, it contains **undefined behavior**. This means the program's behavior is not predictable and may result in incorrect results or even crashes.
-
-For example:
-
-```c
-int x;
-x = 10; // valid
-printf("%d", x); // safe
-```
-
-However:
-
-```c
-int x;
-printf("%d", x); // undefined behavior
-```
-
-In C++, uninitialized variables are also not safe unless you use an initializer list in a constructor. So while C allows using uninitialized variables, it's safer to initialize them explicitly.<|im_end|>
-<|im_start|>user
-So it is the same for C and C++.<|im_end|>
-<|im_start|>assistant
-<think>
-
-</think>
-
-
-slot update_slots: id  3 | task 293 | n_tokens = 335, memory_seq_rm [335, end)
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  get_common_p: size of tokens a: 335, size of tokens b: 351
-srv  get_common_p: common prefix (ignoring thinking): 327, 335
-srv  update_slots: BLUFFER pos_first_new_token = 327
-srv  update_slots: BLUFFER pos_first_new_token_cache = 335
-srv  update_slots: BLUFFER diff = 8
-srv  update_slots: BLUFFER slot.prompt.tokens.size() = 335
-srv  update_slots: BLUFFER slot.prompt.n_tokens() = 335
-srv  update_slots: BLUFFER slot.task->n_tokens() = 351
-srv  update_slots: BLUFFER next token position will be 328
-srv  update_slots: BLUFFER next token position will be 329
-srv  update_slots: BLUFFER next token position will be 330
-srv  update_slots: BLUFFER next token position will be 331
-srv  update_slots: BLUFFER next token position will be 332
-srv  update_slots: BLUFFER next token position will be 333
-srv  update_slots: BLUFFER next token position will be 334
-srv  update_slots: BLUFFER next token position will be 335
-srv  update_slots: BLUFFER next token position will be 336
-srv  update_slots: BLUFFER next token position will be 337
-srv  update_slots: BLUFFER next token position will be 338
-srv  update_slots: BLUFFER next token position will be 339
-srv  update_slots: BLUFFER next token position will be 340
-srv  update_slots: BLUFFER next token position will be 341
-srv  update_slots: BLUFFER next token position will be 342
-srv  update_slots: BLUFFER next token position will be 343
-srv  update_slots: BLUFFER next token position will be 344
-srv  update_slots: BLUFFER next token position will be 345
-srv  update_slots: BLUFFER next token position will be 346
-srv  update_slots: BLUFFER next token position will be 347
-srv  update_slots: BLUFFER next token position will be 348
-srv  update_slots: BLUFFER next token position will be 349
-srv  update_slots: BLUFFER next token position will be 350
-srv  update_slots: BLUFFER next token position will be 351
-slot init_sampler: id  3 | task 293 | init sampler, took 0.07 ms, tokens: text = 359, total = 359
-slot update_slots: id  3 | task 293 | prompt processing done, n_tokens = 359, batch.n_tokens = 24
-srv  update_slots: BLUFFER decoding batch tokens: '<|im_end|> 
- <|im_start|> user 
- So  it  is  the  same  for  C  and  C ++. <|im_end|> 
- <|im_start|> assistant 
- <think> 
-
- </think> 
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'In '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' C '
-srv  update_slots: BLUFFER decoding batch tokens: '++, '
-srv  update_slots: BLUFFER decoding batch tokens: ' ** '
-srv  update_slots: BLUFFER decoding batch tokens: 'un '
-srv  update_slots: BLUFFER decoding batch tokens: 'initialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: '** '
-srv  update_slots: BLUFFER decoding batch tokens: ' can '
-srv  update_slots: BLUFFER decoding batch tokens: ' be '
-srv  update_slots: BLUFFER decoding batch tokens: ' used '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' but '
-srv  update_slots: BLUFFER decoding batch tokens: ' ** '
-srv  update_slots: BLUFFER decoding batch tokens: 'using '
-srv  update_slots: BLUFFER decoding batch tokens: ' them '
-srv  update_slots: BLUFFER decoding batch tokens: ' before '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialization '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' undefined '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: '** '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' both '
-srv  update_slots: BLUFFER decoding batch tokens: ' languages '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: '- '
-srv  update_slots: BLUFFER decoding batch tokens: ' In '
-srv  update_slots: BLUFFER decoding batch tokens: ' ** '
-srv  update_slots: BLUFFER decoding batch tokens: 'C '
-srv  update_slots: BLUFFER decoding batch tokens: '**, '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' not '
-srv  update_slots: BLUFFER decoding batch tokens: ' defined '
-srv  update_slots: BLUFFER decoding batch tokens: ' by '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' language '
-srv  update_slots: BLUFFER decoding batch tokens: ' standard '
-srv  update_slots: BLUFFER decoding batch tokens: ' — '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' compiler '
-srv  update_slots: BLUFFER decoding batch tokens: ' may '
-srv  update_slots: BLUFFER decoding batch tokens: ' assign '
-srv  update_slots: BLUFFER decoding batch tokens: ' any '
-srv  update_slots: BLUFFER decoding batch tokens: ' value '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' which '
-srv  update_slots: BLUFFER decoding batch tokens: ' can '
-srv  update_slots: BLUFFER decoding batch tokens: ' lead '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' unpredictable '
-srv  update_slots: BLUFFER decoding batch tokens: ' results '
-srv  update_slots: BLUFFER decoding batch tokens: '.
- '
-srv  update_slots: BLUFFER decoding batch tokens: '- '
-srv  update_slots: BLUFFER decoding batch tokens: ' In '
-srv  update_slots: BLUFFER decoding batch tokens: ' ** '
-srv  update_slots: BLUFFER decoding batch tokens: 'C '
-srv  update_slots: BLUFFER decoding batch tokens: '++ '
-srv  update_slots: BLUFFER decoding batch tokens: '**, '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' also '
-srv  update_slots: BLUFFER decoding batch tokens: ' undefined '
-srv  update_slots: BLUFFER decoding batch tokens: ' unless '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' variable '
-srv  update_slots: BLUFFER decoding batch tokens: ' is '
-srv  update_slots: BLUFFER decoding batch tokens: ' explicitly '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialized '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' especially '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' contexts '
-srv  update_slots: BLUFFER decoding batch tokens: ' like '
-srv  update_slots: BLUFFER decoding batch tokens: ' constructors '
-srv  update_slots: BLUFFER decoding batch tokens: ' or '
-srv  update_slots: BLUFFER decoding batch tokens: ' member '
-srv  update_slots: BLUFFER decoding batch tokens: ' initial '
-srv  update_slots: BLUFFER decoding batch tokens: 'izers '
-srv  update_slots: BLUFFER decoding batch tokens: '.
-
- '
-srv  update_slots: BLUFFER decoding batch tokens: 'While '
-srv  update_slots: BLUFFER decoding batch tokens: ' both '
-srv  update_slots: BLUFFER decoding batch tokens: ' allow '
-srv  update_slots: BLUFFER decoding batch tokens: ' using '
-srv  update_slots: BLUFFER decoding batch tokens: ' uninitialized '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ', '
-srv  update_slots: BLUFFER decoding batch tokens: ' it '
-srv  update_slots: BLUFFER decoding batch tokens: ''s '
-srv  update_slots: BLUFFER decoding batch tokens: ' ** '
-srv  update_slots: BLUFFER decoding batch tokens: 'strong '
-srv  update_slots: BLUFFER decoding batch tokens: 'ly '
-srv  update_slots: BLUFFER decoding batch tokens: ' discouraged '
-srv  update_slots: BLUFFER decoding batch tokens: '** '
-srv  update_slots: BLUFFER decoding batch tokens: ' in '
-srv  update_slots: BLUFFER decoding batch tokens: ' both '
-srv  update_slots: BLUFFER decoding batch tokens: ' languages '
-srv  update_slots: BLUFFER decoding batch tokens: ' due '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' the '
-srv  update_slots: BLUFFER decoding batch tokens: ' potential '
-srv  update_slots: BLUFFER decoding batch tokens: ' for '
-srv  update_slots: BLUFFER decoding batch tokens: ' incorrect '
-srv  update_slots: BLUFFER decoding batch tokens: ' or '
-srv  update_slots: BLUFFER decoding batch tokens: ' unsafe '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-srv  update_slots: BLUFFER decoding batch tokens: ' Always '
-srv  update_slots: BLUFFER decoding batch tokens: ' initialize '
-srv  update_slots: BLUFFER decoding batch tokens: ' variables '
-srv  update_slots: BLUFFER decoding batch tokens: ' to '
-srv  update_slots: BLUFFER decoding batch tokens: ' ensure '
-srv  update_slots: BLUFFER decoding batch tokens: ' predictable '
-srv  update_slots: BLUFFER decoding batch tokens: ' and '
-srv  update_slots: BLUFFER decoding batch tokens: ' correct '
-srv  update_slots: BLUFFER decoding batch tokens: ' program '
-srv  update_slots: BLUFFER decoding batch tokens: ' behavior '
-srv  update_slots: BLUFFER decoding batch tokens: '. '
-slot print_timing: id  3 | task 293 | 
-prompt eval time =    2062.57 ms /    24 tokens (   85.94 ms per token,    11.64 tokens per second)
-       eval time =   16828.88 ms /   124 tokens (  135.72 ms per token,     7.37 tokens per second)
-      total time =   18891.45 ms /   148 tokens
-slot      release: id  3 | task 293 | stop processing: n_tokens = 482, truncated = 0
+slot print_timing: id  3 | task 137 | 
+prompt eval time =    1973.36 ms /    24 tokens (   82.22 ms per token,    12.16 tokens per second)
+       eval time =    1516.35 ms /    15 tokens (  101.09 ms per token,     9.89 tokens per second)
+      total time =    3489.71 ms /    39 tokens
+slot      release: id  3 | task 137 | stop processing: n_tokens = 193, truncated = 0
 srv  update_slots: all slots are idle
