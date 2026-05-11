@@ -453,7 +453,7 @@ common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const 
                                                                           bool                  ignore_thinking) const {
     SRV_INF("size of tokens a: %zu, size of tokens b: %zu\n", tokens.size(), b.tokens.size());
 
-    if (!has_mtmd) {
+    if (!has_mtmd && ignore_thinking) {
         int32_t start_thinking = 151667;  // the token id for <thinking>
         int32_t end_thinking   = 151668;  // the token id for </thinking>
         size_t  ic = 0, ii = 0;
@@ -477,8 +477,6 @@ common_prefix_response server_tokens::get_common_prefix_ignoring_thinking(const 
         size_t lcp = get_common_prefix(b);
         return { lcp, lcp }; // no ignore thinking for mtmd
     }
-
-    return { 0, 0 };  // na for mtmd
 }
 
 size_t server_tokens::get_common_prefix(const server_tokens & b) const {
